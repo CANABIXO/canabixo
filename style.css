@@ -64,8 +64,39 @@ body, html {
 .menu a {
   color: white;
   text-decoration: none;
-  font-size: 20px; /* tamanho aumentado */
+  font-size: 20px;
   font-weight: bold;
   font-family: Arial, sans-serif;
   text-transform: uppercase;
-  margin: 0 20px; /* espaçamento*
+  margin: 0 20px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  transform: scale(1);
+}
+
+/* efeito leve de zoom padrão */
+.menu a {
+  transform: scale(1);
+}
+
+/* zoom maior ao passar o mouse */
+.menu a:hover {
+  transform: scale(1.1);
+}
+
+/* Texto centralizado (BIXO) */
+.center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  font-weight: 900; /* Arial Black */
+  font-family: 'Arial Black', Arial, sans-serif;
+
+  color: white;
+
+  /* Não responde a hover, clique, seleção */
+  user-select: none;
+  pointer-events: none;
+}
