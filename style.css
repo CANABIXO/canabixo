@@ -75,11 +75,11 @@ body, html {
 .menu a {
   color: white;
   text-decoration: none;
-  font-size: 50px; /* tamanho base: desktop */
+  font-size: 100px; /* tamanho base: desktop */
   font-weight: bold;
   font-family: Arial, sans-serif;
   text-transform: uppercase;
-  margin: 0 100px; /* espaçamento base: desktop */
+  margin: 0 300px; /* espaçamento base: desktop */
   transition: transform 0.3s ease;
   display: inline-block;
   transform: scale(1);
@@ -112,7 +112,7 @@ body, html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 200px; /* tamanho padrão para desktop */
+  font-size: 300px; /* tamanho padrão para desktop */
   font-weight: 900;
   font-family: 'Arial Black', Arial, sans-serif;
   color: white;
