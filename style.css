@@ -1,3 +1,43 @@
+/* Loader giratório */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black; /* cor de fundo durante o loader */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: hideLoader 0s ease 5s forwards;
+}
+
+.loader img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  animation: spinZoom 5s linear forwards;
+}
+
+/* Gira e dá zoom */
+@keyframes spinZoom {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    transform: scale(1.2) rotate(1440deg); /* 4 voltas em 5s */
+  }
+}
+
+/* Esconde o loader após 5s */
+@keyframes hideLoader {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 /* Reset básico */
 * {
   margin: 0;
