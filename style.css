@@ -75,11 +75,11 @@ body, html {
 .menu a {
   color: white;
   text-decoration: none;
-  font-size: 40px;
+  font-size: 50px; /* tamanho base: desktop */
   font-weight: bold;
   font-family: Arial, sans-serif;
   text-transform: uppercase;
-  margin: 0 90px;
+  margin: 0 100px; /* espaçamento base: desktop */
   transition: transform 0.3s ease;
   display: inline-block;
   transform: scale(1);
@@ -88,6 +88,22 @@ body, html {
 
 .menu a:hover {
   transform: scale(1.1);
+}
+
+/* Tablets (768px ou menor) */
+@media (max-width: 768px) {
+  .menu a {
+    font-size: 35px;
+    margin: 0 60px;
+  }
+}
+
+/* Celulares (480px ou menor) */
+@media (max-width: 480px) {
+  .menu a {
+    font-size: 25px;
+    margin: 0 30px;
+  }
 }
 
 /* Texto centralizado (BIXO) */
