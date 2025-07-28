@@ -75,7 +75,7 @@ body, html {
 .menu a {
   color: white;
   text-decoration: none;
-  font-size: 100px; /* tamanho base: desktop */
+  font-size: 80px; /* tamanho base: desktop */
   font-weight: bold;
   font-family: Arial, sans-serif;
   text-transform: uppercase;
