@@ -20,7 +20,7 @@ body, html {
   position: fixed;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: -2; /* ajustado para ficar atrás do filtro */
 }
 
 .slideshow li {
@@ -41,6 +41,18 @@ body, html {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Filtro escuro suave para melhorar contraste */
+.slideshow::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* preto com 30% de opacidade */
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* Fade in/out da imagem */
@@ -72,6 +84,7 @@ body, html {
   transition: transform 0.3s ease;
   display: inline-block;
   transform: scale(1);
+  cursor: pointer; /* adicionado */
 }
 
 /* efeito leve de zoom padrão */
