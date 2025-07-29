@@ -175,3 +175,29 @@ body, html {
     font-size: 45px;
   }
 }
+
+.voltar {
+  position: fixed;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+}
+
+.voltar a {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: 2px solid white;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.voltar a:hover {
+  background: white;
+  color: black;
+}
