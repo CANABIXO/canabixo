@@ -165,14 +165,14 @@ body, html {
 /* Tablets (768px ou menor) */
 @media (max-width: 768px) {
   .center-text {
-    font-size: 70px;
+    font-size: 30px;
   }
 }
 
 /* Celulares (480px ou menor) */
 @media (max-width: 480px) {
   .center-text {
-    font-size: 45px;
+    font-size: 20px;
   }
 }
 
@@ -200,4 +200,63 @@ body, html {
 .voltar a:hover {
   background: white;
   color: black;
+}
+.scroll-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: black;
+  overflow: hidden;
+}
+
+.scroll-gallery {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 20px 0;
+}
+
+.scroll-gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-gallery a img {
+  height: 300px;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.scroll-gallery a:hover img {
+  transform: scale(1.05);
+}
+
+/* Botões laterais */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  z-index: 100;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.scroll-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.scroll-btn.left {
+  left: 10px;
+}
+
+.scroll-btn.right {
+  right: 10px;
 }
