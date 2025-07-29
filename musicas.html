@@ -40,41 +40,99 @@
       }
     }
 
-    /* Galeria vertical full-screen */
-    .full-scroll {
-      width: 100%;
-      height: auto;
+    body {
+      background: black;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
     }
 
-    .full-scroll a {
-      display: block;
-      width: 100%;
-      height: 100vh;
+    /* Galeria horizontal */
+    .scroll-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      background: black;
       overflow: hidden;
     }
 
-   .full-scroll a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.full-scroll img {
-  max-width: 70%;
-  max-height: 70%;
-  object-fit: contain;
-  transition: transform 0.4s ease;
-}
-    .full-scroll a:hover img {
-      transform: scale(1.03);
+    .scroll-gallery {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 20px 0;
     }
 
-    body {
-      overflow-y: scroll;
-      background: black;
+    .scroll-gallery::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scroll-gallery a img {
+      height: 300px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .scroll-gallery a:hover img {
+      transform: scale(1.05);
+    }
+
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 32px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      z-index: 100;
+      border-radius: 50%;
+      transition: background 0.3s ease;
+    }
+
+    .scroll-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .scroll-btn.left {
+      left: 10px;
+    }
+
+    .scroll-btn.right {
+      right: 10px;
+    }
+
+    /* Botão voltar */
+    .voltar {
+      position: fixed;
+      bottom: 30px;
+      width: 100%;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .voltar a {
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: 2px solid white;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+
+    .voltar a:hover {
+      background: white;
+      color: black;
     }
   </style>
 </head>
@@ -84,22 +142,36 @@
     <img src="logo.png" alt="Carregando..." />
   </div>
 
- <!-- Galeria com scroll horizontal manual + setas -->
-<div class="scroll-wrapper">
-  <button class="scroll-btn left" onclick="scrollLeft()">←</button>
-  <div class="scroll-gallery" id="gallery">
-    <a href="https://youtu.be/EN5I-PjDbOM" target="_blank"><img src="musicas/musica1.png" alt="Música 1"></a>
-    <a href="https://youtu.be/qBlhfA2p7ac" target="_blank"><img src="musicas/musica2.png" alt="Música 2"></a>
-    <a href="https://youtu.be/EQPY7qC0h_g" target="_blank"><img src="musicas/musica3.png" alt="Música 3"></a>
-    <a href="https://youtu.be/yjmUZteb8Fo" target="_blank"><img src="musicas/musica4.png" alt="Música 4"></a>
-    <a href="https://youtu.be/1NqhB9EAG3k" target="_blank"><img src="musicas/musica5.png" alt="Música 5"></a>
-    <a href="https://youtu.be/Ebyi1SEyiso" target="_blank"><img src="musicas/musica6.png" alt="Música 6"></a>
-    <a href="https://youtu.be/T7lH2Ef8JM8" target="_blank"><img src="musicas/musica7.png" alt="Música 7"></a>
-    <a href="https://youtube.com/playlist?list=PLgEVpMlG5C802pJIzRhesnW-9t2AK7nZX" target="_blank"><img src="musicas/musica8.png" alt="Música 8"></a>
-    <a href="https://youtu.be/ge64ZnlCVnA" target="_blank"><img src="musicas/musica9.png" alt="Música 9"></a>
+  <!-- Galeria com scroll manual -->
+  <div class="scroll-wrapper">
+    <button class="scroll-btn left" onclick="scrollLeft()">←</button>
+    <div class="scroll-gallery" id="gallery">
+      <a href="https://youtu.be/EN5I-PjDbOM" target="_blank"><img src="musicas/musica1.png" alt="Música 1"></a>
+      <a href="https://youtu.be/qBlhfA2p7ac" target="_blank"><img src="musicas/musica2.png" alt="Música 2"></a>
+      <a href="https://youtu.be/EQPY7qC0h_g" target="_blank"><img src="musicas/musica3.png" alt="Música 3"></a>
+      <a href="https://youtu.be/yjmUZteb8Fo" target="_blank"><img src="musicas/musica4.png" alt="Música 4"></a>
+      <a href="https://youtu.be/1NqhB9EAG3k" target="_blank"><img src="musicas/musica5.png" alt="Música 5"></a>
+      <a href="https://youtu.be/Ebyi1SEyiso" target="_blank"><img src="musicas/musica6.png" alt="Música 6"></a>
+      <a href="https://youtu.be/T7lH2Ef8JM8" target="_blank"><img src="musicas/musica7.png" alt="Música 7"></a>
+      <a href="https://youtube.com/playlist?list=PLgEVpMlG5C802pJIzRhesnW-9t2AK7nZX" target="_blank"><img src="musicas/musica8.png" alt="Música 8"></a>
+      <a href="https://youtu.be/ge64ZnlCVnA" target="_blank"><img src="musicas/musica9.png" alt="Música 9"></a>
+    </div>
+    <button class="scroll-btn right" onclick="scrollRight()">→</button>
   </div>
-  <button class="scroll-btn right" onclick="scrollRight()">→</button>
-</div>
 
+  <!-- Botão voltar -->
+  <div class="voltar">
+    <a href="index.html">BIXO</a>
+  </div>
+
+  <!-- Script de scroll -->
+  <script>
+    function scrollLeft() {
+      document.getElementById('gallery').scrollBy({ left: -400, behavior: 'smooth' });
+    }
+    function scrollRight() {
+      document.getElementById('gallery').scrollBy({ left: 400, behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
