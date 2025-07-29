@@ -239,7 +239,7 @@ body, html {
   top: 50%;
   transform: translateY(-50%);
   font-size: 32px;
-  background: rgba(255, 255, 255, 0.1);
+  background: transparent; /* <<< fundo removido */
   color: white;
   border: none;
   padding: 10px 20px;
