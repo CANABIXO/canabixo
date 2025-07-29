@@ -53,13 +53,21 @@
       overflow: hidden;
     }
 
-    .full-scroll img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
+   .full-scroll a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
 
+.full-scroll img {
+  max-width: 70%;
+  max-height: 70%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
     .full-scroll a:hover img {
       transform: scale(1.03);
     }
