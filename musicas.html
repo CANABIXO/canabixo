@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Músicas – BIXO</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Loader giratório */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: hideLoader 0s ease 3s forwards;
+    }
+
+    .loader img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      animation: spinZoom 3s linear forwards;
+    }
+
+    @keyframes spinZoom {
+      0% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.2) rotate(1440deg); }
+    }
+
+    @keyframes hideLoader {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* Galeria vertical full-screen */
+    .full-scroll {
+      width: 100%;
+      height: auto;
+    }
+
+    .full-scroll a {
+      display: block;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .full-scroll img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .full-scroll a:hover img {
+      transform: scale(1.03);
+    }
+
+    body {
+      overflow-y: scroll;
+      background: black;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div class="loader">
+    <img src="logo.png" alt="Carregando..." />
+  </div>
+
+  <!-- Galeria -->
+  <div class="full-scroll">
+    <a href="https://youtube.com" target="_blank">
+      <img src="musicas/musica1.jpg" alt="Música 1" />
+    </a>
+    <a href="https://open.spotify.com" target="_blank">
+      <img src="musicas/musica2.jpg" alt="Música 2" />
+    </a>
+    <a href="https://soundcloud.com" target="_blank">
+      <img src="musicas/musica3.jpg" alt="Música 3" />
+    </a>
+  </div>
+</body>
+</html>
