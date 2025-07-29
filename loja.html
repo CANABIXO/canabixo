@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loja – BIXO</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Loader giratório de 3s */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: hideLoader 0s ease 3s forwards;
+    }
+
+    .loader img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      animation: spinZoom 3s linear forwards;
+    }
+
+    @keyframes spinZoom {
+      0% {
+        transform: scale(1) rotate(0deg);
+      }
+      100% {
+        transform: scale(1.2) rotate(1440deg);
+      }
+    }
+
+    @keyframes hideLoader {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader">
+    <img src="logo.png" alt="Carregando..." />
+  </div>
+
+  <script>
+    // Redireciona para a loja após 3s
+    setTimeout(() => {
+      window.location.href = "https://canabixo.lojaintegrada.com.br/";
+    }, 3000);
+  </script>
+</body>
+</html>
