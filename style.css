@@ -191,15 +191,17 @@ body, html {
   text-decoration: none;
   font-weight: bold;
   padding: 10px 20px;
-  border: 2px solid white;
+  border: 0px solid;
   border-radius: 20px;
   transition: all 0.3s ease;
   background: transparent;
 }
 
-.voltar a:hover {
-  background: white;
-  color: black;
+.back-button:hover {
+  transform: scale(1.05);
+  color: white;
+  text-shadow: none;
+  transition: transform 0.3s ease;
 }
 .scroll-wrapper {
   position: relative;
