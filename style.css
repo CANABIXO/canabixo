@@ -210,8 +210,12 @@ body, html {
   background: transparent;
   text-shadow: none;
 }
-
+.voltar a:hover {
+  transform: scale(1.05);
+  background: transparent;
+  text-shadow: none;
 }
+
 .scroll-wrapper {
   position: relative;
   display: flex;
