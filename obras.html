@@ -100,5 +100,22 @@
   <div class="voltar">
   <a href="index.html">BIXO</a>
 </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const botaoVoltar = document.querySelector('.voltar a');
+    const textoCentral = document.querySelector('.center-text');
+
+    if (botaoVoltar && textoCentral) {
+      botaoVoltar.addEventListener('mouseenter', () => {
+        textoCentral.style.color = 'rgb(0, 255, 0)'; // ← Altere a cor aqui (R, G, B)
+      });
+
+      botaoVoltar.addEventListener('mouseleave', () => {
+        textoCentral.style.color = 'white'; // ← Cor original (após o hover)
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
