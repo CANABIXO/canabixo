@@ -153,8 +153,8 @@ body, html {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 150px; /* tamanho padrão para desktop */
-  font-weight: 900;
-  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 500;
+  font-family: 'Arial Bold', Arial, sans-serif;
   color: white;
   user-select: none;
   pointer-events: none;
@@ -163,14 +163,14 @@ body, html {
 }
 
 /* Tablets (768px ou menor) */
-@media (max-width: 768px) {
+@media (max-width: 400px) {
   .center-text {
     font-size: 30px;
   }
 }
 
 /* Celulares (480px ou menor) */
-@media (max-width: 480px) {
+@media (max-width: 280px) {
   .center-text {
     font-size: 20px;
   }
