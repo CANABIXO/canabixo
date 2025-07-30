@@ -197,11 +197,20 @@ body, html {
   background: transparent;
 }
 
-.back-button:hover {
-  transform: scale(1.05);
+.voltar a {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
   color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background: transparent;
   text-shadow: none;
-  transition: transform 0.3s ease;
+}
+
 }
 .scroll-wrapper {
   position: relative;
@@ -250,9 +259,8 @@ body, html {
   border-radius: 50%;
   transition: background 0.3s ease;
 }
-
 .scroll-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: transparent;
 }
 
 .scroll-btn.left {
