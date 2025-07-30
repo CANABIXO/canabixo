@@ -41,10 +41,12 @@
     }
 
     /* Vídeos centralizados */
-    body {
+    body.videos-page {
       background: black;
       padding-top: 60px;
       text-align: center;
+      overflow-y: auto;  /* Permite rolagem vertical */
+      height: auto;
     }
 
     .video-thumb {
@@ -63,29 +65,50 @@
       width: 100%;
       border-radius: 10px;
     }
+
+    .voltar {
+      position: fixed;
+      bottom: 30px;
+      width: 100%;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .voltar a {
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
   </style>
 </head>
-<body>
+<body class="videos-page">
   <!-- Loader -->
   <div class="loader">
     <img src="logo.png" alt="Carregando..." />
   </div>
-<iframe title="vimeo-player" src="https://player.vimeo.com/video/955534557?h=3c6dd256c9" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
-<iframe title="vimeo-player" src="https://player.vimeo.com/video/969799600?h=9f29f22bee" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe> 
- <iframe title="vimeo-player" src="https://player.vimeo.com/video/930264931?h=5c83946e63" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/912687229?h=7d22a00d64" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/912687048?h=33c19eede0" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/900358898?h=81f1884605" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/899363440?h=43150518f2" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/899363345?h=eaf15da293" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/898601485?h=9e2aad5159" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/898477776?h=cae8d9417c" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
-  
 
-</div>
+  <!-- Vídeos -->
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/955534557?h=3c6dd256c9" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/969799600?h=9f29f22bee" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> 
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/930264931?h=5c83946e63" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/912687229?h=7d22a00d64" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/912687048?h=33c19eede0" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/900358898?h=81f1884605" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/899363440?h=43150518f2" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/899363345?h=eaf15da293" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/898601485?h=9e2aad5159" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/898477776?h=cae8d9417c" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+  <!-- Botão voltar -->
   <div class="voltar">
-  <a href="index.html">BIXO</a>
-</div>
-  <body class="videos-page">
+    <a href="index.html">BIXO</a>
+  </div>
 </body>
 </html>
