@@ -254,18 +254,23 @@ body, html {
   top: 50%;
   transform: translateY(-50%);
   font-size: 32px;
-  background: transparent; /* <<< fundo removido */
+  background: transparent !important; /* Fundo transparente SEMPRE */
   color: white;
-  border: none;
+  border: none !important;             /* Remove borda */
+  box-shadow: none !important;         /* Remove sombra */
   padding: 10px 20px;
   cursor: pointer;
   z-index: 100;
   border-radius: 50%;
   transition: background 0.3s ease;
 }
+
 .scroll-btn:hover {
-  background: transparent;
+  background: transparent !important;  /* Fundo transparente no hover */
+  box-shadow: none !important;
+  border: none !important;
 }
+
 
 .scroll-btn.left {
   left: 10px;
