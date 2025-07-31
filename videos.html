@@ -81,29 +81,23 @@
       transform: scale(1.03);
     }
 
-    /* Botões laterais, transparentes, com hover */
-    .btn-nav {
-      background: none !important;
-      border: none;
-      color: white;
-      font-size: 48px;
-      cursor: pointer;
-      user-select: none;
-      transition: color 0.3s ease;
-      padding: 0 12px;
-      border-radius: 50%;
-      height: 60px;
-      width: 60px;
-      line-height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    /* Botões laterais, transparentes,   
+  .btn-nav {
+  all: unset; /* remove todo estilo padrão */
+  font-size: 32px;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .btn-nav:hover {
-      color: #ccc;
-      background: rgba(255 255 255 / 0.1);
-    }
+.btn-nav:hover {
+  transform: scale(1.2); /* zoom suave */
+  color: #ccc;
+}
 
     .voltar {
       position: fixed;
