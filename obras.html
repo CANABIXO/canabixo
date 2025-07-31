@@ -16,6 +16,7 @@
       height: 100vh;
       overflow: hidden;
       font-family: Arial, sans-serif;
+      color: white;
     }
 
     .loader {
@@ -49,53 +50,107 @@
       }
     }
 
-    .gallery-container {
-      position: relative;
-      width: 640px;
-      max-width: 90vw;
-      height: 640px;
+    .main-container {
       display: flex;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
+      gap: 20px;
+      max-width: 90vw;
+      width: 100%;
+      height: 640px;
       margin-bottom: 20px;
     }
 
-    .gallery-image {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      user-select: none;
+    .big-image-container {
+      flex: 1 1 60%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    .gallery-image:hover {
+    .big-image {
+      width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+      user-select: none;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+    .big-image:hover {
       transform: scale(1.05);
     }
 
+    .info-box {
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      text-align: left;
+      margin-top: 10px;
+      padding: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .info-box b {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .thumbnail-container {
+      flex: 1 1 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .scroll-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 40px;
       background: transparent;
       border: none;
       color: white;
+      font-size: 40px;
       cursor: pointer;
-      user-select: none;
-      transition: color 0.3s ease;
-      padding: 0 15px;
       font-weight: bold;
-      z-index: 10;
+      user-select: none;
+      margin: 5px 0;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      padding: 0;
+      transition: color 0.3s ease;
+    }
+    .scroll-btn:hover {
+      color: #0f0;
     }
 
-    .scroll-btn.left {
-      left: -60px;
+    .thumbnail-bar {
+      display: flex;
+      overflow-x: hidden;
+      gap: 10px;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
     }
 
-    .scroll-btn.right {
-      right: -60px;
+    .thumbnail-bar img {
+      height: 60px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      transition: transform 0.2s, border-color 0.2s;
+      user-select: none;
+    }
+    .thumbnail-bar img:hover {
+      transform: scale(1.1);
+      border-color: white;
+    }
+    .thumbnail-bar img.selected {
+      border-color: #0f0;
+      transform: scale(1.1);
     }
 
     .voltar {
@@ -105,7 +160,6 @@
       text-align: center;
       z-index: 1000;
     }
-
     .voltar a {
       all: unset;
       font-family: Arial, sans-serif;
@@ -122,7 +176,6 @@
       border: none !important;
       user-select: none;
     }
-
     .voltar a:hover {
       transform: scale(1.05);
     }
@@ -139,7 +192,6 @@
       z-index: 2000;
       cursor: zoom-out;
     }
-
     .modal img {
       max-width: 90vw;
       max-height: 90vh;
@@ -147,44 +199,6 @@
       border-radius: 10px;
       user-select: none;
       pointer-events: none;
-    }
-
-    .thumbnail-bar {
-      display: flex;
-      overflow-x: auto;
-      padding: 10px;
-      max-width: 90vw;
-      margin-bottom: 20px;
-    }
-
-    .thumbnail-bar img {
-      height: 60px;
-      margin-right: 10px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: transform 0.2s, border 0.2s;
-    }
-
-    .thumbnail-bar img:hover {
-      transform: scale(1.05);
-      border: 2px solid white;
-    }
-
-    .info-box {
-      background: black;
-      color: white;
-      font-family: Arial, sans-serif;
-      font-size: 12px;
-      text-align: left;
-      margin-top: 10px;
-      padding: 10px;
-      max-width: 640px;
-    }
-
-    .info-box b {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 4px;
     }
   </style>
 </head>
@@ -194,38 +208,22 @@
     <img src="logo.png" alt="Carregando..." />
   </div>
 
-  <div class="gallery-container" aria-label="Galeria de obras">
-    <button class="scroll-btn left" id="prevBtn" aria-label="Imagem anterior">‹</button>
-    <div style="display: flex; flex-direction: column; align-items: center;">
-      <img
-        id="galleryImage"
-        class="gallery-image"
-        src="obra1.jpg"
-        alt="Obra 1"
-        tabindex="0"
-        role="img"
-      />
-      <div class="info-box">
-        <b id="imageTitle">Título da Obra 1</b>
-        <span id="imageDesc">Descrição da obra 1 aqui.</span>
+  <div class="main-container" aria-label="Galeria de obras">
+    <div class="thumbnail-container">
+      <button id="btnUp" class="scroll-btn" aria-label="Miniaturas anteriores">‹</button>
+      <div class="thumbnail-bar" id="thumbnailBar">
+        <!-- Miniaturas geradas por JS -->
+      </div>
+      <button id="btnDown" class="scroll-btn" aria-label="Miniaturas próximas">›</button>
+    </div>
+
+    <div class="big-image-container">
+      <img id="bigImage" class="big-image" src="" alt="Imagem da obra" tabindex="0" />
+      <div class="info-box" aria-live="polite" aria-atomic="true">
+        <b id="imageTitle"></b>
+        <span id="imageDesc"></span>
       </div>
     </div>
-    <button class="scroll-btn right" id="nextBtn" aria-label="Próxima imagem">›</button>
-  </div>
-
-  <div class="thumbnail-bar">
-    <img src="obra1.jpg" onclick="showImage(0)" />
-    <img src="obra2.jpg" onclick="showImage(1)" />
-    <img src="obra3.jpg" onclick="showImage(2)" />
-    <img src="obra4.jpg" onclick="showImage(3)" />
-    <img src="obra5.jpg" onclick="showImage(4)" />
-    <img src="obra6.jpg" onclick="showImage(5)" />
-    <img src="obra7.jpg" onclick="showImage(6)" />
-    <img src="obra8.jpg" onclick="showImage(7)" />
-    <img src="obra9.jpg" onclick="showImage(8)" />
-    <img src="obra10.jpg" onclick="showImage(9)" />
-    <img src="obra11.jpg" onclick="showImage(10)" />
-    <img src="obra12.jpg" onclick="showImage(11)" />
   </div>
 
   <div class="voltar">
@@ -236,86 +234,102 @@
     <img id="modalImg" src="" alt="Imagem ampliada da obra" />
   </div>
 
-  <script>
-    const images = [
-      "obra1.jpg", "obra2.jpg", "obra3.jpg", "obra4.jpg", "obra5.jpg", "obra6.jpg",
-      "obra7.jpg", "obra8.jpg", "obra9.jpg", "obra10.jpg", "obra11.jpg", "obra12.jpg"
-    ];
+<script>
+  const images = [
+    "obra1.jpg","obra2.jpg","obra3.jpg","obra4.jpg","obra5.jpg","obra6.jpg",
+    "obra7.jpg","obra8.jpg","obra9.jpg","obra10.jpg","obra11.jpg","obra12.jpg"
+  ];
 
-    const titles = [
-      "Título da Obra 1", "Título da Obra 2", "Título da Obra 3", "Título da Obra 4",
-      "Título da Obra 5", "Título da Obra 6", "Título da Obra 7", "Título da Obra 8",
-      "Título da Obra 9", "Título da Obra 10", "Título da Obra 11", "Título da Obra 12"
-    ];
+  const titles = [
+    "Título da Obra 1","Título da Obra 2","Título da Obra 3","Título da Obra 4",
+    "Título da Obra 5","Título da Obra 6","Título da Obra 7","Título da Obra 8",
+    "Título da Obra 9","Título da Obra 10","Título da Obra 11","Título da Obra 12"
+  ];
 
-    const descriptions = [
-      "Descrição da obra 1 aqui.", "Descrição da obra 2 aqui.", "Descrição da obra 3 aqui.",
-      "Descrição da obra 4 aqui.", "Descrição da obra 5 aqui.", "Descrição da obra 6 aqui.",
-      "Descrição da obra 7 aqui.", "Descrição da obra 8 aqui.", "Descrição da obra 9 aqui.",
-      "Descrição da obra 10 aqui.", "Descrição da obra 11 aqui.", "Descrição da obra 12 aqui."
-    ];
+  const descriptions = [
+    "Descrição da obra 1 aqui.","Descrição da obra 2 aqui.","Descrição da obra 3 aqui.",
+    "Descrição da obra 4 aqui.","Descrição da obra 5 aqui.","Descrição da obra 6 aqui.",
+    "Descrição da obra 7 aqui.","Descrição da obra 8 aqui.","Descrição da obra 9 aqui.",
+    "Descrição da obra 10 aqui.","Descrição da obra 11 aqui.","Descrição da obra 12 aqui."
+  ];
 
-    let currentIndex = 0;
-    const galleryImage = document.getElementById('galleryImage');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
+  const thumbnailBar = document.getElementById('thumbnailBar');
+  const bigImage = document.getElementById('bigImage');
+  const imageTitle = document.getElementById('imageTitle');
+  const imageDesc = document.getElementById('imageDesc');
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modalImg');
+  const btnUp = document.getElementById('btnUp');
+  const btnDown = document.getElementById('btnDown');
 
-    function showImage(index) {
-      currentIndex = (index + images.length) % images.length;
-      galleryImage.src = images[currentIndex];
-      galleryImage.alt = `Obra ${currentIndex + 1}`;
-      galleryImage.setAttribute('aria-label', `Obra ${currentIndex + 1}`);
-      document.getElementById('imageTitle').textContent = titles[currentIndex];
-      document.getElementById('imageDesc').textContent = descriptions[currentIndex];
+  let currentIndex = 0;
+  let scrollIndex = 0; // controle scroll miniaturas
+  const visibleThumbnails = 5; // quantas miniaturas mostrar visíveis no scroll
+
+  function updateBigImage(index) {
+    currentIndex = index;
+    bigImage.src = images[index];
+    bigImage.alt = titles[index];
+    imageTitle.textContent = titles[index];
+    imageDesc.textContent = descriptions[index];
+    updateSelectedThumbnail();
+  }
+
+  function updateSelectedThumbnail() {
+    const thumbs = thumbnailBar.querySelectorAll('img');
+    thumbs.forEach((thumb, i) => {
+      if(i === currentIndex) thumb.classList.add('selected');
+      else thumb.classList.remove('selected');
+    });
+  }
+
+  function createThumbnails() {
+    images.forEach((src, i) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = titles[i];
+      img.tabIndex = 0;
+      img.onclick = () => updateBigImage(i);
+      img.onkeydown = e => { if(e.key === 'Enter' || e.key === ' ') { updateBigImage(i); e.preventDefault(); } };
+      thumbnailBar.appendChild(img);
+    });
+  }
+
+  // Scroll horizontal manual das miniaturas
+  function scrollThumbnails(direction) {
+    const thumbs = thumbnailBar.querySelectorAll('img');
+    const maxIndex = thumbs.length - visibleThumbnails;
+    if(direction === 'left') {
+      scrollIndex = Math.max(scrollIndex - 1, 0);
+    } else {
+      scrollIndex = Math.min(scrollIndex + 1, maxIndex);
     }
+    const scrollAmount = scrollIndex * (thumbs[0].offsetWidth + 10); // 10px gap
+    thumbnailBar.scrollTo({left: scrollAmount, behavior: 'smooth'});
+  }
 
-    prevBtn.addEventListener('click', () => {
-      showImage(currentIndex - 1);
-    });
+  btnUp.addEventListener('click', () => scrollThumbnails('left'));
+  btnDown.addEventListener('click', () => scrollThumbnails('right'));
 
-    nextBtn.addEventListener('click', () => {
-      showImage(currentIndex + 1);
-    });
+  bigImage.addEventListener('click', () => {
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    modalImg.src = images[currentIndex];
+    modalImg.alt = titles[currentIndex] + " ampliada";
+  });
 
-    galleryImage.addEventListener('click', () => {
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden', 'false');
-      modalImg.src = images[currentIndex];
-      modalImg.alt = `Obra ${currentIndex + 1} ampliada`;
-    });
+  modal.addEventListener('click', () => {
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    modalImg.src = '';
+    modalImg.alt = '';
+  });
 
-    modal.addEventListener('click', () => {
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.style.display === 'flex') {
       modal.style.display = 'none';
       modal.setAttribute('aria-hidden', 'true');
       modalImg.src = '';
       modalImg.alt = '';
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'flex') {
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-        modalImg.src = '';
-        modalImg.alt = '';
-      }
-      if (e.key === 'ArrowLeft') {
-        showImage(currentIndex - 1);
-      }
-      if (e.key === 'ArrowRight') {
-        showImage(currentIndex + 1);
-      }
-    });
-
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.querySelector('.loader').style.display = 'none';
-      }, 3000);
-    });
-
-    showImage(0);
-  </script>
-
-</body>
-</html>
+    }
+    if (e.key === 'ArrowLeft') {
