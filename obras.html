@@ -15,6 +15,7 @@
       align-items: center;
       min-height: 100vh;
       user-select: none;
+      overflow-x: hidden;
     }
 
     .loader {
@@ -28,24 +29,18 @@
       z-index: 9999;
       animation: hideLoader 0s ease 3s forwards;
     }
-
     .loader img {
       width: 200px;
       height: 200px;
       border-radius: 50%;
       animation: spinZoom 3s linear forwards;
     }
-
     @keyframes spinZoom {
       0% { transform: scale(1) rotate(0deg); }
       100% { transform: scale(1.2) rotate(1440deg); }
     }
-
     @keyframes hideLoader {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
+      to { opacity: 0; visibility: hidden; }
     }
 
     .main-container {
@@ -84,21 +79,30 @@
     }
 
     .thumbnail-bar-container {
-      position: relative;
       width: 100%;
       overflow: hidden;
+      position: relative;
     }
 
     .thumbnail-bar {
       display: flex;
       gap: 10px;
-      overflow-x: auto;
+      justify-content: center;
+      flex-wrap: nowrap;
+      user-select: none;
+      overflow-x: scroll;
       scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;  /* IE and Edge */
+      animation: scrollMiniaturas 40s linear infinite;
     }
     .thumbnail-bar::-webkit-scrollbar {
-      display: none;
+      display: none; /* Chrome, Safari e Opera */
+    }
+
+    @keyframes scrollMiniaturas {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     .thumbnail-bar img {
@@ -138,7 +142,7 @@
       transition: none;
     }
     .scroll-btn:hover {
-      color: white; /* Sem efeito */
+      color: white; /* sem efeito */
     }
 
     .voltar {
@@ -208,8 +212,8 @@
     </div>
 
     <div class="scroll-buttons">
-      <button id="btnLeft" class="scroll-btn" aria-label="Miniaturas anteriores">‹</button>
-      <button id="btnRight" class="scroll-btn" aria-label="Miniaturas próximas">›</button>
+      <button id="btnLeft" class="scroll-btn" aria-label="Imagem anterior">‹</button>
+      <button id="btnRight" class="scroll-btn" aria-label="Próxima imagem">›</button>
     </div>
 
   </div>
@@ -252,52 +256,48 @@
 
     let currentIndex = 0;
 
+    // Criar miniaturas 2x para efeito "infinito"
     function createThumbnails() {
-      images.forEach((src, i) => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = titles[i];
-        img.tabIndex = 0;
-        img.onclick = () => updateBigImage(i);
-        img.onkeydown = e => { if(e.key === 'Enter' || e.key === ' ') { updateBigImage(i); e.preventDefault(); } };
-        thumbnailBar.appendChild(img);
-      });
+      for (let i = 0; i < 2; i++) {
+        images.forEach((src, i) => {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = titles[i];
+          img.tabIndex = 0;
+          img.onclick = () => updateBigImage(i);
+          img.onkeydown = e => { if(e.key === 'Enter' || e.key === ' ') { updateBigImage(i); e.preventDefault(); } };
+          thumbnailBar.appendChild(img);
+        });
+      }
     }
 
     function updateBigImage(index) {
-      currentIndex = index;
-      bigImage.src = images[index];
-      bigImage.alt = titles[index];
-      imageTitle.textContent = titles[index];
-      imageDesc.textContent = descriptions[index];
+      currentIndex = (index + images.length) % images.length;
+      bigImage.src = images[currentIndex];
+      bigImage.alt = titles[currentIndex];
+      imageTitle.textContent = titles[currentIndex];
+      imageDesc.textContent = descriptions[currentIndex];
       updateSelectedThumbnail();
     }
 
     function updateSelectedThumbnail() {
       const thumbs = thumbnailBar.querySelectorAll('img');
       thumbs.forEach((thumb, i) => {
-        thumb.classList.toggle('selected', i === currentIndex);
+        thumb.classList.toggle('selected', i % images.length === currentIndex);
       });
     }
 
+    // Scroll horizontal control
+    const scrollAmount = 100;
+
     btnLeft.addEventListener('click', () => {
-      thumbnailBar.scrollBy({left: -120, behavior: 'smooth'});
+      thumbnailBar.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
     });
-
     btnRight.addEventListener('click', () => {
-      thumbnailBar.scrollBy({left: 120, behavior: 'smooth'});
+      thumbnailBar.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     });
 
-    // Rolagem automática lenta e suave (retorna ao início)
-    function autoScroll() {
-      if (thumbnailBar.scrollLeft + thumbnailBar.clientWidth >= thumbnailBar.scrollWidth) {
-        thumbnailBar.scrollTo({left: 0});
-      } else {
-        thumbnailBar.scrollLeft += 0.3;
-      }
-      requestAnimationFrame(autoScroll);
-    }
-
+    // Modal para imagem ampliada
     bigImage.addEventListener('click', () => {
       modal.style.display = 'flex';
       modal.setAttribute('aria-hidden', 'false');
@@ -312,20 +312,13 @@
       modalImg.alt = '';
     });
 
-    document.addEventListener('keydown', e => {
+    // Fechar modal com ESC
+    document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.style.display === 'flex') {
         modal.style.display = 'none';
         modal.setAttribute('aria-hidden', 'true');
         modalImg.src = '';
         modalImg.alt = '';
-      }
-      if (e.key === 'ArrowLeft') {
-        let newIndex = (currentIndex - 1 + images.length) % images.length;
-        updateBigImage(newIndex);
-      }
-      if (e.key === 'ArrowRight') {
-        let newIndex = (currentIndex + 1) % images.length;
-        updateBigImage(newIndex);
       }
     });
 
@@ -337,8 +330,6 @@
 
     createThumbnails();
     updateBigImage(0);
-    autoScroll();
-
   </script>
 
 </body>
