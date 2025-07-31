@@ -34,7 +34,8 @@
 
     .scroll-gallery a img {
       height: 300px;
-      border-radius: 10px;
+      border-radius: 0; /* remove borda arredondada */
+      border: none; /* remove qualquer borda */
       transition: transform 0.3s ease;
       cursor: pointer;
       flex-shrink: 0;
@@ -48,20 +49,22 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 32px;
-      background: rgba(255, 255, 255, 0.1);
+      font-size: 24px; /* tamanho menor e minimalista */
+      background: transparent; /* sem fundo */
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 0 10px;
       cursor: pointer;
       z-index: 100;
-      border-radius: 50%;
-      transition: background 0.3s ease;
+      border-radius: 0; /* sem borda arredondada */
+      transition: color 0.3s ease;
       user-select: none;
+      font-weight: bold;
+      line-height: 1;
     }
 
     .scroll-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
+      color: #ccc; /* clareia no hover */
     }
 
     .scroll-btn.left {
@@ -102,7 +105,7 @@
 </head>
 <body>
   <div class="scroll-wrapper">
-    <button class="scroll-btn left" id="scrollLeft">←</button>
+    <button class="scroll-btn left" id="scrollLeft"><</button>
     <div class="scroll-gallery" id="gallery">
       <a href="https://youtu.be/EN5I-PjDbOM" target="_blank"><img src="musicasmusica1.png" alt="Música 1"></a>
       <a href="https://youtu.be/qBlhfA2p7ac" target="_blank"><img src="musicasmusica2.png" alt="Música 2"></a>
@@ -114,7 +117,7 @@
       <a href="https://youtube.com/playlist?list=PLgEVpMlG5C802pJIzRhesnW-9t2AK7nZX" target="_blank"><img src="musicasmusica8.png" alt="Música 8"></a>
       <a href="https://youtu.be/ge64ZnlCVnA" target="_blank"><img src="musicasmusica9.png" alt="Música 9"></a>
     </div>
-    <button class="scroll-btn right" id="scrollRight">→</button>
+    <button class="scroll-btn right" id="scrollRight">></button>
   </div>
 
   <div class="voltar">
