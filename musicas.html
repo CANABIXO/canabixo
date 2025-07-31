@@ -117,25 +117,24 @@
       z-index: 1000;
     }
 
-   .voltar a {
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-  background: transparent;
-}
+    .voltar a {
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
 
-.voltar a:hover {
-  background: white !important;
-  color: black !important;
-  transform: scale(1.05);
-}
-
+    .voltar a:hover {
+      background: white !important;
+      color: black !important;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -166,13 +165,32 @@
     <a href="index.html">BIXO</a>
   </div>
 
-  <!-- Script de scroll -->
+  <!-- Script de scroll infinito -->
   <script>
-    function scrollLeft() {
-      document.getElementById('gallery').scrollBy({ left: -400, behavior: 'smooth' });
-    }
+    const gallery = document.getElementById('gallery');
+    // Duplica o conteúdo para rolagem infinita
+    gallery.innerHTML += gallery.innerHTML;
+
+    let scrollAmount = 0;
+    const scrollStep = 400;
+    const maxScroll = gallery.scrollWidth / 2;
+
     function scrollRight() {
-      document.getElementById('gallery').scrollBy({ left: 400, behavior: 'smooth' });
+      scrollAmount += scrollStep;
+      if (scrollAmount >= maxScroll) {
+        scrollAmount = 0;
+        gallery.scrollLeft = 0;
+      }
+      gallery.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+    }
+
+    function scrollLeft() {
+      scrollAmount -= scrollStep;
+      if (scrollAmount < 0) {
+        scrollAmount = maxScroll - scrollStep;
+        gallery.scrollLeft = scrollAmount;
+      }
+      gallery.scrollTo({ left: scrollAmount, behavior: 'smooth' });
     }
   </script>
 </body>
