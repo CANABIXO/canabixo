@@ -13,8 +13,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      user-select: none;
     }
 
     .loader {
@@ -49,16 +49,14 @@
     }
 
     .main-container {
-      max-width: 90vw;
-      width: 640px;
+      max-width: 640px;
+      width: 90vw;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 16px;
-      /* espaço extra para o botão fixo ficar abaixo do conteúdo */
-      padding-bottom: 80px;
+      padding: 20px 0 0 0;
       flex-shrink: 0;
-      user-select: none;
     }
 
     .big-image {
@@ -88,20 +86,19 @@
     .thumbnail-bar-container {
       position: relative;
       width: 100%;
-      max-width: 640px;
       overflow: hidden;
     }
 
     .thumbnail-bar {
       display: flex;
       gap: 10px;
-      overflow-x: scroll;
+      overflow-x: auto;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none; /* Firefox */
+      scrollbar-width: none;
     }
     .thumbnail-bar::-webkit-scrollbar {
-      display: none; /* Chrome, Safari */
+      display: none;
     }
 
     .thumbnail-bar img {
@@ -121,7 +118,6 @@
 
     .scroll-buttons {
       width: 100%;
-      max-width: 640px;
       display: flex;
       justify-content: space-between;
       margin-top: 8px;
@@ -142,15 +138,13 @@
       transition: none;
     }
     .scroll-btn:hover {
-      color: white;
+      color: white; /* Sem efeito */
     }
 
     .voltar {
-      position: fixed;
-      bottom: 30px;
       width: 100%;
       text-align: center;
-      z-index: 1000;
+      padding: 20px 0;
       user-select: none;
     }
 
@@ -294,7 +288,7 @@
       thumbnailBar.scrollBy({left: 120, behavior: 'smooth'});
     });
 
-    // Rolagem automática lenta e suave (sem duplicação, retorna no início)
+    // Rolagem automática lenta e suave (retorna ao início)
     function autoScroll() {
       if (thumbnailBar.scrollLeft + thumbnailBar.clientWidth >= thumbnailBar.scrollWidth) {
         thumbnailBar.scrollTo({left: 0});
