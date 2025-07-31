@@ -40,9 +40,6 @@
       }
     }
 
-    /* Seu CSS original continua exatamente igual */
-
-    /* Vídeos centralizados - modificado para 1 vídeo e botões ao lado */
     body.videos-page {
       background: black;
       padding-top: 60px;
@@ -81,24 +78,25 @@
       transform: scale(1.03);
     }
 
-    /* Botões laterais, transparentes,   
-  .btn-nav {
-  all: unset; /* remove todo estilo padrão */
-  font-size: 32px;
-  color: white;
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    /* Botões de navegação minimalistas */
+    .btn-nav {
+      all: unset;
+      font-size: 32px;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.btn-nav:hover {
-  transform: scale(1.2); /* zoom suave */
-  color: #ccc;
-}
+    .btn-nav:hover {
+      transform: scale(1.2);
+      color: #ccc;
+    }
 
+    /* Botão voltar */
     .voltar {
       position: fixed;
       bottom: 30px;
@@ -114,10 +112,9 @@
       text-decoration: none;
       font-weight: bold;
       padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      transition: all 0.3s ease;
       background: transparent;
+      border: none;
+      transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
     }
 
     .voltar a:hover {
