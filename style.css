@@ -1,4 +1,3 @@
-
 /* Loader giratório */
 .loader {
   position: fixed;
@@ -346,7 +345,7 @@ body.downloads-page .card h3 {
   flex-grow: 1;
 }
 
-/* Botão voltar idêntico ao das outras páginas */
+/* Botão voltar idêntico ao das outras páginas, mas com cor preta só aqui */
 body.downloads-page .voltar a {
   all: unset;
   font-family: Arial, sans-serif;
