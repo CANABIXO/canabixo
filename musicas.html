@@ -25,12 +25,14 @@
       width: 100%;
     }
 
-    .scroll-gallery {
-      display: flex;
-      gap: 20px;
-      overflow: hidden;
-      width: 700px; /* largura fixa da galeria visível */
-    }
+  .scroll-gallery {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  width: 100%;           /* usa toda a largura disponível */
+  max-width: 1200px;     /* opcional: limita o máximo em telas grandes */
+  margin: 0 auto;        /* centraliza horizontalmente */
+}
 
     .scroll-gallery a img {
       height: 300px;
