@@ -93,35 +93,38 @@
   </div>
 
   <script>
-  
-const videos = [
-  "https://player.vimeo.com/video/955534557?h=3c6dd256c9",
-  "https://player.vimeo.com/video/969799600?h=9f29f22bee",
-  "https://player.vimeo.com/video/930264931?h=5c83946e63",
-  "https://player.vimeo.com/video/912687229?h=7d22a00d64",
-  "https://player.vimeo.com/video/912687048?h=33c19eede0",
-  "https://player.vimeo.com/video/900358898?h=81f1884605",
-  "https://player.vimeo.com/video/899363440?h=43150518f2",
-  "https://player.vimeo.com/video/899363345?h=eaf15da293",
-  "https://player.vimeo.com/video/898601485?h=9e2aad5159",
-  "https://player.vimeo.com/video/898477776?h=cae8d9417c"
-];
+    const videos = [
+      "https://player.vimeo.com/video/955534557?h=3c6dd256c9",
+      "https://player.vimeo.com/video/969799600?h=9f29f22bee",
+      "https://player.vimeo.com/video/930264931?h=5c83946e63",
+      "https://player.vimeo.com/video/912687229?h=7d22a00d64",
+      "https://player.vimeo.com/video/912687048?h=33c19eede0",
+      "https://player.vimeo.com/video/900358898?h=81f1884605",
+      "https://player.vimeo.com/video/899363440?h=43150518f2",
+      "https://player.vimeo.com/video/899363345?h=eaf15da293",
+      "https://player.vimeo.com/video/898601485?h=9e2aad5159",
+      "https://player.vimeo.com/video/898477776?h=cae8d9417c"
+    ];
 
-let currentIndex = 0;
-const iframe = document.getElementById("videoPlayer");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
+    let currentIndex = 0;
+    const iframe = document.getElementById("videoPlayer");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
 
-function updateVideo(index) {
-  currentIndex = (index + videos.length) % videos.length;
-  iframe.src = videos[currentIndex];
-  iframe.title = `Vídeo ${currentIndex + 1}`;
-}
+    function updateVideo(index) {
+      currentIndex = (index + videos.length) % videos.length;
+      iframe.src = videos[currentIndex];
+      iframe.title = `Vídeo ${currentIndex + 1}`;
+    }
 
-prevBtn.addEventListener("click", () => {
-  updateVideo(currentIndex - 1);
-});
+    prevBtn.addEventListener("click", () => {
+      updateVideo(currentIndex - 1);
+    });
 
-nextBtn.addEventListener("click", () => {
-  updateVideo(currentIndex + 1);
-});
+    nextBtn.addEventListener("click", () => {
+      updateVideo(currentIndex + 1);
+    });
+  </script>
+
+</body>
+</html>
