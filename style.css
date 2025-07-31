@@ -300,3 +300,22 @@ body, html {
 .video-container iframe:hover {
   transform: scale(1.03);
 }
+
+body.videos-page {
+  background: black;
+  padding-top: 60px;
+  text-align: center;
+  overflow-y: auto;  /* ativa rolagem vertical */
+  min-height: 100vh;  /* altura mínima da tela */
+  margin: 0;
+}
+
+body.videos-page iframe {
+  max-width: 90%;
+  width: 640px;
+  height: 360px;
+  margin: 20px auto;
+  display: block;
+  border-radius: 10px;
+}
+
