@@ -10,6 +10,10 @@
       margin: 0;
       background: black;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
     }
 
     /* Loader giratório */
@@ -44,12 +48,53 @@
       }
     }
 
+    /* Galeria secundária - miniaturas */
+    .thumbs-wrapper {
+      width: 100vw;
+      height: 200px;
+      overflow: hidden;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      user-select: none;
+      margin-bottom: 10px;
+    }
+
+    .thumbs {
+      display: flex;
+      gap: 10px;
+      height: 200px;
+      will-change: transform;
+      animation: scrollLeft 30s linear infinite;
+    }
+
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .thumbs img {
+      height: 200px;
+      width: auto;
+      border-radius: 5px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 0.3s ease;
+    }
+
+    .thumbs img.selected {
+      border-color: #0f0;
+    }
+
     /* Modal fullscreen com imagem centralizada */
     .modal {
       position: fixed;
       top: 0; left: 0;
       width: 100vw;
-      height: 100vh;
+      height: calc(100vh - 230px); /* descontando altura da galeria + margin */
       background: black;
       display: flex;
       justify-content: center;
@@ -129,11 +174,43 @@
     <a href="index.html">BIXO</a>
   </div>
 
+  <!-- Galeria secundária - miniaturas -->
+  <div class="thumbs-wrapper" aria-label="Galeria de miniaturas">
+    <div class="thumbs" id="thumbs">
+      <!-- As imagens serão clonadas para o scroll infinito -->
+      <img src="obra1.jpg" alt="Obra 1" data-index="0" />
+      <img src="obra2.jpg" alt="Obra 2" data-index="1" />
+      <img src="obra3.jpg" alt="Obra 3" data-index="2" />
+      <img src="obra4.jpg" alt="Obra 4" data-index="3" />
+      <img src="obra5.jpg" alt="Obra 5" data-index="4" />
+      <img src="obra6.jpg" alt="Obra 6" data-index="5" />
+      <img src="obra7.jpg" alt="Obra 7" data-index="6" />
+      <img src="obra8.jpg" alt="Obra 8" data-index="7" />
+      <img src="obra9.jpg" alt="Obra 9" data-index="8" />
+      <img src="obra10.jpg" alt="Obra 10" data-index="9" />
+      <img src="obra11.jpg" alt="Obra 11" data-index="10" />
+      <img src="obra12.jpg" alt="Obra 12" data-index="11" />
+      <!-- repete para o scroll infinito -->
+      <img src="obra1.jpg" alt="Obra 1" data-index="0" />
+      <img src="obra2.jpg" alt="Obra 2" data-index="1" />
+      <img src="obra3.jpg" alt="Obra 3" data-index="2" />
+      <img src="obra4.jpg" alt="Obra 4" data-index="3" />
+      <img src="obra5.jpg" alt="Obra 5" data-index="4" />
+      <img src="obra6.jpg" alt="Obra 6" data-index="5" />
+      <img src="obra7.jpg" alt="Obra 7" data-index="6" />
+      <img src="obra8.jpg" alt="Obra 8" data-index="7" />
+      <img src="obra9.jpg" alt="Obra 9" data-index="8" />
+      <img src="obra10.jpg" alt="Obra 10" data-index="9" />
+      <img src="obra11.jpg" alt="Obra 11" data-index="10" />
+      <img src="obra12.jpg" alt="Obra 12" data-index="11" />
+    </div>
+  </div>
+
   <!-- Modal com imagem central -->
-  <div class="modal">
-    <button class="modal-btn left" id="prevBtn">‹</button>
-    <img id="mainImage" src="obra1.jpg" alt="Imagem" />
-    <button class="modal-btn right" id="nextBtn">›</button>
+  <div class="modal" role="main" aria-label="Imagem principal da galeria">
+    <button class="modal-btn left" id="prevBtn" aria-label="Imagem anterior">‹</button>
+    <img id="mainImage" src="obra1.jpg" alt="Imagem principal" />
+    <button class="modal-btn right" id="nextBtn" aria-label="Próxima imagem">›</button>
   </div>
 
   <script>
@@ -156,19 +233,40 @@
     const mainImage = document.getElementById('mainImage');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
+    const thumbs = document.getElementById('thumbs');
+    const thumbImages = thumbs.querySelectorAll('img');
 
     function showImage(index) {
       currentIndex = (index + imageList.length) % imageList.length;
       mainImage.src = imageList[currentIndex];
+      // Atualiza seleção da miniatura
+      thumbImages.forEach(img => img.classList.remove('selected'));
+      // Seleciona a miniatura correspondente (primeira ocorrência)
+      for (let img of thumbImages) {
+        if (parseInt(img.dataset.index) === currentIndex) {
+          img.classList.add('selected');
+          break;
+        }
+      }
     }
 
     prevBtn.addEventListener('click', () => showImage(currentIndex - 1));
     nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
 
+    thumbImages.forEach(img => {
+      img.addEventListener('click', () => {
+        const idx = parseInt(img.dataset.index);
+        showImage(idx);
+      });
+    });
+
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
       if (e.key === 'ArrowRight') showImage(currentIndex + 1);
     });
+
+    // Inicializa selecionando a primeira imagem
+    showImage(0);
 
     // Loader desaparece após 3s
     window.addEventListener('load', () => {
@@ -177,6 +275,5 @@
       }, 3000);
     });
   </script>
-
 </body>
 </html>
