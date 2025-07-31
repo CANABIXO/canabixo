@@ -233,34 +233,35 @@ body, html {
 
 /* Botões laterais */
 .scroll-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 32px;
+  /* Remove position absolute para ficar ao lado */
+  font-size: 24px;
+  background: transparent;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 0 15px;
   cursor: pointer;
   z-index: 100;
-  border-radius: 50%;
-  transition: background 0.3s ease;
-  background: none !important;
-  box-shadow: none !important;
+  border-radius: 0;
+  transition: color 0.3s ease;
+  user-select: none;
+  font-weight: bold;
+  line-height: 1;
+  align-self: center; /* centraliza verticalmente no flex container */
 }
-
-.scroll-btn:hover {
-  background: none !important;
-  box-shadow: none !important;
-}
-
 
 .scroll-btn.left {
-  left: 10px;
+  /* Pode deixar sem left: 10px pois não tem position absolute */
 }
 
 .scroll-btn.right {
-  right: 10px;
+  /* Pode deixar sem right: 10px */
 }
+
+.scroll-btn:hover {
+  color: #ccc;
+}
+
+
 .video-container {
   display: flex;
   flex-direction: column;
