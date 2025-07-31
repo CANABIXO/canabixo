@@ -2,17 +2,14 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vídeos – BIXO</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     /* Loader giratório */
     .loader {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: black;
       display: flex;
       align-items: center;
@@ -20,19 +17,15 @@
       z-index: 9999;
       animation: hideLoader 0s ease 3s forwards;
     }
-
     .loader img {
-      width: 200px;
-      height: 200px;
+      width: 200px; height: 200px;
       border-radius: 50%;
       animation: spinZoom 3s linear forwards;
     }
-
     @keyframes spinZoom {
       0% { transform: scale(1) rotate(0deg); }
       100% { transform: scale(1.2) rotate(1440deg); }
     }
-
     @keyframes hideLoader {
       to {
         opacity: 0;
@@ -40,32 +33,62 @@
       }
     }
 
-    /* Vídeos centralizados */
+    /* Reset e base */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
     body.videos-page {
       background: black;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
       padding-top: 60px;
-      text-align: center;
-      overflow-y: auto;  /* Permite rolagem vertical */
-      height: auto;
+      position: relative;
+      color: white;
     }
 
-    .video-thumb {
-      margin: 40px auto;
-      width: 500px;
-      max-width: 90%;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .video-thumb:hover {
-      transform: scale(1.05);
-    }
-
-    .video-thumb img {
+    /* Container do player e botões */
+    .video-wrapper {
+      position: relative;
       width: 100%;
-      border-radius: 10px;
+      max-width: 700px;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
     }
 
+    iframe {
+      width: 640px;
+      height: 360px;
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    /* Botões laterais */
+    .nav-btn {
+      cursor: pointer;
+      font-size: 48px;
+      background: transparent;
+      border: none;
+      color: white;
+      user-select: none;
+      transition: color 0.3s ease;
+      padding: 10px 20px;
+      border-radius: 50%;
+      box-shadow: none;
+    }
+    .nav-btn:hover {
+      color: #aaa;
+    }
+
+    /* Botão voltar fixo abaixo */
     .voltar {
       position: fixed;
       bottom: 30px;
@@ -73,7 +96,6 @@
       text-align: center;
       z-index: 1000;
     }
-
     .voltar a {
       font-family: Arial, sans-serif;
       font-size: 20px;
@@ -81,34 +103,79 @@
       text-decoration: none;
       font-weight: bold;
       padding: 10px 20px;
-      border: none;
       border-radius: 20px;
       transition: all 0.3s ease;
       background: transparent;
+      border: none;
     }
+    .voltar a:hover {
+      background: white !important;
+      color: black !important;
+      transform: scale(1.05);
+    }
+
   </style>
 </head>
 <body class="videos-page">
+
   <!-- Loader -->
   <div class="loader">
     <img src="logo.png" alt="Carregando..." />
   </div>
 
-  <!-- Vídeos -->
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/955534557?h=3c6dd256c9" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/969799600?h=9f29f22bee" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> 
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/930264931?h=5c83946e63" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/912687229?h=7d22a00d64" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/912687048?h=33c19eede0" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/900358898?h=81f1884605" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/899363440?h=43150518f2" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/899363345?h=eaf15da293" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/898601485?h=9e2aad5159" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-  <iframe title="vimeo-player" src="https://player.vimeo.com/video/898477776?h=cae8d9417c" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <!-- Player e botões -->
+  <div class="video-wrapper">
+    <button class="nav-btn" id="prevBtn" aria-label="Vídeo anterior">‹</button>
+    <iframe id="videoPlayer" src="https://player.vimeo.com/video/955534557?h=3c6dd256c9" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="vimeo-player"></iframe>
+    <button class="nav-btn" id="nextBtn" aria-label="Próximo vídeo">›</button>
+  </div>
 
   <!-- Botão voltar -->
   <div class="voltar">
     <a href="index.html">BIXO</a>
   </div>
+
+  <script>
+    // Lista dos URLs dos vídeos
+    const videos = [
+      "https://player.vimeo.com/video/955534557?h=3c6dd256c9",
+      "https://player.vimeo.com/video/969799600?h=9f29f22bee",
+      "https://player.vimeo.com/video/930264931?h=5c83946e63",
+      "https://player.vimeo.com/video/912687229?h=7d22a00d64",
+      "https://player.vimeo.com/video/912687048?h=33c19eede0",
+      "https://player.vimeo.com/video/900358898?h=81f1884605",
+      "https://player.vimeo.com/video/899363440?h=43150518f2",
+      "https://player.vimeo.com/video/899363345?h=eaf15da293",
+      "https://player.vimeo.com/video/898601485?h=9e2aad5159",
+      "https://player.vimeo.com/video/898477776?h=cae8d9417c"
+    ];
+
+    let currentIndex = 0;
+
+    const player = document.getElementById("videoPlayer");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function updateVideo() {
+      player.src = videos[currentIndex];
+    }
+
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+      updateVideo();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % videos.length;
+      updateVideo();
+    });
+
+    // Esconde loader após 3s
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelector('.loader').style.display = 'none';
+      }, 3000);
+    });
+  </script>
 </body>
 </html>
