@@ -93,7 +93,8 @@
   </div>
 
   <script>
-   const videos = [
+  
+const videos = [
   "https://player.vimeo.com/video/955534557?h=3c6dd256c9",
   "https://player.vimeo.com/video/969799600?h=9f29f22bee",
   "https://player.vimeo.com/video/930264931?h=5c83946e63",
@@ -112,13 +113,11 @@ const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
 function updateVideo(index) {
-  // Ajusta índice para circular entre vídeos
   currentIndex = (index + videos.length) % videos.length;
   iframe.src = videos[currentIndex];
   iframe.title = `Vídeo ${currentIndex + 1}`;
 }
 
-// Eventos dos botões
 prevBtn.addEventListener("click", () => {
   updateVideo(currentIndex - 1);
 });
