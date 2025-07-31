@@ -85,21 +85,25 @@
       z-index: 1000;
     }
 
-    .voltar a {
+   .voltar a {
+  all: unset; /* reseta todos os estilos do navegador */
   font-family: Arial, sans-serif;
   font-size: 20px;
-  color: white;              /* letra clara (negativa ao fundo escuro) */
-  text-decoration: none;
+  color: white;
   font-weight: bold;
-  padding: 10px 20px;
-  background: transparent;   /* sem fundo */
-  border: none;              /* sem borda */
-  transition: transform 0.3s ease;
   display: inline-block;
+  text-align: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  text-shadow: none;     /* remove sombra de texto */
+  box-shadow: none;      /* remove sombra de caixa */
+  background: transparent !important;
+  border: none !important;
 }
-
 .voltar a:hover {
-  transform: scale(1.05);    /* zoom suave */
+  transform: scale(1.05);
 }
 
   </style>
