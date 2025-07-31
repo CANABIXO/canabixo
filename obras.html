@@ -105,6 +105,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
 
     .scroll-btn {
@@ -115,13 +116,13 @@
       cursor: pointer;
       font-weight: bold;
       user-select: none;
-      margin: 5px 0;
       width: 40px;
       height: 40px;
       line-height: 40px;
       text-align: center;
       padding: 0;
       transition: color 0.3s ease;
+      margin: 10px 0;
     }
     .scroll-btn:hover {
       color: #0f0;
@@ -132,7 +133,7 @@
       overflow-x: hidden;
       gap: 10px;
       width: 100%;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
     }
 
@@ -143,6 +144,7 @@
       border-radius: 4px;
       transition: transform 0.2s, border-color 0.2s;
       user-select: none;
+      flex-shrink: 0;
     }
     .thumbnail-bar img:hover {
       transform: scale(1.1);
@@ -209,15 +211,15 @@
   </div>
 
   <div class="main-container" aria-label="Galeria de obras">
-    <div class="thumbnail-container">
-      <button id="btnUp" class="scroll-btn" aria-label="Miniaturas anteriores">‹</button>
+    <div class="thumbnail-container" aria-label="Navegação das miniaturas">
+      <button id="btnLeft" class="scroll-btn" aria-label="Miniaturas anteriores">‹</button>
       <div class="thumbnail-bar" id="thumbnailBar">
         <!-- Miniaturas geradas por JS -->
       </div>
-      <button id="btnDown" class="scroll-btn" aria-label="Miniaturas próximas">›</button>
+      <button id="btnRight" class="scroll-btn" aria-label="Miniaturas próximas">›</button>
     </div>
 
-    <div class="big-image-container">
+    <div class="big-image-container" aria-label="Imagem e descrição da obra selecionada">
       <img id="bigImage" class="big-image" src="" alt="Imagem da obra" tabindex="0" />
       <div class="info-box" aria-live="polite" aria-atomic="true">
         <b id="imageTitle"></b>
@@ -259,12 +261,10 @@
   const imageDesc = document.getElementById('imageDesc');
   const modal = document.getElementById('modal');
   const modalImg = document.getElementById('modalImg');
-  const btnUp = document.getElementById('btnUp');
-  const btnDown = document.getElementById('btnDown');
+  const btnLeft = document.getElementById('btnLeft');
+  const btnRight = document.getElementById('btnRight');
 
   let currentIndex = 0;
-  let scrollIndex = 0; // controle scroll miniaturas
-  const visibleThumbnails = 5; // quantas miniaturas mostrar visíveis no scroll
 
   function updateBigImage(index) {
     currentIndex = index;
@@ -281,6 +281,11 @@
       if(i === currentIndex) thumb.classList.add('selected');
       else thumb.classList.remove('selected');
     });
+    // Scroll thumbnail into view if needed
+    const selectedThumb = thumbnailBar.querySelector('img.selected');
+    if (selectedThumb) {
+      selectedThumb.scrollIntoView({behavior: 'smooth', inline: 'center'});
+    }
   }
 
   function createThumbnails() {
@@ -295,21 +300,13 @@
     });
   }
 
-  // Scroll horizontal manual das miniaturas
-  function scrollThumbnails(direction) {
-    const thumbs = thumbnailBar.querySelectorAll('img');
-    const maxIndex = thumbs.length - visibleThumbnails;
-    if(direction === 'left') {
-      scrollIndex = Math.max(scrollIndex - 1, 0);
-    } else {
-      scrollIndex = Math.min(scrollIndex + 1, maxIndex);
-    }
-    const scrollAmount = scrollIndex * (thumbs[0].offsetWidth + 10); // 10px gap
-    thumbnailBar.scrollTo({left: scrollAmount, behavior: 'smooth'});
-  }
-
-  btnUp.addEventListener('click', () => scrollThumbnails('left'));
-  btnDown.addEventListener('click', () => scrollThumbnails('right'));
+  // Scroll buttons for thumbnails
+  btnLeft.addEventListener('click', () => {
+    thumbnailBar.scrollBy({left: -150, behavior: 'smooth'});
+  });
+  btnRight.addEventListener('click', () => {
+    thumbnailBar.scrollBy({left: 150, behavior: 'smooth'});
+  });
 
   bigImage.addEventListener('click', () => {
     modal.style.display = 'flex';
@@ -333,3 +330,24 @@
       modalImg.alt = '';
     }
     if (e.key === 'ArrowLeft') {
+      let newIndex = (currentIndex - 1 + images.length) % images.length;
+      updateBigImage(newIndex);
+    }
+    if (e.key === 'ArrowRight') {
+      let newIndex = (currentIndex + 1) % images.length;
+      updateBigImage(newIndex);
+    }
+  });
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelector('.loader').style.display = 'none';
+    }, 3000);
+  });
+
+  createThumbnails();
+  updateBigImage(0);
+</script>
+
+</body>
+</html>
