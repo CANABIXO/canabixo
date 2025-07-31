@@ -299,3 +299,68 @@ body.videos-page iframe {
   display: block;
   border-radius: 10px;
 }
+
+/* Estilos específicos para a página Downloads */
+body.downloads-page {
+  overflow-y: auto;  /* ativa rolagem vertical normal */
+  padding-top: 60px; /* evita sobreposição do conteúdo com o menu */
+  padding-bottom: 100px; /* espaço para o botão voltar */
+}
+
+body.downloads-page .downloads {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+body.downloads-page .card {
+  background: #111;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+body.downloads-page .card:hover {
+  transform: scale(1.05);
+}
+
+body.downloads-page .card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+body.downloads-page .card h3 {
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  flex-grow: 1;
+}
+
+/* Botão voltar idêntico ao das outras páginas */
+body.downloads-page .voltar a {
+  all: unset;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  user-select: none;
+}
+
+body.downloads-page .voltar a:hover {
+  transform: scale(1.05);
+}
