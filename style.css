@@ -186,16 +186,16 @@ body, html {
 }
 
 .voltar a {
+  color: white;
+  mix-blend-mode: difference; /* inverte a cor em relação ao fundo */
   background: transparent !important;
-  color: white !important;
+  border: none !important;
   transition: transform 0.3s ease;
 }
 
 .voltar a:hover {
   background: transparent !important; /* mantém transparente no hover */
-  color: white !important; /* mantém a cor branca */
   transform: scale(1.05);
-  text-shadow: 0 0 5px white; /* opcional para destacar */
 }
 
 .scroll-wrapper {
