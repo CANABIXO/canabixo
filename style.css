@@ -185,38 +185,16 @@ body, html {
 }
 
 .voltar a {
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 10px 20px;
-  border: 0px solid;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-  background: transparent;
-}
-
-.voltar a {
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-  background: none !important;
-  box-shadow: none !important;
-  text-shadow: none;
+  background: transparent !important;
+  color: white !important;
+  transition: transform 0.3s ease;
 }
 
 .voltar a:hover {
+  background: transparent !important; /* mantém transparente no hover */
+  color: white !important; /* mantém a cor branca */
   transform: scale(1.05);
-  background: none !important;
-  box-shadow: none !important;
-  text-shadow: none;
+  text-shadow: 0 0 5px white; /* opcional para destacar */
 }
 
 .scroll-wrapper {
