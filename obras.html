@@ -52,7 +52,7 @@
 
     .main-container {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 20px;
@@ -63,7 +63,8 @@
     }
 
     .big-image-container {
-      flex: 1 1 60%;
+      width: 100%;
+      max-width: 640px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -72,7 +73,7 @@
 
     .big-image {
       width: 100%;
-      max-height: 100%;
+      max-height: 480px;
       object-fit: contain;
       border-radius: 10px;
       user-select: none;
@@ -93,6 +94,7 @@
       padding: 10px;
       width: 100%;
       box-sizing: border-box;
+      max-width: 640px;
     }
     .info-box b {
       display: block;
@@ -100,41 +102,19 @@
       margin-bottom: 6px;
     }
 
-    .thumbnail-container {
-      flex: 1 1 30%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .scroll-btn {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 40px;
-      cursor: pointer;
-      font-weight: bold;
-      user-select: none;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      padding: 0;
-      transition: color 0.3s ease;
-      margin: 10px 0;
-    }
-    .scroll-btn:hover {
-      color: #0f0;
-    }
-
     .thumbnail-bar {
       display: flex;
-      overflow-x: hidden;
       gap: 10px;
-      width: 100%;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
+      width: 100%;
+      max-width: 640px;
+      overflow-x: auto;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;  /* IE 10+ */
+    }
+    .thumbnail-bar::-webkit-scrollbar {
+      display: none; /* Chrome, Safari e Opera */
     }
 
     .thumbnail-bar img {
@@ -151,8 +131,34 @@
       border-color: white;
     }
     .thumbnail-bar img.selected {
-      border-color: #0f0;
+      border-color: white;
       transform: scale(1.1);
+    }
+
+    .scroll-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .scroll-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+      font-weight: bold;
+      user-select: none;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      padding: 0;
+      transition: color 0.3s ease;
+    }
+    .scroll-btn:hover {
+      color: #0f0;
     }
 
     .voltar {
@@ -211,13 +217,6 @@
   </div>
 
   <div class="main-container" aria-label="Galeria de obras">
-    <div class="thumbnail-container" aria-label="Navegação das miniaturas">
-      <button id="btnLeft" class="scroll-btn" aria-label="Miniaturas anteriores">‹</button>
-      <div class="thumbnail-bar" id="thumbnailBar">
-        <!-- Miniaturas geradas por JS -->
-      </div>
-      <button id="btnRight" class="scroll-btn" aria-label="Miniaturas próximas">›</button>
-    </div>
 
     <div class="big-image-container" aria-label="Imagem e descrição da obra selecionada">
       <img id="bigImage" class="big-image" src="" alt="Imagem da obra" tabindex="0" />
@@ -226,6 +225,17 @@
         <span id="imageDesc"></span>
       </div>
     </div>
+
+    <div>
+      <div class="thumbnail-bar" id="thumbnailBar" aria-label="Miniaturas das obras">
+        <!-- Miniaturas geradas por JS -->
+      </div>
+      <div class="scroll-buttons">
+        <button id="btnLeft" class="scroll-btn" aria-label="Miniaturas anteriores">‹</button>
+        <button id="btnRight" class="scroll-btn" aria-label="Miniaturas próximas">›</button>
+      </div>
+    </div>
+
   </div>
 
   <div class="voltar">
@@ -278,8 +288,7 @@
   function updateSelectedThumbnail() {
     const thumbs = thumbnailBar.querySelectorAll('img');
     thumbs.forEach((thumb, i) => {
-      if(i === currentIndex) thumb.classList.add('selected');
-      else thumb.classList.remove('selected');
+      thumb.classList.toggle('selected', i === currentIndex);
     });
     // Scroll thumbnail into view if needed
     const selectedThumb = thumbnailBar.querySelector('img.selected');
@@ -300,7 +309,6 @@
     });
   }
 
-  // Scroll buttons for thumbnails
   btnLeft.addEventListener('click', () => {
     thumbnailBar.scrollBy({left: -150, behavior: 'smooth'});
   });
