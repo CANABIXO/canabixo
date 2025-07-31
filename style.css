@@ -197,103 +197,58 @@ body, html {
   text-shadow: 0 0 5px white; /* opcional para destacar */
 }
 
-.scroll-wrapper {
-  position: relative;
+/* NOVA SEÇÃO: slider de vídeos */
+.video-slider {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 60px 20px;
-  background: black;
-  overflow: hidden;
+  height: 100vh;
+  padding-top: 10vh;
+  gap: 40px;
+  position: relative;
 }
 
-.scroll-gallery {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 20px 0;
-}
-
-.scroll-gallery::-webkit-scrollbar {
-  display: none;
-}
-
-.scroll-gallery a img {
-  height: 300px;
+/* Iframe único */
+.video-slider iframe {
+  max-width: 90%;
+  width: 640px;
+  height: 360px;
+  border: none;
   border-radius: 10px;
   transition: transform 0.3s ease;
+  display: block;
+  margin: 0 auto;
 }
 
-.scroll-gallery a:hover img {
-  transform: scale(1.05);
+.video-slider iframe:hover {
+  transform: scale(1.03);
 }
 
-/* Botões laterais */
-.scroll-btn {
+/* Botões laterais do slider de vídeo */
+.video-slider .scroll-btn {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 32px;
+  top: 10vh; /* um pouco acima do centro */
+  font-size: 48px;
+  background: none !important;
   color: white;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-  z-index: 100;
+  z-index: 101;
   border-radius: 50%;
   transition: background 0.3s ease;
+  user-select: none;
+}
+
+.video-slider .scroll-btn:hover {
   background: none !important;
   box-shadow: none !important;
 }
 
-.scroll-btn:hover {
-  background: none !important;
-  box-shadow: none !important;
+.video-slider .scroll-btn.left {
+  left: 20px;
 }
 
-
-.scroll-btn.left {
-  left: 10px;
+.video-slider .scroll-btn.right {
+  right: 20px;
 }
-
-.scroll-btn.right {
-  right: 10px;
-}
-.video-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 60px;
-  padding: 80px 20px;
-}
-
-.video-container iframe {
-  width: 500px;
-  height: 281px;
-  border: none;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-}
-
-.video-container iframe:hover {
-  transform: scale(1.03);
-}
-
-body.videos-page {
-  background: black;
-  padding-top: 60px;
-  text-align: center;
-  overflow-y: auto;  /* ativa rolagem vertical */
-  min-height: 100vh;  /* altura mínima da tela */
-  margin: 0;
-}
-
-body.videos-page iframe {
-  max-width: 90%;
-  width: 640px;
-  height: 360px;
-  margin: 20px auto;
-  display: block;
-  border-radius: 10px;
-}
-
