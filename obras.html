@@ -18,7 +18,6 @@
       font-family: Arial, sans-serif;
     }
 
-    /* Loader giratório */
     .loader {
       position: fixed;
       top: 0; left: 0;
@@ -50,7 +49,6 @@
       }
     }
 
-    /* Container da galeria */
     .gallery-container {
       position: relative;
       width: 640px;
@@ -59,10 +57,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 80px;
+      margin-bottom: 20px;
     }
 
-    /* Imagem principal */
     .gallery-image {
       width: 100%;
       height: 100%;
@@ -77,7 +74,6 @@
       transform: scale(1.05);
     }
 
-    /* Botões de navegação */
     .scroll-btn {
       position: absolute;
       top: 50%;
@@ -94,17 +90,14 @@
       z-index: 10;
     }
 
-     
-
     .scroll-btn.left {
-      left: -60px; /* lado esquerdo, fora da imagem */
+      left: -60px;
     }
 
     .scroll-btn.right {
-      right: -60px; /* lado direito, fora da imagem */
+      right: -60px;
     }
 
-    /* Botão voltar idêntico aos vídeos e músicas */
     .voltar {
       position: fixed;
       bottom: 30px;
@@ -134,7 +127,6 @@
       transform: scale(1.05);
     }
 
-    /* Modal full screen para imagem */
     .modal {
       display: none;
       position: fixed;
@@ -156,52 +148,111 @@
       user-select: none;
       pointer-events: none;
     }
+
+    .thumbnail-bar {
+      display: flex;
+      overflow-x: auto;
+      padding: 10px;
+      max-width: 90vw;
+      margin-bottom: 20px;
+    }
+
+    .thumbnail-bar img {
+      height: 60px;
+      margin-right: 10px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s, border 0.2s;
+    }
+
+    .thumbnail-bar img:hover {
+      transform: scale(1.05);
+      border: 2px solid white;
+    }
+
+    .info-box {
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      text-align: left;
+      margin-top: 10px;
+      padding: 10px;
+      max-width: 640px;
+    }
+
+    .info-box b {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Loader -->
   <div class="loader">
     <img src="logo.png" alt="Carregando..." />
   </div>
 
   <div class="gallery-container" aria-label="Galeria de obras">
     <button class="scroll-btn left" id="prevBtn" aria-label="Imagem anterior">‹</button>
-    <img
-      id="galleryImage"
-      class="gallery-image"
-      src="obra1.jpg"
-      alt="Obra 1"
-      tabindex="0"
-      role="img"
-    />
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <img
+        id="galleryImage"
+        class="gallery-image"
+        src="obra1.jpg"
+        alt="Obra 1"
+        tabindex="0"
+        role="img"
+      />
+      <div class="info-box">
+        <b id="imageTitle">Título da Obra 1</b>
+        <span id="imageDesc">Descrição da obra 1 aqui.</span>
+      </div>
+    </div>
     <button class="scroll-btn right" id="nextBtn" aria-label="Próxima imagem">›</button>
   </div>
 
-  <!-- Botão voltar -->
+  <div class="thumbnail-bar">
+    <img src="obra1.jpg" onclick="showImage(0)" />
+    <img src="obra2.jpg" onclick="showImage(1)" />
+    <img src="obra3.jpg" onclick="showImage(2)" />
+    <img src="obra4.jpg" onclick="showImage(3)" />
+    <img src="obra5.jpg" onclick="showImage(4)" />
+    <img src="obra6.jpg" onclick="showImage(5)" />
+    <img src="obra7.jpg" onclick="showImage(6)" />
+    <img src="obra8.jpg" onclick="showImage(7)" />
+    <img src="obra9.jpg" onclick="showImage(8)" />
+    <img src="obra10.jpg" onclick="showImage(9)" />
+    <img src="obra11.jpg" onclick="showImage(10)" />
+    <img src="obra12.jpg" onclick="showImage(11)" />
+  </div>
+
   <div class="voltar">
     <a href="index.html">BIXO</a>
   </div>
 
-  <!-- Modal fullscreen -->
   <div id="modal" class="modal" aria-hidden="true">
     <img id="modalImg" src="" alt="Imagem ampliada da obra" />
   </div>
 
   <script>
     const images = [
-      "obra1.jpg",
-      "obra2.jpg",
-      "obra3.jpg",
-      "obra4.jpg",
-      "obra5.jpg",
-      "obra6.jpg",
-      "obra7.jpg",
-      "obra8.jpg",
-      "obra9.jpg",
-      "obra10.jpg",
-      "obra11.jpg",
-      "obra12.jpg"
+      "obra1.jpg", "obra2.jpg", "obra3.jpg", "obra4.jpg", "obra5.jpg", "obra6.jpg",
+      "obra7.jpg", "obra8.jpg", "obra9.jpg", "obra10.jpg", "obra11.jpg", "obra12.jpg"
+    ];
+
+    const titles = [
+      "Título da Obra 1", "Título da Obra 2", "Título da Obra 3", "Título da Obra 4",
+      "Título da Obra 5", "Título da Obra 6", "Título da Obra 7", "Título da Obra 8",
+      "Título da Obra 9", "Título da Obra 10", "Título da Obra 11", "Título da Obra 12"
+    ];
+
+    const descriptions = [
+      "Descrição da obra 1 aqui.", "Descrição da obra 2 aqui.", "Descrição da obra 3 aqui.",
+      "Descrição da obra 4 aqui.", "Descrição da obra 5 aqui.", "Descrição da obra 6 aqui.",
+      "Descrição da obra 7 aqui.", "Descrição da obra 8 aqui.", "Descrição da obra 9 aqui.",
+      "Descrição da obra 10 aqui.", "Descrição da obra 11 aqui.", "Descrição da obra 12 aqui."
     ];
 
     let currentIndex = 0;
@@ -216,6 +267,8 @@
       galleryImage.src = images[currentIndex];
       galleryImage.alt = `Obra ${currentIndex + 1}`;
       galleryImage.setAttribute('aria-label', `Obra ${currentIndex + 1}`);
+      document.getElementById('imageTitle').textContent = titles[currentIndex];
+      document.getElementById('imageDesc').textContent = descriptions[currentIndex];
     }
 
     prevBtn.addEventListener('click', () => {
@@ -226,7 +279,6 @@
       showImage(currentIndex + 1);
     });
 
-    // Abrir modal ao clicar na imagem
     galleryImage.addEventListener('click', () => {
       modal.style.display = 'flex';
       modal.setAttribute('aria-hidden', 'false');
@@ -234,7 +286,6 @@
       modalImg.alt = `Obra ${currentIndex + 1} ampliada`;
     });
 
-    // Fechar modal ao clicar fora da imagem
     modal.addEventListener('click', () => {
       modal.style.display = 'none';
       modal.setAttribute('aria-hidden', 'true');
@@ -242,7 +293,6 @@
       modalImg.alt = '';
     });
 
-    // Fechar modal com ESC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.style.display === 'flex') {
         modal.style.display = 'none';
@@ -250,7 +300,6 @@
         modalImg.src = '';
         modalImg.alt = '';
       }
-      // Permitir navegação por setas mesmo com modal aberto
       if (e.key === 'ArrowLeft') {
         showImage(currentIndex - 1);
       }
@@ -259,15 +308,13 @@
       }
     });
 
-    // Inicializa com primeira imagem
-    showImage(0);
-
-    // Loader desaparece após 3s
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.querySelector('.loader').style.display = 'none';
       }, 3000);
     });
+
+    showImage(0);
   </script>
 
 </body>
