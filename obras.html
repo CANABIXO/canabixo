@@ -60,7 +60,6 @@
       width: 100%;
       height: 640px;
       margin-bottom: 20px;
-      /* garante que fique acima do botão voltar */
       z-index: 10;
     }
 
@@ -91,7 +90,7 @@
       color: white;
       font-family: Arial, sans-serif;
       font-size: 14px;
-      text-align: center;  /* CENTRALIZADO */
+      text-align: center;
       margin-top: 10px;
       padding: 10px;
       width: 100%;
@@ -111,9 +110,10 @@
       align-items: center;
       width: 100%;
       max-width: 640px;
-      overflow-x: hidden; /* ocultar barra */
-      white-space: nowrap; /* para rolagem infinita horizontal */
+      overflow-x: hidden;
+      white-space: nowrap;
       user-select: none;
+      scroll-behavior: smooth;
     }
 
     .thumbnail-bar img {
@@ -127,16 +127,14 @@
     }
     .thumbnail-bar img:hover {
       transform: scale(1.1);
-      /* sem borda */
     }
     .thumbnail-bar img.selected {
-      /* só zoom, sem borda */
       transform: scale(1.1);
     }
 
     .scroll-buttons {
       display: flex;
-      justify-content: space-between; /* um botão em cada canto */
+      justify-content: space-between;
       width: 100%;
       max-width: 640px;
       margin-top: 10px;
@@ -156,10 +154,9 @@
       line-height: 40px;
       text-align: center;
       padding: 0;
-      transition: none; /* sem efeito hover */
+      transition: none;
     }
     .scroll-btn:hover {
-      /* sem efeito */
       color: white;
     }
 
@@ -244,10 +241,6 @@
     <a href="index.html">BIXO</a>
   </div>
 
-  <div id="modal" class="modal" aria-hidden="true">
-    <img id="modalImg" src="" alt="Imagem ampliada da obra" />
-  </div>
-
 <script>
   const images = [
     "obra1.jpg","obra2.jpg","obra3.jpg","obra4.jpg","obra5.jpg","obra6.jpg",
@@ -278,9 +271,9 @@
 
   let currentIndex = 0;
 
-  // Para rolagem infinita, duplicamos as miniaturas dentro da barra
+  // Criar miniaturas duplicadas para rolagem infinita
   function createThumbnails() {
-    for(let loop=0; loop<2; loop++) { // duplicar duas vezes
+    for(let loop=0; loop<2; loop++) {
       images.forEach((src, i) => {
         const img = document.createElement('img');
         img.src = src;
@@ -305,30 +298,26 @@
   function updateSelectedThumbnail() {
     const thumbs = thumbnailBar.querySelectorAll('img');
     thumbs.forEach((thumb, i) => {
-      // Seleciona a miniatura correta considerando a duplicação
       thumb.classList.toggle('selected', i % images.length === currentIndex);
     });
   }
 
   btnLeft.addEventListener('click', () => {
-    // Scroll horizontal suavemente para a esquerda
-    thumbnailBar.scrollBy({left: -150, behavior: 'smooth'});
-  });
-  btnRight.addEventListener('click', () => {
-    // Scroll horizontal suavemente para a direita
-    thumbnailBar.scrollBy({left: 150, behavior: 'smooth'});
+    thumbnailBar.scrollBy({left: -120, behavior: 'smooth'});
   });
 
-  // Loop infinito da rolagem horizontal automática
+  btnRight.addEventListener('click', () => {
+    thumbnailBar.scrollBy({left: 120, behavior: 'smooth'});
+  });
+
+  // Rolagem automática lenta e infinita
   function autoScroll() {
     if (thumbnailBar.scrollLeft >= thumbnailBar.scrollWidth / 2) {
-      // Se passou da metade, volta para o início
       thumbnailBar.scrollLeft -= thumbnailBar.scrollWidth / 2;
     } else if (thumbnailBar.scrollLeft <= 0) {
-      // Se passou para trás do início, pula para a metade
       thumbnailBar.scrollLeft += thumbnailBar.scrollWidth / 2;
     }
-    thumbnailBar.scrollLeft += 1; // velocidade de rolagem
+    thumbnailBar.scrollLeft += 0.3; // velocidade mais lenta
     requestAnimationFrame(autoScroll);
   }
 
@@ -372,6 +361,7 @@
   createThumbnails();
   updateBigImage(0);
   autoScroll();
+
 </script>
 
 </body>
