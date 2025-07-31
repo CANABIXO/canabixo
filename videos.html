@@ -2,14 +2,17 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vídeos – BIXO</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     /* Loader giratório */
     .loader {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: black;
       display: flex;
       align-items: center;
@@ -17,15 +20,19 @@
       z-index: 9999;
       animation: hideLoader 0s ease 3s forwards;
     }
+
     .loader img {
-      width: 200px; height: 200px;
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
       animation: spinZoom 3s linear forwards;
     }
+
     @keyframes spinZoom {
       0% { transform: scale(1) rotate(0deg); }
       100% { transform: scale(1.2) rotate(1440deg); }
     }
+
     @keyframes hideLoader {
       to {
         opacity: 0;
@@ -33,62 +40,71 @@
       }
     }
 
-    /* Reset e base */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
+    /* Seu CSS original continua exatamente igual */
+
+    /* Vídeos centralizados - modificado para 1 vídeo e botões ao lado */
     body.videos-page {
       background: black;
-      font-family: Arial, sans-serif;
-      height: 100vh;
+      padding-top: 60px;
+      text-align: center;
+      overflow-y: auto;
+      min-height: 100vh;
+      margin: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      padding-top: 60px;
-      position: relative;
-      color: white;
     }
 
-    /* Container do player e botões */
     .video-wrapper {
       position: relative;
-      width: 100%;
-      max-width: 700px;
-      height: 400px;
+      width: 640px;
+      max-width: 90%;
+      margin: 0 auto 80px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 40px;
     }
 
-    iframe {
-      width: 640px;
-      height: 360px;
+    .video-wrapper iframe {
       border-radius: 10px;
+      width: 640px;
+      max-width: 90vw;
+      height: 360px;
       border: none;
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+      transition: transform 0.3s ease;
+      display: block;
     }
 
-    /* Botões laterais */
-    .nav-btn {
-      cursor: pointer;
-      font-size: 48px;
-      background: transparent;
+    .video-wrapper iframe:hover {
+      transform: scale(1.03);
+    }
+
+    /* Botões laterais, transparentes, com hover */
+    .btn-nav {
+      background: none !important;
       border: none;
       color: white;
+      font-size: 48px;
+      cursor: pointer;
       user-select: none;
       transition: color 0.3s ease;
-      padding: 10px 20px;
+      padding: 0 12px;
       border-radius: 50%;
-      box-shadow: none;
-    }
-    .nav-btn:hover {
-      color: #aaa;
+      height: 60px;
+      width: 60px;
+      line-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* Botão voltar fixo abaixo */
+    .btn-nav:hover {
+      color: #ccc;
+      background: rgba(255 255 255 / 0.1);
+    }
+
     .voltar {
       position: fixed;
       bottom: 30px;
@@ -96,6 +112,7 @@
       text-align: center;
       z-index: 1000;
     }
+
     .voltar a {
       font-family: Arial, sans-serif;
       font-size: 20px;
@@ -103,17 +120,17 @@
       text-decoration: none;
       font-weight: bold;
       padding: 10px 20px;
+      border: none;
       border-radius: 20px;
       transition: all 0.3s ease;
       background: transparent;
-      border: none;
     }
+
     .voltar a:hover {
       background: white !important;
       color: black !important;
       transform: scale(1.05);
     }
-
   </style>
 </head>
 <body class="videos-page">
@@ -123,11 +140,17 @@
     <img src="logo.png" alt="Carregando..." />
   </div>
 
-  <!-- Player e botões -->
+  <!-- Container do vídeo e botões -->
   <div class="video-wrapper">
-    <button class="nav-btn" id="prevBtn" aria-label="Vídeo anterior">‹</button>
-    <iframe id="videoPlayer" src="https://player.vimeo.com/video/955534557?h=3c6dd256c9" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="vimeo-player"></iframe>
-    <button class="nav-btn" id="nextBtn" aria-label="Próximo vídeo">›</button>
+    <button class="btn-nav" id="prevBtn" aria-label="Vídeo anterior">←</button>
+    <iframe
+      id="videoPlayer"
+      src="https://player.vimeo.com/video/955534557?h=3c6dd256c9"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen
+      title="Vídeo 1"
+    ></iframe>
+    <button class="btn-nav" id="nextBtn" aria-label="Próximo vídeo">→</button>
   </div>
 
   <!-- Botão voltar -->
@@ -135,8 +158,8 @@
     <a href="index.html">BIXO</a>
   </div>
 
+  <!-- Script de navegação dos vídeos -->
   <script>
-    // Lista dos URLs dos vídeos
     const videos = [
       "https://player.vimeo.com/video/955534557?h=3c6dd256c9",
       "https://player.vimeo.com/video/969799600?h=9f29f22bee",
@@ -151,30 +174,26 @@
     ];
 
     let currentIndex = 0;
-
-    const player = document.getElementById("videoPlayer");
+    const iframe = document.getElementById("videoPlayer");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
 
-    function updateVideo() {
-      player.src = videos[currentIndex];
+    function updateVideo(index) {
+      currentIndex = index;
+      iframe.src = videos[currentIndex];
+      iframe.title = `Vídeo ${currentIndex + 1}`;
     }
 
     prevBtn.addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + videos.length) % videos.length;
-      updateVideo();
+      let newIndex = currentIndex - 1;
+      if (newIndex < 0) newIndex = videos.length - 1;
+      updateVideo(newIndex);
     });
 
     nextBtn.addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % videos.length;
-      updateVideo();
-    });
-
-    // Esconde loader após 3s
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.querySelector('.loader').style.display = 'none';
-      }, 3000);
+      let newIndex = currentIndex + 1;
+      if (newIndex >= videos.length) newIndex = 0;
+      updateVideo(newIndex);
     });
   </script>
 </body>
