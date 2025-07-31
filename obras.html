@@ -60,6 +60,8 @@
       width: 100%;
       height: 640px;
       margin-bottom: 20px;
+      /* garante que fique acima do botão voltar */
+      z-index: 10;
     }
 
     .big-image-container {
@@ -109,29 +111,26 @@
       align-items: center;
       width: 100%;
       max-width: 640px;
-      overflow-x: auto;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none;  /* IE 10+ */
-    }
-    .thumbnail-bar::-webkit-scrollbar {
-      display: none; /* Chrome, Safari e Opera */
+      overflow-x: hidden; /* ocultar barra */
+      white-space: nowrap; /* para rolagem infinita horizontal */
+      user-select: none;
     }
 
     .thumbnail-bar img {
       height: 60px;
       cursor: pointer;
-      border: 2px solid transparent;
+      border: none;
       border-radius: 4px;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: transform 0.2s;
       user-select: none;
       flex-shrink: 0;
     }
     .thumbnail-bar img:hover {
       transform: scale(1.1);
-      border-color: white;
+      /* sem borda */
     }
     .thumbnail-bar img.selected {
-      border-color: white;
+      /* só zoom, sem borda */
       transform: scale(1.1);
     }
 
@@ -141,6 +140,7 @@
       width: 100%;
       max-width: 640px;
       margin-top: 10px;
+      user-select: none;
     }
 
     .scroll-btn {
@@ -156,10 +156,11 @@
       line-height: 40px;
       text-align: center;
       padding: 0;
-      transition: color 0.3s ease;
+      transition: none; /* sem efeito hover */
     }
     .scroll-btn:hover {
-      color: #0f0;
+      /* sem efeito */
+      color: white;
     }
 
     .voltar {
@@ -277,6 +278,21 @@
 
   let currentIndex = 0;
 
+  // Para rolagem infinita, duplicamos as miniaturas dentro da barra
+  function createThumbnails() {
+    for(let loop=0; loop<2; loop++) { // duplicar duas vezes
+      images.forEach((src, i) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = titles[i];
+        img.tabIndex = 0;
+        img.onclick = () => updateBigImage(i);
+        img.onkeydown = e => { if(e.key === 'Enter' || e.key === ' ') { updateBigImage(i); e.preventDefault(); } };
+        thumbnailBar.appendChild(img);
+      });
+    }
+  }
+
   function updateBigImage(index) {
     currentIndex = index;
     bigImage.src = images[index];
@@ -289,33 +305,32 @@
   function updateSelectedThumbnail() {
     const thumbs = thumbnailBar.querySelectorAll('img');
     thumbs.forEach((thumb, i) => {
-      thumb.classList.toggle('selected', i === currentIndex);
-    });
-    // Scroll thumbnail into view if needed
-    const selectedThumb = thumbnailBar.querySelector('img.selected');
-    if (selectedThumb) {
-      selectedThumb.scrollIntoView({behavior: 'smooth', inline: 'center'});
-    }
-  }
-
-  function createThumbnails() {
-    images.forEach((src, i) => {
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = titles[i];
-      img.tabIndex = 0;
-      img.onclick = () => updateBigImage(i);
-      img.onkeydown = e => { if(e.key === 'Enter' || e.key === ' ') { updateBigImage(i); e.preventDefault(); } };
-      thumbnailBar.appendChild(img);
+      // Seleciona a miniatura correta considerando a duplicação
+      thumb.classList.toggle('selected', i % images.length === currentIndex);
     });
   }
 
   btnLeft.addEventListener('click', () => {
+    // Scroll horizontal suavemente para a esquerda
     thumbnailBar.scrollBy({left: -150, behavior: 'smooth'});
   });
   btnRight.addEventListener('click', () => {
+    // Scroll horizontal suavemente para a direita
     thumbnailBar.scrollBy({left: 150, behavior: 'smooth'});
   });
+
+  // Loop infinito da rolagem horizontal automática
+  function autoScroll() {
+    if (thumbnailBar.scrollLeft >= thumbnailBar.scrollWidth / 2) {
+      // Se passou da metade, volta para o início
+      thumbnailBar.scrollLeft -= thumbnailBar.scrollWidth / 2;
+    } else if (thumbnailBar.scrollLeft <= 0) {
+      // Se passou para trás do início, pula para a metade
+      thumbnailBar.scrollLeft += thumbnailBar.scrollWidth / 2;
+    }
+    thumbnailBar.scrollLeft += 1; // velocidade de rolagem
+    requestAnimationFrame(autoScroll);
+  }
 
   bigImage.addEventListener('click', () => {
     modal.style.display = 'flex';
@@ -356,6 +371,7 @@
 
   createThumbnails();
   updateBigImage(0);
+  autoScroll();
 </script>
 
 </body>
