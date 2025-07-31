@@ -78,14 +78,14 @@
       transform: scale(1.03);
     }
 
-    /* Botões de navegação minimalistas */
+    /* Flechas minimalistas */
     .btn-nav {
       all: unset;
       font-size: 32px;
       color: white;
       cursor: pointer;
       user-select: none;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, color 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -114,12 +114,11 @@
       padding: 10px 20px;
       background: transparent;
       border: none;
-      transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+      transition: transform 0.3s ease;
+      display: inline-block;
     }
 
     .voltar a:hover {
-      background: white !important;
-      color: black !important;
       transform: scale(1.05);
     }
   </style>
