@@ -4,19 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Obras – BIXO</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       margin: 0;
       background: black;
+      font-family: Arial, sans-serif;
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       height: 100vh;
       overflow: hidden;
-      font-family: Arial, sans-serif;
-      color: white;
     }
 
     .loader {
@@ -51,25 +49,15 @@
     }
 
     .main-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
       max-width: 90vw;
-      width: 100%;
-      height: 640px;
-      margin-bottom: 20px;
-      z-index: 10;
-    }
-
-    .big-image-container {
-      width: 100%;
-      max-width: 640px;
+      width: 640px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+      user-select: none;
     }
 
     .big-image {
@@ -77,7 +65,6 @@
       max-height: 480px;
       object-fit: contain;
       border-radius: 10px;
-      user-select: none;
       cursor: zoom-in;
       transition: transform 0.3s ease;
     }
@@ -86,44 +73,43 @@
     }
 
     .info-box {
-      background: black;
-      color: white;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      text-align: center;
-      margin-top: 10px;
-      padding: 10px;
       width: 100%;
-      box-sizing: border-box;
-      max-width: 640px;
+      text-align: center;
+      font-size: 14px;
+      padding: 10px 0;
     }
     .info-box b {
       display: block;
-      font-weight: bold;
       margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    .thumbnail-bar-container {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      overflow: hidden;
     }
 
     .thumbnail-bar {
       display: flex;
       gap: 10px;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      max-width: 640px;
-      overflow-x: hidden;
-      white-space: nowrap;
-      user-select: none;
+      overflow-x: scroll;
       scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+    }
+    .thumbnail-bar::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
     }
 
     .thumbnail-bar img {
       height: 60px;
-      cursor: pointer;
-      border: none;
-      border-radius: 4px;
-      transition: transform 0.2s;
-      user-select: none;
       flex-shrink: 0;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: transform 0.2s ease;
+      border: none;
     }
     .thumbnail-bar img:hover {
       transform: scale(1.1);
@@ -133,12 +119,11 @@
     }
 
     .scroll-buttons {
-      display: flex;
-      justify-content: space-between;
       width: 100%;
       max-width: 640px;
-      margin-top: 10px;
-      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
     }
 
     .scroll-btn {
@@ -147,7 +132,6 @@
       color: white;
       font-size: 40px;
       cursor: pointer;
-      font-weight: bold;
       user-select: none;
       width: 40px;
       height: 40px;
@@ -166,22 +150,22 @@
       width: 100%;
       text-align: center;
       z-index: 1000;
+      user-select: none;
     }
+
     .voltar a {
       all: unset;
       font-family: Arial, sans-serif;
       font-size: 20px;
       color: white;
       font-weight: bold;
-      display: inline-block;
-      text-align: center;
-      padding: 10px 20px;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      padding: 10px 20px;
       text-decoration: none;
       background: transparent !important;
       border: none !important;
-      user-select: none;
+      display: inline-block;
+      transition: transform 0.3s ease;
     }
     .voltar a:hover {
       transform: scale(1.05);
@@ -217,28 +201,32 @@
 
   <div class="main-container" aria-label="Galeria de obras">
 
-    <div class="big-image-container" aria-label="Imagem e descrição da obra selecionada">
-      <img id="bigImage" class="big-image" src="" alt="Imagem da obra" tabindex="0" />
-      <div class="info-box" aria-live="polite" aria-atomic="true">
-        <b id="imageTitle"></b>
-        <span id="imageDesc"></span>
+    <img id="bigImage" class="big-image" src="" alt="Imagem da obra" tabindex="0" />
+
+    <div class="info-box" aria-live="polite" aria-atomic="true">
+      <b id="imageTitle"></b>
+      <span id="imageDesc"></span>
+    </div>
+
+    <div class="thumbnail-bar-container" aria-label="Miniaturas das obras">
+      <div class="thumbnail-bar" id="thumbnailBar">
+        <!-- Miniaturas criadas via JS -->
       </div>
     </div>
 
-    <div>
-      <div class="thumbnail-bar" id="thumbnailBar" aria-label="Miniaturas das obras">
-        <!-- Miniaturas geradas por JS -->
-      </div>
-      <div class="scroll-buttons">
-        <button id="btnLeft" class="scroll-btn" aria-label="Miniaturas anteriores">‹</button>
-        <button id="btnRight" class="scroll-btn" aria-label="Miniaturas próximas">›</button>
-      </div>
+    <div class="scroll-buttons">
+      <button id="btnLeft" class="scroll-btn" aria-label="Miniaturas anteriores">‹</button>
+      <button id="btnRight" class="scroll-btn" aria-label="Miniaturas próximas">›</button>
     </div>
 
   </div>
 
   <div class="voltar">
     <a href="index.html">BIXO</a>
+  </div>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <img id="modalImg" src="" alt="Imagem ampliada da obra" />
   </div>
 
 <script>
@@ -271,19 +259,17 @@
 
   let currentIndex = 0;
 
-  // Criar miniaturas duplicadas para rolagem infinita
+  // Cria miniaturas simples, sem duplicar
   function createThumbnails() {
-    for(let loop=0; loop<2; loop++) {
-      images.forEach((src, i) => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = titles[i];
-        img.tabIndex = 0;
-        img.onclick = () => updateBigImage(i);
-        img.onkeydown = e => { if(e.key === 'Enter' || e.key === ' ') { updateBigImage(i); e.preventDefault(); } };
-        thumbnailBar.appendChild(img);
-      });
-    }
+    images.forEach((src, i) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = titles[i];
+      img.tabIndex = 0;
+      img.onclick = () => updateBigImage(i);
+      img.onkeydown = e => { if(e.key === 'Enter' || e.key === ' ') { updateBigImage(i); e.preventDefault(); } };
+      thumbnailBar.appendChild(img);
+    });
   }
 
   function updateBigImage(index) {
@@ -298,7 +284,7 @@
   function updateSelectedThumbnail() {
     const thumbs = thumbnailBar.querySelectorAll('img');
     thumbs.forEach((thumb, i) => {
-      thumb.classList.toggle('selected', i % images.length === currentIndex);
+      thumb.classList.toggle('selected', i === currentIndex);
     });
   }
 
@@ -310,14 +296,13 @@
     thumbnailBar.scrollBy({left: 120, behavior: 'smooth'});
   });
 
-  // Rolagem automática lenta e infinita
+  // Rolagem automática lenta e suave (sem duplicação, retorna no início)
   function autoScroll() {
-    if (thumbnailBar.scrollLeft >= thumbnailBar.scrollWidth / 2) {
-      thumbnailBar.scrollLeft -= thumbnailBar.scrollWidth / 2;
-    } else if (thumbnailBar.scrollLeft <= 0) {
-      thumbnailBar.scrollLeft += thumbnailBar.scrollWidth / 2;
+    if (thumbnailBar.scrollLeft + thumbnailBar.clientWidth >= thumbnailBar.scrollWidth) {
+      thumbnailBar.scrollTo({left: 0});
+    } else {
+      thumbnailBar.scrollLeft += 0.3; // velocidade lenta
     }
-    thumbnailBar.scrollLeft += 0.3; // velocidade mais lenta
     requestAnimationFrame(autoScroll);
   }
 
