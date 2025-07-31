@@ -1,3 +1,6 @@
+<!-- Os códigos completos atualizados para todas as páginas foram preparados. A seguir, eles virão separados por arquivos. -->
+
+<!-- 1. style.css -->
 /* Loader giratório */
 .loader {
   position: fixed;
@@ -5,7 +8,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: black; /* cor de fundo durante o loader */
+  background: black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,32 +23,21 @@
   animation: spinZoom 5s linear forwards;
 }
 
-/* Gira e dá zoom */
 @keyframes spinZoom {
-  0% {
-    transform: scale(1) rotate(0deg);
-  }
-  100% {
-    transform: scale(1.3) rotate(1440deg); /* 4 voltas em 5s */
-  }
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.3) rotate(1440deg); }
 }
 
-/* Esconde o loader após 5s */
 @keyframes hideLoader {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
+  to { opacity: 0; visibility: hidden; }
 }
 
-/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Fundo do site ocupa 100% da tela e impede rolagem */
 body, html {
   width: 100%;
   height: 100%;
@@ -54,7 +46,11 @@ body, html {
   position: relative;
 }
 
-/* Overlay preto semitransparente */
+body.downloads-page {
+  overflow-y: auto;
+  height: auto;
+}
+
 .overlay {
   position: fixed;
   top: 0; left: 0;
@@ -65,7 +61,6 @@ body, html {
   pointer-events: none;
 }
 
-/* Slideshow de fundo */
 .slideshow {
   list-style: none;
   position: fixed;
@@ -94,7 +89,6 @@ body, html {
   object-fit: cover;
 }
 
-/* Fade in/out da imagem */
 @keyframes fadeinout {
   0% { opacity: 0; }
   5% { opacity: 1; }
@@ -103,7 +97,6 @@ body, html {
   100% { opacity: 0; }
 }
 
-/* Menu superior */
 .menu {
   position: absolute;
   top: 40px;
@@ -115,11 +108,11 @@ body, html {
 .menu a {
   color: white;
   text-decoration: none;
-  font-size: 15px; /* tamanho base: desktop */
+  font-size: 15px;
   font-weight: bold;
   font-family: Arial, sans-serif;
   text-transform: uppercase;
-  margin: 0 100px; /* espaçamento base: desktop */
+  margin: 0 100px;
   transition: transform 0.3s ease;
   display: inline-block;
   transform: scale(1);
@@ -130,7 +123,6 @@ body, html {
   transform: scale(1.1);
 }
 
-/* Tablets (768px ou menor) */
 @media (max-width: 768px) {
   .menu a {
     font-size: 35px;
@@ -138,7 +130,6 @@ body, html {
   }
 }
 
-/* Celulares (480px ou menor) */
 @media (max-width: 480px) {
   .menu a {
     font-size: 25px;
@@ -146,13 +137,12 @@ body, html {
   }
 }
 
-/* Texto centralizado (BIXO) */
 .center-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 150px; /* tamanho padrão para desktop */
+  font-size: 150px;
   font-weight: 500;
   font-family: 'Arial Black', Arial, sans-serif;
   color: white;
@@ -162,14 +152,12 @@ body, html {
   text-align: center;
 }
 
-/* Tablets (768px ou menor) */
 @media (max-width: 400px) {
   .center-text {
     font-size: 30px;
   }
 }
 
-/* Celulares (480px ou menor) */
 @media (max-width: 280px) {
   .center-text {
     font-size: 20px;
@@ -187,17 +175,32 @@ body, html {
 .voltar a {
   background: transparent !important;
   color: white !important;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
   transition: transform 0.3s ease;
 }
 
 .voltar a:hover {
-  background: transparent !important; /* mantém transparente no hover */
-  color: white !important; /* mantém a cor branca */
   transform: scale(1.05);
-  text-shadow: 0 0 5px white; /* opcional para destacar */
+  text-shadow: 0 0 5px white;
 }
 
-/* NOVA SEÇÃO: slider de vídeos */
+.scroll-btn, .modal-btn, .btn-nav {
+  font-size: 48px;
+  background: none !important;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  user-select: none;
+}
+
+.scroll-btn:hover, .modal-btn:hover, .btn-nav:hover {
+  transform: scale(1.1);
+  color: #ccc;
+}
+
 .video-slider {
   display: flex;
   align-items: flex-start;
@@ -208,7 +211,6 @@ body, html {
   position: relative;
 }
 
-/* Iframe único */
 .video-slider iframe {
   max-width: 90%;
   width: 640px;
@@ -224,10 +226,9 @@ body, html {
   transform: scale(1.03);
 }
 
-/* Botões laterais do slider de vídeo */
 .video-slider .scroll-btn {
   position: absolute;
-  top: 10vh; /* um pouco acima do centro */
+  top: 10vh;
   font-size: 48px;
   background: none !important;
   color: white;
