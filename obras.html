@@ -2,25 +2,28 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Obras – BIXO</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      margin: 0;
+    body, html {
+      margin: 0; padding: 0;
       background: black;
-      overflow: hidden;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: 100vh;
+      justify-content: center;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: white;
     }
 
     /* Loader giratório */
     .loader {
       position: fixed;
       top: 0; left: 0;
-      width: 100%; height: 100%;
+      width: 100vw; height: 100vh;
       background: black;
       display: flex;
       align-items: center;
@@ -28,115 +31,138 @@
       z-index: 9999;
       animation: hideLoader 0s ease 3s forwards;
     }
-
     .loader img {
-      width: 200px;
-      height: 200px;
+      width: 200px; height: 200px;
       border-radius: 50%;
       animation: spinZoom 3s linear forwards;
     }
-
     @keyframes spinZoom {
       0% { transform: scale(1) rotate(0deg); }
       100% { transform: scale(1.2) rotate(1440deg); }
     }
-
     @keyframes hideLoader {
       to {
-        opacity: 0;
-        visibility: hidden;
+        opacity: 0; visibility: hidden;
       }
     }
 
-    /* Galeria secundária - miniaturas */
-    .thumbs-wrapper {
+    /* Container da galeria */
+    .gallery-wrapper {
+      position: relative;
       width: 100vw;
-      height: 200px;
-      overflow: hidden;
-      background: #111;
+      height: 100vh;
+      max-width: 700px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      position: relative;
-      user-select: none;
-      margin-bottom: 10px;
+      gap: 20px;
+      box-sizing: border-box;
+      padding: 20px;
     }
 
-    .thumbs {
-      display: flex;
-      gap: 10px;
-      height: 200px;
-      will-change: transform;
-      animation: scrollLeft 30s linear infinite;
-    }
-
-    @keyframes scrollLeft {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .thumbs img {
-      height: 200px;
-      width: auto;
-      border-radius: 5px;
-      border: 3px solid transparent;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: border-color 0.3s ease;
-    }
-
-    .thumbs img.selected {
-      border-color: #0f0;
-    }
-
-    /* Modal fullscreen com imagem centralizada */
+    /* Imagem principal - modal */
     .modal {
       position: fixed;
       top: 0; left: 0;
       width: 100vw;
-      height: calc(100vh - 230px); /* descontando altura da galeria + margin */
-      background: black;
-      display: flex;
+      height: 100vh;
+      background: rgba(0,0,0,0.95);
+      display: none;
       justify-content: center;
       align-items: center;
-      z-index: 10;
+      z-index: 10000;
     }
-
+    .modal.active {
+      display: flex;
+    }
     .modal img {
       max-width: 100vw;
       max-height: 100vh;
       object-fit: contain;
-      transition: transform 0.4s ease;
+      border-radius: 10px;
+      user-select: none;
+      pointer-events: none;
     }
 
-    /* Botões de navegação */
+    /* Botões laterais iguais vídeos/músicas */
     .modal-btn {
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      background: none;
+      background: transparent;
       border: none;
       color: white;
-      font-size: 60px;
+      font-size: 40px;
       cursor: pointer;
-      z-index: 20;
+      z-index: 10001;
       user-select: none;
       transition: color 0.3s ease;
+      padding: 10px;
+      font-weight: bold;
+      line-height: 1;
     }
-
     .modal-btn:hover {
       color: #0f0;
     }
-
     .modal-btn.left {
-      left: 30px;
+      left: 10px;
     }
-
     .modal-btn.right {
-      right: 30px;
+      right: 10px;
+    }
+    /* Botão fechar modal (fora das setas) */
+    .modal-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      z-index: 10001;
+      user-select: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    .modal-close:hover {
+      color: #0f0;
     }
 
-    /* Botão voltar fixo */
+    /* Container das miniaturas visíveis (4 imagens quadradas) */
+    .thumbs-wrapper {
+      width: 100%;
+      max-width: 700px;
+      height: 25vh;
+      min-height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Cada miniatura */
+    .thumbs img {
+      width: 22vw; /* ~ 4 imagens na largura da viewport */
+      max-width: 160px;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+      flex-shrink: 0;
+    }
+    .thumbs img.selected,
+    .thumbs img:hover {
+      border-color: #0f0;
+      transform: scale(1.05);
+    }
+
+    /* Botão voltar fixo igual vídeos/músicas */
     .voltar {
       position: fixed;
       bottom: 30px;
@@ -144,7 +170,6 @@
       text-align: center;
       z-index: 1000;
     }
-
     .voltar a {
       background: transparent !important;
       color: white !important;
@@ -154,8 +179,10 @@
       text-decoration: none;
       border-radius: 20px;
       transition: transform 0.3s ease;
+      user-select: none;
+      cursor: pointer;
+      display: inline-block;
     }
-
     .voltar a:hover {
       transform: scale(1.05);
       text-shadow: 0 0 5px white;
@@ -169,48 +196,39 @@
     <img src="logo.png" alt="Carregando..." />
   </div>
 
+  <!-- Galeria principal -->
+  <div class="gallery-wrapper" role="main" aria-label="Galeria de obras">
+
+    <!-- Botão esquerda -->
+    <button class="modal-btn left" id="prevBtn" aria-label="Imagem anterior">‹</button>
+
+    <!-- Container miniaturas -->
+    <div class="thumbs-wrapper">
+      <div class="thumbs" id="thumbs">
+        <img src="obra1.jpg" alt="Obra 1" data-index="0" />
+        <img src="obra2.jpg" alt="Obra 2" data-index="1" />
+        <img src="obra3.jpg" alt="Obra 3" data-index="2" />
+        <img src="obra4.jpg" alt="Obra 4" data-index="3" />
+        <img src="obra5.jpg" alt="Obra 5" data-index="4" />
+        <img src="obra6.jpg" alt="Obra 6" data-index="5" />
+        <img src="obra7.jpg" alt="Obra 7" data-index="6" />
+        <img src="obra8.jpg" alt="Obra 8" data-index="7" />
+      </div>
+    </div>
+
+    <!-- Botão direita -->
+    <button class="modal-btn right" id="nextBtn" aria-label="Próxima imagem">›</button>
+  </div>
+
+  <!-- Modal imagem full frame -->
+  <div class="modal" id="modal" aria-modal="true" role="dialog" aria-label="Imagem ampliada">
+    <button class="modal-close" id="modalCloseBtn" aria-label="Fechar imagem">×</button>
+    <img id="mainImage" src="obra1.jpg" alt="Imagem ampliada da obra" />
+  </div>
+
   <!-- Botão voltar -->
   <div class="voltar">
     <a href="index.html">BIXO</a>
-  </div>
-
-  <!-- Galeria secundária - miniaturas -->
-  <div class="thumbs-wrapper" aria-label="Galeria de miniaturas">
-    <div class="thumbs" id="thumbs">
-      <!-- As imagens serão clonadas para o scroll infinito -->
-      <img src="obra1.jpg" alt="Obra 1" data-index="0" />
-      <img src="obra2.jpg" alt="Obra 2" data-index="1" />
-      <img src="obra3.jpg" alt="Obra 3" data-index="2" />
-      <img src="obra4.jpg" alt="Obra 4" data-index="3" />
-      <img src="obra5.jpg" alt="Obra 5" data-index="4" />
-      <img src="obra6.jpg" alt="Obra 6" data-index="5" />
-      <img src="obra7.jpg" alt="Obra 7" data-index="6" />
-      <img src="obra8.jpg" alt="Obra 8" data-index="7" />
-      <img src="obra9.jpg" alt="Obra 9" data-index="8" />
-      <img src="obra10.jpg" alt="Obra 10" data-index="9" />
-      <img src="obra11.jpg" alt="Obra 11" data-index="10" />
-      <img src="obra12.jpg" alt="Obra 12" data-index="11" />
-      <!-- repete para o scroll infinito -->
-      <img src="obra1.jpg" alt="Obra 1" data-index="0" />
-      <img src="obra2.jpg" alt="Obra 2" data-index="1" />
-      <img src="obra3.jpg" alt="Obra 3" data-index="2" />
-      <img src="obra4.jpg" alt="Obra 4" data-index="3" />
-      <img src="obra5.jpg" alt="Obra 5" data-index="4" />
-      <img src="obra6.jpg" alt="Obra 6" data-index="5" />
-      <img src="obra7.jpg" alt="Obra 7" data-index="6" />
-      <img src="obra8.jpg" alt="Obra 8" data-index="7" />
-      <img src="obra9.jpg" alt="Obra 9" data-index="8" />
-      <img src="obra10.jpg" alt="Obra 10" data-index="9" />
-      <img src="obra11.jpg" alt="Obra 11" data-index="10" />
-      <img src="obra12.jpg" alt="Obra 12" data-index="11" />
-    </div>
-  </div>
-
-  <!-- Modal com imagem central -->
-  <div class="modal" role="main" aria-label="Imagem principal da galeria">
-    <button class="modal-btn left" id="prevBtn" aria-label="Imagem anterior">‹</button>
-    <img id="mainImage" src="obra1.jpg" alt="Imagem principal" />
-    <button class="modal-btn right" id="nextBtn" aria-label="Próxima imagem">›</button>
   </div>
 
   <script>
@@ -222,51 +240,75 @@
       "obra5.jpg",
       "obra6.jpg",
       "obra7.jpg",
-      "obra8.jpg",
-      "obra9.jpg",
-      "obra10.jpg",
-      "obra11.jpg",
-      "obra12.jpg"
+      "obra8.jpg"
     ];
 
     let currentIndex = 0;
-    const mainImage = document.getElementById('mainImage');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
     const thumbs = document.getElementById('thumbs');
     const thumbImages = thumbs.querySelectorAll('img');
+    const mainImage = document.getElementById('mainImage');
+    const modal = document.getElementById('modal');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
 
-    function showImage(index) {
+    // Atualiza seleção da miniatura e modal
+    function updateSelection(index) {
       currentIndex = (index + imageList.length) % imageList.length;
-      mainImage.src = imageList[currentIndex];
-      // Atualiza seleção da miniatura
+      // Atualiza destaque miniatura
       thumbImages.forEach(img => img.classList.remove('selected'));
-      // Seleciona a miniatura correspondente (primeira ocorrência)
+      // Como as imagens aparecem 1x na lista, seleciona o correto
       for (let img of thumbImages) {
         if (parseInt(img.dataset.index) === currentIndex) {
           img.classList.add('selected');
           break;
         }
       }
+      // Atualiza imagem modal (se aberta)
+      mainImage.src = imageList[currentIndex];
+      mainImage.alt = `Obra ${currentIndex + 1}`;
     }
 
-    prevBtn.addEventListener('click', () => showImage(currentIndex - 1));
-    nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
+    // Navegação pelas setas
+    prevBtn.onclick = () => {
+      updateSelection(currentIndex - 1);
+      scrollToThumb(currentIndex);
+    };
+    nextBtn.onclick = () => {
+      updateSelection(currentIndex + 1);
+      scrollToThumb(currentIndex);
+    };
 
+    // Clicar na miniatura abre modal com imagem full frame
     thumbImages.forEach(img => {
-      img.addEventListener('click', () => {
-        const idx = parseInt(img.dataset.index);
-        showImage(idx);
-      });
+      img.onclick = () => {
+        updateSelection(parseInt(img.dataset.index));
+        modal.classList.add('active');
+      };
     });
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
-      if (e.key === 'ArrowRight') showImage(currentIndex + 1);
-    });
+    // Fecha modal
+    modalCloseBtn.onclick = () => modal.classList.remove('active');
+    modal.onclick = (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    };
 
-    // Inicializa selecionando a primeira imagem
-    showImage(0);
+    // Scroll horizontal automático para mostrar miniaturas visíveis ao navegar
+    function scrollToThumb(index) {
+      const thumb = [...thumbImages].find(img => parseInt(img.dataset.index) === index);
+      if (!thumb) return;
+      const thumbsRect = thumbs.getBoundingClientRect();
+      const thumbRect = thumb.getBoundingClientRect();
+      // Verifica se a thumb está fora da view, e ajusta scrollLeft
+      if (thumbRect.left < thumbsRect.left) {
+        thumbs.scrollBy({ left: thumbRect.left - thumbsRect.left - 10, behavior: 'smooth' });
+      } else if (thumbRect.right > thumbsRect.right) {
+        thumbs.scrollBy({ left: thumbRect.right - thumbsRect.right + 10, behavior: 'smooth' });
+      }
+    }
+
+    // Inicializa seleção na primeira imagem
+    updateSelection(0);
 
     // Loader desaparece após 3s
     window.addEventListener('load', () => {
