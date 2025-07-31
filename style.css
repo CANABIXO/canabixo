@@ -211,9 +211,10 @@ body, html {
 .scroll-gallery {
   display: flex;
   gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 20px 0;
+  overflow: hidden;
+  width: 100%;        /* ocupa toda largura do container pai */
+  max-width: 1200px;  /* limite máximo para não ficar muito grande */
+  margin: 0 auto;     /* centraliza na tela */
 }
 
 .scroll-gallery::-webkit-scrollbar {
