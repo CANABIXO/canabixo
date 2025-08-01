@@ -2,135 +2,57 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Artista – BIXO</title>
-  <style>
-    body {
-      margin: 0;
-      background: white;
-      font-family: Arial, sans-serif;
-      color: black;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-      padding: 20px;
-      overflow: hidden;
-    }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Site pessoal de BIXO" />
+  <title>BIXO</title>
 
-    .container {
-      flex: 1;
-      display: flex;
-      max-width: 960px;
-      margin: 0 auto;
-      height: calc(100vh - 80px); /* espaço para o botão abaixo */
-      gap: 20px;
-    }
+  <!-- Favicon da aba (suba um arquivo favicon.ico na raiz) -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
-    .texto-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .texto-container p {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    .slideshow-container {
-      flex: 1;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.15);
-      user-select: none;
-    }
-
-    .slideshow-container img {
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 12px;
-      object-fit: contain;
-      position: absolute;
-      opacity: 0;
-      transition: opacity 0.8s ease-in-out;
-    }
-
-    .slideshow-container img.active {
-      opacity: 1;
-      position: relative;
-    }
-
-    /* Botão voltar */
-    .voltar-botao {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      text-decoration: none;
-      color: black;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-      cursor: pointer;
-      user-select: none;
-      padding: 10px 20px;
-      transition: transform 0.3s ease;
-      background: transparent;
-      border: none;
-    }
-
-    .voltar-botao:hover {
-      transform: translateX(-50%) scale(1.05);
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Loader central giratório -->
+<div class="loader">
+  <img src="tiling.png" alt="Logo girando" />
+</div>
 
-  <div class="container">
-    <div class="texto-container">
-      <p>
-        Aqui vai o texto sobre o artista. Pode ser uma descrição detalhada, biografia ou qualquer informação que desejar compartilhar com o público.
-      </p>
-    </div>
+  <!-- Overlay filtro escuro -->
+  <div class="overlay"></div>
 
-    <div class="slideshow-container" aria-live="polite" aria-atomic="true">
-      <img src="img1.png" alt="Imagem 1 do artista" class="active" />
-      <img src="img2.png" alt="Imagem 2 do artista" />
-      <img src="img3.png" alt="Imagem 3 do artista" />
-      <img src="img4.png" alt="Imagem 4 do artista" />
-      <img src="img5.png" alt="Imagem 5 do artista" />
-    </div>
-  </div>
+  <!-- Slideshow de fundo -->
+  <ul class="slideshow">
+    <li><img src="IMG_1155 copiar.jpg" alt="1" /></li>
+    <li><img src="imagem parafundo.jpg" alt="2" /></li>
+    <li><img src="FLOR3.jpg" alt="3" /></li>
+    <li><img src="xxxx.jpg" alt="4" /></li>
+    <li><img src="fundinh.jpg" alt="5" /></li>
+  </ul>
 
-  <a href="index.html" class="voltar-botao" aria-label="Voltar para a página inicial">BIXO</a>
+  <!-- Menu de navegação -->
+  <nav class="menu">
+    <a href="https://canabixo.lojaintegrada.com.br/">LOJA</a>
+    <a href="https://canabixo.com.br/obras">OBRAS</a>
+    <a href="https://canabixo.com.br/imagens">IMAGENS</a>
+    <a href="https://canabixo.com.br/musicas">MUSICAS</a>
+    <a href="https://canabixo.com.br/videos">VIDEOS</a>
+    <a href="https://canabixo.com.br/downloads">DOWNLOADS</a>
+    <a href="https://canabixo.com.br/artista">SOBRE</a>
+  </nav>
 
+  <!-- Nome centralizado -->
+  <div class="center-text">BIXO</div>
   <script>
-    const slides = document.querySelectorAll('.slideshow-container img');
-    let current = 0;
-    const total = slides.length;
-    const intervalTime = 3000;
+  const gallery = document.getElementById('gallery');
 
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
-      });
-    }
+  function scrollLeft() {
+    gallery.scrollBy({ left: -300, behavior: 'smooth' });
+  }
 
-    function nextSlide() {
-      current = (current + 1) % total;
-      showSlide(current);
-    }
-
-    setInterval(nextSlide, intervalTime);
-  </script>
+  function scrollRight() {
+    gallery.scrollBy({ left: 300, behavior: 'smooth' });
+  }
+</script>
 
 </body>
 </html>
