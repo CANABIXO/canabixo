@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Artista – BIXO</title>
+  <style>
+    body {
+      margin: 0;
+      background: white;
+      font-family: Arial, sans-serif;
+      color: black;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .artista-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: 640px;
+      width: 90vw;
+      flex-grow: 1;
+    }
+
+    .foto-artista {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+
+    .texto-artista {
+      font-size: 16px;
+      line-height: 1.6;
+      color: black;
+    }
+
+    .voltar-botao {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      cursor: pointer;
+      user-select: none;
+      padding: 10px 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .voltar-botao:hover {
+      transform: translateX(-50%) scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="artista-container">
+    <img src="foto-do-artista.png" alt="Foto do Artista" class="foto-artista" />
+    <p class="texto-artista">
+      Aqui vai o texto sobre o artista. Você pode colocar uma descrição, biografia ou qualquer informação relevante que queira compartilhar com o público.
+    </p>
+  </div>
+
+  <a href="index.html" class="voltar-botao" aria-label="Voltar para a página inicial">BIXO</a>
+
+</body>
+</html>
