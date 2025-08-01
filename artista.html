@@ -33,11 +33,19 @@
 
     .texto-artista {
       flex: 1;
+      padding-right: 40px;
+      text-align: left;
+    }
+
+    .texto-artista h1 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .texto-artista p {
       font-size: 16px;
       line-height: 1.6;
-      padding-right: 40px;
-      color: black;
-      text-align: left;
+      margin: 0;
     }
 
     .slideshow-container {
@@ -73,7 +81,7 @@
       text-decoration: none;
       color: black;
       font-weight: bold;
-      font-family: Arial, sans-serif;
+      font-family: Arial bold, sans-serif;
       font-size: 16px;
       cursor: pointer;
       user-select: none;
@@ -90,15 +98,16 @@
 
   <div class="artista-container">
     <div class="texto-artista">
-      Aqui vai o texto sobre o artista. Você pode colocar uma descrição, biografia ou qualquer informação relevante que queira compartilhar com o público.
+      <h1>Multiartista envolvido com: criação e edição de imagem e vídeo, manipulação de objetos naturais, produção sonora, instalação, poema e poesia.</h1>
+      <p>Trabalhos que transitam entre natureza e artifício, fundem linguagens e propõem experiências sensoriais e simbólicas.</p>
     </div>
 
     <div class="slideshow-container">
-      <img src="img1.png" class="active" alt="Slide 1" />
-      <img src="img2.png" alt="Slide 2" />
-      <img src="img3.png" alt="Slide 3" />
-      <img src="img4.png" alt="Slide 4" />
-      <img src="img5.png" alt="Slide 5" />
+      <img src="artista1.png" class="active" alt="Slide 1" />
+      <img src="artista2.png" alt="Slide 2" />
+      <img src="artista3.png" alt="Slide 3" />
+      <img src="artista4.png" alt="Slide 4" />
+      <img src="artista5.png" alt="Slide 5" />
     </div>
   </div>
 
@@ -112,9 +121,8 @@
       slides[currentIndex].classList.remove('active');
       currentIndex = (currentIndex + 1) % slides.length;
       slides[currentIndex].classList.add('active');
-    }, 5000); // troca a cada 5 segundos
+    }, 5000);
   </script>
 
 </body>
 </html>
-  
