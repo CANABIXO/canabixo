@@ -14,6 +14,32 @@
     user-select:none;
   }
 
+  /* Loader padronizado */
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .loader img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    animation: spinZoom 3s linear forwards;
+  }
+
+  @keyframes spinZoom {
+    0% { transform: scale(1) rotate(0deg); }
+    100% { transform: scale(1.3) rotate(1440deg); }
+  }
+
   /* Animação de entrada */
   .entrada {
     position:fixed; inset:0;
@@ -21,7 +47,7 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    z-index:9999;
+    z-index:9998;
   }
   .entrada img {
     width:150px; height:150px;
@@ -40,23 +66,6 @@
 
   /* Mosaico estilo masonry */
   .mosaico {
-    column-count: 4; /* ajuste o número de colunas conforme a tela */
-    column-gap: 0; /* sem espaçamento entre colunas */
-    width: 100%;
-    flex:1;
-    overflow-y:auto;
-  }
-  .mosaico img {
-    width: 100%; /* ocupa toda largura da coluna */
-    display: block;
-    margin: 0 0 0 0;
-    cursor: pointer;
-    transition: transform 0.15s ease-out;
-  }
-  .mosaico img:hover { transform: scale(1.05); }
-
-  /* Botão voltar */
-  .voltar {
-    text-align:center;
-    padding:12px 0;
-    border-top:1px solid #e5e
+    column-count: 4;
+    column-gap: 0;
+    width:
