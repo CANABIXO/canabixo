@@ -21,22 +21,23 @@
     }
 
     .mosaico {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 12px;
+      column-count: 4;
+      column-gap: 0;
       width: 100%;
       max-width: 960px;
       height: calc(100% - 80px);
+      overflow-y: auto;
     }
 
     .mosaico img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      border-radius: 8px;
+      width: 100% !important;
+      height: auto !important;
+      margin: 0;
+      display: block;
+      border-radius: 0;
       cursor: pointer;
       transition: transform 0.2s ease;
+      object-fit: contain !important;
     }
 
     .mosaico img:hover {
