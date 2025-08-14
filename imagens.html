@@ -13,6 +13,8 @@
       user-select: none;
       height: 100vh;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Animação de entrada */
@@ -44,31 +46,28 @@
     /* Conteúdo principal */
     .conteudo {
       display: none;
-      height: 100%;
-      box-sizing: border-box;
-      padding: 20px;
+      flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      overflow: hidden;
     }
 
     .mosaico {
+      flex: 1;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      align-content: flex-start;
       justify-content: center;
-      width: 100%;
-      max-width: 960px;
-      height: calc(100% - 80px);
       overflow-y: auto;
     }
 
     .mosaico img {
       max-width: 150px;
       max-height: 150px;
-      height: auto;
       width: auto;
-      border-radius: 6px;
+      height: auto;
+      margin: 0;       /* sem espaçamento */
+      border-radius: 0; /* colado, sem cantos arredondados */
       cursor: pointer;
       transition: transform 0.2s ease;
     }
@@ -77,12 +76,11 @@
       transform: scale(1.05);
     }
 
-    /* Botão voltar */
+    /* Botão voltar fixo embaixo */
     .voltar {
-      width: 100%;
       text-align: center;
-      margin-top: auto;
-      margin-bottom: 10px;
+      padding: 10px;
+      border-top: 1px solid #ddd;
     }
 
     .voltar a {
@@ -93,8 +91,6 @@
       cursor: pointer;
       padding: 10px 20px;
       text-decoration: none;
-      background: transparent !important;
-      border: none !important;
       display: inline-block;
       transition: transform 0.3s ease;
     }
@@ -168,21 +164,10 @@
       const img = document.createElement('img');
       img.src = src;
       img.alt = "Miniatura da imagem";
-      img.tabIndex = 0;
       img.onclick = () => {
         modal.style.display = 'flex';
         modal.setAttribute('aria-hidden', 'false');
         modalImg.src = src;
-        modalImg.alt = "Imagem ampliada";
-      };
-      img.onkeydown = e => {
-        if(e.key === 'Enter' || e.key === ' ') {
-          modal.style.display = 'flex';
-          modal.setAttribute('aria-hidden', 'false');
-          modalImg.src = src;
-          modalImg.alt = "Imagem ampliada";
-          e.preventDefault();
-        }
       };
       mosaico.appendChild(img);
     });
@@ -191,7 +176,6 @@
       modal.style.display = 'none';
       modal.setAttribute('aria-hidden', 'true');
       modalImg.src = '';
-      modalImg.alt = '';
     });
 
     document.addEventListener('keydown', e => {
@@ -199,10 +183,10 @@
         modal.style.display = 'none';
         modal.setAttribute('aria-hidden', 'true');
         modalImg.src = '';
-        modalImg.alt = '';
       }
     });
   </script>
 
 </body>
 </html>
+
