@@ -363,3 +363,108 @@ body.downloads-page .voltar a {
 body.downloads-page .voltar a:hover {
   transform: scale(1.05);
 }
+
+
+
+/* Página Imagens */
+body.imagens-page {
+  overflow-y: auto;  /* ativa rolagem vertical */
+  padding: 60px 20px 80px 20px; /* espaço para conteúdo e botão voltar */
+  background: #fff;
+}
+
+/* Container do mosaico estilo masonry */
+body.imagens-page .mosaico {
+  column-count: 4;      /* número de colunas padrão */
+  column-gap: 0;        /* sem espaço entre colunas */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+body.imagens-page .mosaico img {
+  width: 100%;       /* ocupa toda largura da coluna */
+  margin: 0 0 0 0;   /* sem margem */
+  display: block;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+body.imagens-page .mosaico img:hover {
+  transform: scale(1.05);
+}
+
+/* Modal zoom */
+body.imagens-page .modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+
+body.imagens-page .modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 10px;
+  user-select: none;
+  pointer-events: none;
+  transition: transform 0.5s ease;
+  transform: scale(0);
+}
+
+body.imagens-page .modal.show img {
+  transform: scale(1);
+}
+
+/* Botão voltar */
+body.imagens-page .voltar {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+}
+
+body.imagens-page .voltar a {
+  all: unset;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  color: black;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  user-select: none;
+}
+
+body.imagens-page .voltar a:hover {
+  transform: scale(1.05);
+}
+
+/* Responsividade - Tablets */
+@media (max-width: 1024px) {
+  body.imagens-page .mosaico {
+    column-count: 3;
+  }
+}
+
+/* Responsividade - Celulares */
+@media (max-width: 768px) {
+  body.imagens-page .mosaico {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  body.imagens-page .mosaico {
+    column-count: 1;
+  }
+}
