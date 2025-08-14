@@ -39,22 +39,26 @@
     overflow:hidden;
   }
 
-  /* Mosaico estilo Pinterest */
+  /* Mosaico responsivo sem espaçamento */
   .mosaico {
     flex:1;
-    column-count: 4; /* número de colunas */
-    column-gap: 0px;
-    padding: 2px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* ajusta automaticamente */
+    grid-auto-rows: 5px; /* base para proporção */
+    gap: 0; /* sem espaçamento */
+    width:100%;
+    padding:0;
     overflow-y:auto;
   }
   .mosaico img {
-    width: 100%; /* largura da coluna */
-    margin-bottom: 4px;
+    width:100%; 
+    height:auto;
     display:block;
     cursor:pointer;
+    transform: scale(0.5); /* reduz 50% */
     transition: transform 0.15s ease-out;
   }
-  .mosaico img:hover { transform: scale(1.05); }
+  .mosaico img:hover { transform: scale(0.55); }
 
   /* Botão voltar */
   .voltar {
@@ -132,7 +136,6 @@
     const img=document.createElement('img');
     img.src=src;
     img.alt='Miniatura';
-    img.style.transform = "scale(0.5)"; // reduz 50%
     img.addEventListener('click',()=>{
       modalImg.src=src;
       modal.style.display='flex';
