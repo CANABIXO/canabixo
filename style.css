@@ -1,3 +1,19 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body e HTML */
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* será liberado via JS após loader */
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
 /* Loader giratório */
 .loader {
   position: fixed;
@@ -10,7 +26,6 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  animation: hideLoader 0s ease 5s forwards;
 }
 
 .loader img {
@@ -28,30 +43,6 @@
   100% {
     transform: scale(1.3) rotate(1440deg); /* 4 voltas em 5s */
   }
-}
-
-/* Esconde o loader após 5s */
-@keyframes hideLoader {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
-/* Reset básico */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Fundo do site ocupa 100% da tela e impede rolagem */
-body, html {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-  position: relative;
 }
 
 /* Overlay preto semitransparente */
@@ -115,11 +106,11 @@ body, html {
 .menu a {
   color: white;
   text-decoration: none;
-  font-size: 15px; /* tamanho base: desktop */
+  font-size: 15px; 
   font-weight: bold;
   font-family: Arial, sans-serif;
   text-transform: uppercase;
-  margin: 0 30px; /* espaçamento base: desktop */
+  margin: 0 30px;
   transition: transform 0.3s ease;
   display: inline-block;
   transform: scale(1);
@@ -152,7 +143,7 @@ body, html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 150px; /* tamanho padrão para desktop */
+  font-size: 150px; 
   font-weight: 500;
   font-family: 'Arial Black', Arial, sans-serif;
   color: white;
@@ -162,20 +153,21 @@ body, html {
   text-align: center;
 }
 
-/* Tablets (768px ou menor) */
+/* Tablets (400px ou menor) */
 @media (max-width: 400px) {
   .center-text {
     font-size: 30px;
   }
 }
 
-/* Celulares (480px ou menor) */
+/* Celulares (280px ou menor) */
 @media (max-width: 280px) {
   .center-text {
     font-size: 20px;
   }
 }
 
+/* Botão voltar */
 .voltar {
   position: fixed;
   bottom: 30px;
@@ -186,17 +178,17 @@ body, html {
 
 .voltar a {
   color: white;
-  mix-blend-mode: difference; /* inverte a cor em relação ao fundo */
+  mix-blend-mode: difference;
   background: transparent !important;
   border: none !important;
   transition: transform 0.3s ease;
 }
 
 .voltar a:hover {
-  background: transparent !important; /* mantém transparente no hover */
   transform: scale(1.05);
 }
 
+/* Scroll wrapper */
 .scroll-wrapper {
   position: relative;
   display: flex;
@@ -211,9 +203,9 @@ body, html {
   display: flex;
   gap: 20px;
   overflow: hidden;
-  width: 100%;        /* ocupa toda largura do container pai */
-  max-width: 1200px;  /* limite máximo para não ficar muito grande */
-  margin: 0 auto;     /* centraliza na tela */
+  width: 100%;       
+  max-width: 1200px;  
+  margin: 0 auto;    
 }
 
 .scroll-gallery::-webkit-scrollbar {
@@ -232,7 +224,6 @@ body, html {
 
 /* Botões laterais */
 .scroll-btn {
-  /* Remove position absolute para ficar ao lado */
   font-size: 24px;
   background: transparent;
   color: white;
@@ -245,22 +236,14 @@ body, html {
   user-select: none;
   font-weight: bold;
   line-height: 1;
-  align-self: center; /* centraliza verticalmente no flex container */
-}
-
-.scroll-btn.left {
-  /* Pode deixar sem left: 10px pois não tem position absolute */
-}
-
-.scroll-btn.right {
-  /* Pode deixar sem right: 10px */
+  align-self: center;
 }
 
 .scroll-btn:hover {
   color: #ccc;
 }
 
-
+/* Vídeos */
 .video-container {
   display: flex;
   flex-direction: column;
@@ -285,8 +268,8 @@ body.videos-page {
   background: black;
   padding-top: 60px;
   text-align: center;
-  overflow-y: auto;  /* ativa rolagem vertical */
-  min-height: 100vh;  /* altura mínima da tela */
+  overflow-y: auto;
+  min-height: 100vh;
   margin: 0;
 }
 
@@ -299,11 +282,11 @@ body.videos-page iframe {
   border-radius: 10px;
 }
 
-/* Estilos específicos para a página Downloads */
+/* Downloads */
 body.downloads-page {
-  overflow-y: auto;  /* ativa rolagem vertical normal */
-  padding-top: 60px; /* evita sobreposição do conteúdo com o menu */
-  padding-bottom: 100px; /* espaço para o botão voltar */
+  overflow-y: auto;
+  padding-top: 60px;
+  padding-bottom: 100px;
 }
 
 body.downloads-page .downloads {
@@ -345,7 +328,6 @@ body.downloads-page .card h3 {
   flex-grow: 1;
 }
 
-/* Botão voltar idêntico ao das outras páginas, mas com cor preta só aqui */
 body.downloads-page .voltar a {
   all: unset;
   font-family: Arial, sans-serif;
@@ -364,27 +346,24 @@ body.downloads-page .voltar a:hover {
   transform: scale(1.05);
 }
 
-
-
-/* Página Imagens */
+/* Imagens */
 body.imagens-page {
-  overflow-y: auto;  /* ativa rolagem vertical */
-  padding: 60px 20px 80px 20px; /* espaço para conteúdo e botão voltar */
+  overflow-y: auto;
+  padding: 60px 20px 80px 20px;
   background: #fff;
 }
 
-/* Container do mosaico estilo masonry */
 body.imagens-page .mosaico {
-  column-count: 4;      /* número de colunas padrão */
-  column-gap: 0;        /* sem espaço entre colunas */
+  column-count: 4;
+  column-gap: 0;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 body.imagens-page .mosaico img {
-  width: 100%;       /* ocupa toda largura da coluna */
-  margin: 0 0 0 0;   /* sem margem */
+  width: 100%;
+  margin: 0;
   display: block;
   border-radius: 8px;
   cursor: pointer;
@@ -395,7 +374,6 @@ body.imagens-page .mosaico img:hover {
   transform: scale(1.05);
 }
 
-/* Modal zoom */
 body.imagens-page .modal {
   display: none;
   position: fixed;
@@ -422,7 +400,6 @@ body.imagens-page .modal.show img {
   transform: scale(1);
 }
 
-/* Botão voltar */
 body.imagens-page .voltar {
   position: fixed;
   bottom: 20px;
@@ -449,14 +426,13 @@ body.imagens-page .voltar a:hover {
   transform: scale(1.05);
 }
 
-/* Responsividade - Tablets */
+/* Responsividade mosaico */
 @media (max-width: 1024px) {
   body.imagens-page .mosaico {
     column-count: 3;
   }
 }
 
-/* Responsividade - Celulares */
 @media (max-width: 768px) {
   body.imagens-page .mosaico {
     column-count: 2;
