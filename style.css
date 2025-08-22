@@ -1,470 +1,188 @@
-/* Loader giratório */
-.loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: black; /* cor de fundo durante o loader */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  animation: hideLoader 0s ease 5s forwards;
-}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Site pessoal de BIXO" />
+  <title>BIXO</title>
 
-.loader img {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  animation: spinZoom 5s linear forwards;
-}
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="fav.ico" />
 
-/* Gira e dá zoom */
-@keyframes spinZoom {
-  0% {
-    transform: scale(1) rotate(0deg);
-  }
-  100% {
-    transform: scale(1.3) rotate(1440deg); /* 4 voltas em 5s */
-  }
-}
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+    }
 
-/* Esconde o loader após 5s */
-@keyframes hideLoader {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
+    /* Slideshow de fundo */
+    .slideshow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+    .slideshow img {
+      position: absolute;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .slideshow img.active { opacity: 1; }
 
-/* Reset básico */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    /* Texto central */
+    .center-text {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(2rem, 10vw, 8rem); /* responsivo */
+      font-weight: bold;
+      text-align: center;
+      cursor: default;
+      user-select: none;
+    }
 
-/* Fundo do site ocupa 100% da tela e impede rolagem */
-body, html {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-  position: relative;
-}
+    /* Menu */
+    .menu {
+      position: absolute;
+      top: 20px; right: 20px;
+      display: flex;
+      gap: 20px;
+      font-size: 20px;
+    }
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+    .menu a:hover { transform: scale(1.1); }
 
-/* Overlay preto semitransparente */
-.overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.3);
-  z-index: 0;
-  pointer-events: none;
-}
+    /* Botão ARTISTA */
+    .artista-btn {
+      position: absolute;
+      bottom: 20px; left: 20px;
+      font-size: 20px;
+    }
+    .artista-btn a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+    .artista-btn a:hover { transform: scale(1.1); }
 
-/* Slideshow de fundo */
-.slideshow {
-  list-style: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
+    /* Loader */
+    .loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .loader img {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      animation: spinZoom 3s linear forwards;
+    }
+    @keyframes spinZoom {
+      0% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.3) rotate(1440deg); }
+    }
 
-.slideshow li {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  animation: fadeinout 150s infinite;
-}
+    /* Ajustes específicos para dispositivos móveis */
 
-.slideshow li:nth-child(1) { animation-delay: 0s; }
-.slideshow li:nth-child(2) { animation-delay: 30s; }
-.slideshow li:nth-child(3) { animation-delay: 60s; }
-.slideshow li:nth-child(4) { animation-delay: 90s; }
-.slideshow li:nth-child(5) { animation-delay: 120s; }
+    /* Loader menor */
+    @media (max-width: 480px) {
+      .loader img {
+        width: 150px;
+        height: 150px;
+      }
+    }
 
-.slideshow img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+    /* Vídeos responsivos */
+    @media (max-width: 768px) {
+      .video-container iframe {
+        width: 100%;
+        max-width: 90vw;
+        height: auto;
+        aspect-ratio: 16 / 9;
+      }
+    }
 
-/* Fade in/out da imagem */
-@keyframes fadeinout {
-  0% { opacity: 0; }
-  5% { opacity: 1; }
-  25% { opacity: 1; }
-  30% { opacity: 0; }
-  100% { opacity: 0; }
-}
+    /* Galeria de rolagem horizontal */
+    @media (max-width: 768px) {
+      .scroll-gallery a img {
+        height: 200px;
+      }
+    }
+    @media (max-width: 480px) {
+      .scroll-gallery a img {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
 
-/* Menu superior */
-.menu {
-  position: absolute;
-  top: 40px;
-  width: 100%;
-  text-align: center;
-  z-index: 10;
-}
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <img src="logo.png" alt="Carregando..." />
+  </div>
 
-.menu a {
-  color: white;
-  text-decoration: none;
-  font-size: 15px; /* tamanho base: desktop */
-  font-weight: bold;
-  font-family: Arial, sans-serif;
-  text-transform: uppercase;
-  margin: 0 30px; /* espaçamento base: desktop */
-  transition: transform 0.3s ease;
-  display: inline-block;
-  transform: scale(1);
-  cursor: pointer;
-}
+  <!-- Slideshow -->
+  <div class="slideshow" id="slideshow">
+    <img src="bg1.jpg" class="active" />
+    <img src="bg2.jpg" />
+    <img src="bg3.jpg" />
+  </div>
 
-.menu a:hover {
-  transform: scale(1.1);
-}
+  <!-- Texto central -->
+  <div class="center-text">BIXO</div>
 
-/* Tablets (768px ou menor) */
-@media (max-width: 768px) {
-  .menu a {
-    font-size: 35px;
-    margin: 0 60px;
-  }
-}
+  <!-- Menu -->
+  <div class="menu">
+    <a href="loja.html">Loja</a>
+    <a href="obras.html">Obras</a>
+    <a href="musicas.html">Músicas</a>
+    <a href="videos.html">Vídeos</a>
+    <a href="downloads.html">Downloads</a>
+    <a href="imagens.html">Imagens</a>
+  </div>
 
-/* Celulares (480px ou menor) */
-@media (max-width: 480px) {
-  .menu a {
-    font-size: 25px;
-    margin: 0 30px;
-  }
-}
+  <!-- Botão ARTISTA -->
+  <div class="artista-btn">
+    <a href="artista.html">ARTISTA</a>
+  </div>
 
-/* Texto centralizado (BIXO) */
-.center-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 150px; /* tamanho padrão para desktop */
-  font-weight: 500;
-  font-family: 'Arial Black', Arial, sans-serif;
-  color: white;
-  user-select: none;
-  pointer-events: none;
-  z-index: 10;
-  text-align: center;
-}
+  <script>
+    // Loader
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+      }, 3000);
+    });
 
-/* Tablets (768px ou menor) */
-@media (max-width: 400px) {
-  .center-text {
-    font-size: 30px;
-  }
-}
+    // Slideshow
+    const slides = document.querySelectorAll(".slideshow img");
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove("active");
+      current = (current + 1) % slides.length;
+      slides[current].classList.add("active");
+    }, 5000);
+  </script>
 
-/* Celulares (480px ou menor) */
-@media (max-width: 280px) {
-  .center-text {
-    font-size: 20px;
-  }
-}
-
-.voltar {
-  position: fixed;
-  bottom: 30px;
-  width: 100%;
-  text-align: center;
-  z-index: 1000;
-}
-
-.voltar a {
-  color: white;
-  mix-blend-mode: difference; /* inverte a cor em relação ao fundo */
-  background: transparent !important;
-  border: none !important;
-  transition: transform 0.3s ease;
-}
-
-.voltar a:hover {
-  background: transparent !important; /* mantém transparente no hover */
-  transform: scale(1.05);
-}
-
-.scroll-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
-  background: black;
-  overflow: hidden;
-}
-
-.scroll-gallery {
-  display: flex;
-  gap: 20px;
-  overflow: hidden;
-  width: 100%;        /* ocupa toda largura do container pai */
-  max-width: 1200px;  /* limite máximo para não ficar muito grande */
-  margin: 0 auto;     /* centraliza na tela */
-}
-
-.scroll-gallery::-webkit-scrollbar {
-  display: none;
-}
-
-.scroll-gallery a img {
-  height: 300px;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-}
-
-.scroll-gallery a:hover img {
-  transform: scale(1.05);
-}
-
-/* Botões laterais */
-.scroll-btn {
-  /* Remove position absolute para ficar ao lado */
-  font-size: 24px;
-  background: transparent;
-  color: white;
-  border: none;
-  padding: 0 15px;
-  cursor: pointer;
-  z-index: 100;
-  border-radius: 0;
-  transition: color 0.3s ease;
-  user-select: none;
-  font-weight: bold;
-  line-height: 1;
-  align-self: center; /* centraliza verticalmente no flex container */
-}
-
-.scroll-btn.left {
-  /* Pode deixar sem left: 10px pois não tem position absolute */
-}
-
-.scroll-btn.right {
-  /* Pode deixar sem right: 10px */
-}
-
-.scroll-btn:hover {
-  color: #ccc;
-}
-
-
-.video-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 60px;
-  padding: 80px 20px;
-}
-
-.video-container iframe {
-  width: 500px;
-  height: 281px;
-  border: none;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-}
-
-.video-container iframe:hover {
-  transform: scale(1.03);
-}
-
-body.videos-page {
-  background: black;
-  padding-top: 60px;
-  text-align: center;
-  overflow-y: auto;  /* ativa rolagem vertical */
-  min-height: 100vh;  /* altura mínima da tela */
-  margin: 0;
-}
-
-body.videos-page iframe {
-  max-width: 90%;
-  width: 640px;
-  height: 360px;
-  margin: 20px auto;
-  display: block;
-  border-radius: 10px;
-}
-
-/* Estilos específicos para a página Downloads */
-body.downloads-page {
-  overflow-y: auto;  /* ativa rolagem vertical normal */
-  padding-top: 60px; /* evita sobreposição do conteúdo com o menu */
-  padding-bottom: 100px; /* espaço para o botão voltar */
-}
-
-body.downloads-page .downloads {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-body.downloads-page .card {
-  background: #111;
-  border-radius: 10px;
-  overflow: hidden;
-  text-align: center;
-  transition: transform 0.3s ease;
-  text-decoration: none;
-  color: white;
-  display: flex;
-  flex-direction: column;
-}
-
-body.downloads-page .card:hover {
-  transform: scale(1.05);
-}
-
-body.downloads-page .card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-body.downloads-page .card h3 {
-  padding: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: uppercase;
-  flex-grow: 1;
-}
-
-/* Botão voltar idêntico ao das outras páginas, mas com cor preta só aqui */
-body.downloads-page .voltar a {
-  all: unset;
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-  color: black;
-  font-weight: bold;
-  display: inline-block;
-  text-align: center;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  user-select: none;
-}
-
-body.downloads-page .voltar a:hover {
-  transform: scale(1.05);
-}
-
-
-
-/* Página Imagens */
-body.imagens-page {
-  overflow-y: auto;  /* ativa rolagem vertical */
-  padding: 60px 20px 80px 20px; /* espaço para conteúdo e botão voltar */
-  background: #fff;
-}
-
-/* Container do mosaico estilo masonry */
-body.imagens-page .mosaico {
-  column-count: 4;      /* número de colunas padrão */
-  column-gap: 0;        /* sem espaço entre colunas */
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-body.imagens-page .mosaico img {
-  width: 100%;       /* ocupa toda largura da coluna */
-  margin: 0 0 0 0;   /* sem margem */
-  display: block;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-body.imagens-page .mosaico img:hover {
-  transform: scale(1.05);
-}
-
-/* Modal zoom */
-body.imagens-page .modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  cursor: zoom-out;
-}
-
-body.imagens-page .modal img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: 10px;
-  user-select: none;
-  pointer-events: none;
-  transition: transform 0.5s ease;
-  transform: scale(0);
-}
-
-body.imagens-page .modal.show img {
-  transform: scale(1);
-}
-
-/* Botão voltar */
-body.imagens-page .voltar {
-  position: fixed;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-  z-index: 1000;
-}
-
-body.imagens-page .voltar a {
-  all: unset;
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-  color: black;
-  font-weight: bold;
-  display: inline-block;
-  text-align: center;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  user-select: none;
-}
-
-body.imagens-page .voltar a:hover {
-  transform: scale(1.05);
-}
-
-/* Responsividade - Tablets */
-@media (max-width: 1024px) {
-  body.imagens-page .mosaico {
-    column-count: 3;
-  }
-}
-
-/* Responsividade - Celulares */
-@media (max-width: 768px) {
-  body.imagens-page .mosaico {
-    column-count: 2;
-  }
-}
-
-@media (max-width: 480px) {
-  body.imagens-page .mosaico {
-    column-count: 1;
-  }
-}
+</body>
+</html>
