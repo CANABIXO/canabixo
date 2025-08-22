@@ -168,6 +168,7 @@
       const img=document.createElement('img');
       img.src=src;
       img.alt='Miniatura';
+      img.loading='lazy';   // <- lazy loading adicionado
       img.addEventListener('click',()=>{
         modalImg.src=src;
         modal.style.display='flex';
