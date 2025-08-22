@@ -6,7 +6,7 @@
   <meta name="description" content="Site pessoal de BIXO" />
   <title>BIXO</title>
 
- <!-- Favicon da aba (suba um arquivo fav.ico na raiz) -->
+  <!-- Favicon da aba (suba um arquivo fav.ico na raiz) -->
   <link rel="icon" href="fav.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="fav.ico" type="image/x-icon" />
 
@@ -14,9 +14,9 @@
 </head>
 <body>
   <!-- Loader central giratório -->
-<div class="loader">
-  <img src="tiling.png" alt="Logo girando" />
-</div>
+  <div class="loader">
+    <img src="tiling.png" alt="Logo girando" />
+  </div>
 
   <!-- Overlay filtro escuro -->
   <div class="overlay"></div>
@@ -43,17 +43,34 @@
 
   <!-- Nome centralizado -->
   <div class="center-text">BIXO</div>
+
+  <!-- Script da galeria -->
   <script>
-  const gallery = document.getElementById('gallery');
+    const gallery = document.getElementById('gallery');
 
-  function scrollLeft() {
-    gallery.scrollBy({ left: -300, behavior: 'smooth' });
-  }
+    function scrollLeft() {
+      gallery.scrollBy({ left: -300, behavior: 'smooth' });
+    }
 
-  function scrollRight() {
-    gallery.scrollBy({ left: 300, behavior: 'smooth' });
-  }
-</script>
+    function scrollRight() {
+      gallery.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  </script>
+
+  <!-- Script do loader -->
+  <script>
+    window.addEventListener('load', function() {
+      const loader = document.querySelector('.loader');
+      if (loader) {
+        loader.style.opacity = '0';
+        loader.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+          loader.style.display = 'none';
+          document.body.style.overflow = 'auto'; // libera rolagem
+        }, 500);
+      }
+    });
+  </script>
 
 </body>
 </html>
