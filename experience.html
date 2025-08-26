@@ -1,174 +1,213 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BIXO – Vídeo + Música</title>
-  <style>
-    body {
-      margin: 0;
-      background: black;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIXO – Vídeo + Música</title>
+<style>
+body {
+  margin: 0;
+  background: black;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
 
-    /* Tela inicial com botão play */
-    #startScreen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
+/* Tela inicial com botão play */
+#startScreen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
 
-    .play-button {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 4px solid white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      position: relative;
-      animation: spin 4s linear infinite;
-    }
+.play-button {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  cursor: pointer;
+}
 
-    .play-button::before {
-      content: "▶";
-      font-size: 48px;
-      color: white;
-      position: absolute;
-    }
+.play-button img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  animation: spin 4s linear infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+.play-button .icon {
+  position: absolute;
+  font-size: 48px;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
 
-    /* Vídeo principal */
-    #mainVideo {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: 1;
-      pointer-events: none;
-    }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 
-    /* Player da música escondido */
-    #bgMusic {
-      display: none;
-    }
+/* Vídeo principal */
+#mainVideo {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
 
-    /* Botão voltar */
-    .voltar {
-      position: fixed;
-      bottom: 30px;
-      width: 100%;
-      text-align: center;
-      z-index: 10;
-    }
+/* Player da música escondido */
+#bgMusic {
+  display: none;
+}
 
-    .voltar a {
-      all: unset;
-      font-size: 20px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+/* Botão voltar */
+.voltar {
+  position: fixed;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
 
-    .voltar a:hover {
-      transform: scale(1.05);
-    }
-  </style>
+.voltar a {
+  all: unset;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.voltar a:hover {
+  transform: scale(1.05);
+}
+</style>
 </head>
 <body>
 
-  <!-- Tela inicial -->
-  <div id="startScreen">
-    <div class="play-button"></div>
+<!-- Tela inicial -->
+<div id="startScreen">
+  <div class="play-button">
+    <img src="player.png" alt="Botão giratório">
+    <div class="icon">▶</div>
   </div>
+</div>
 
-  <!-- Vídeo principal -->
-  <div id="mainVideo"></div>
+<!-- Vídeo principal -->
+<div id="mainVideo"></div>
 
-  <!-- Música de fundo -->
-  <div id="bgMusic"></div>
+<!-- Música de fundo -->
+<div id="bgMusic"></div>
 
-  <!-- Botão voltar -->
-  <div class="voltar" style="display: none;">
-    <a href="index.html">BIXO</a>
-  </div>
+<!-- Botão voltar -->
+<div class="voltar" style="display: none;">
+  <a href="index.html">BIXO</a>
+</div>
 
-  <script>
-    // ===== PLAYLISTS =====
-    // ▶ Playlist de vídeos principais (tela cheia, mudo)
-    const MAIN_PLAYLIST_ID = "PLgEVpMlG5C81FAfpM_qxCCxa77V56aSVN"; 
+<script>
+const MAIN_PLAYLIST_ID = "PLgEVpMlG5C81FAfpM_qxCCxa77V56aSVN";
+const MUSIC_PLAYLIST_ID = "PLgEVpMlG5C80DJbRJ6b-7hLuTUKg0q9px";
 
-    // ▶ Playlist de músicas
-    const MUSIC_PLAYLIST_ID = "PLgEVpMlG5C80DJbRJ6b-7hLuTUKg0q9px";
-    // =====================
+let mainPlayer, musicPlayer;
+let mainVideos = [];
+let musicVideos = [];
 
-    let mainPlayer, musicPlayer;
+// Carregar API do YouTube
+let tag = document.createElement("script");
+tag.src = "https://www.youtube.com/iframe_api";
+document.body.appendChild(tag);
 
-    // Carregar API do YouTube
-    let tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.body.appendChild(tag);
+// Clique no botão play
+document.querySelector(".play-button").addEventListener("click", () => {
+  document.getElementById("startScreen").style.display = "none";
+  document.querySelector(".voltar").style.display = "block";
+  startPlayers();
+});
 
-    // Clique no botão play
-    document.querySelector(".play-button").addEventListener("click", () => {
-      document.getElementById("startScreen").style.display = "none";
-      document.querySelector(".voltar").style.display = "block";
-      startPlayers();
-    });
-
-    function startPlayers() {
-      // Vídeo principal (playlist aleatória, mudo, loop infinito)
-      mainPlayer = new YT.Player("mainVideo", {
-        playerVars: { 
-          autoplay: 1, 
-          controls: 0, 
-          mute: 1, 
-          loop: 1, 
-          modestbranding: 1, 
-          rel: 0, 
-          listType: "playlist", 
-          list: MAIN_PLAYLIST_ID 
-        }
-      });
-
-      // Música (playlist aleatória, com som)
-      musicPlayer = new YT.Player("bgMusic", {
-        playerVars: { 
-          autoplay: 1, 
-          controls: 0, 
-          modestbranding: 1, 
-          rel: 0, 
-          listType: "playlist", 
-          list: MUSIC_PLAYLIST_ID 
-        },
-        events: { "onReady": onMusicReady }
-      });
+function startPlayers() {
+  // Vídeo principal
+  mainPlayer = new YT.Player("mainVideo", {
+    playerVars: { 
+      autoplay: 1, 
+      controls: 0, 
+      mute: 1, 
+      modestbranding: 1, 
+      rel: 0, 
+      listType: "playlist", 
+      list: MAIN_PLAYLIST_ID 
+    },
+    events: {
+      onReady: (e) => {
+        mainVideos = e.target.getPlaylist() || [];
+        playRandomVideo();
+      },
+      onStateChange: onMainStateChange
     }
+  });
 
-    function onMusicReady(event) {
-      let duration = event.target.getDuration();
-      if (duration > 0) {
-        let startAt = Math.floor(Math.random() * duration);
-        event.target.seekTo(startAt, true);
+  // Música
+  musicPlayer = new YT.Player("bgMusic", {
+    playerVars: { 
+      autoplay: 1, 
+      controls: 0, 
+      modestbranding: 1, 
+      rel: 0, 
+      listType: "playlist", 
+      list: MUSIC_PLAYLIST_ID 
+    },
+    events: {
+      onReady: (e) => {
+        musicVideos = e.target.getPlaylist() || [];
+        playRandomMusic();
       }
-      event.target.playVideo();
     }
+  });
+}
 
-    function onYouTubeIframeAPIReady() {
-      // só inicia depois do clique
+// Seleciona um vídeo aleatório e toca
+function playRandomVideo() {
+  if (mainVideos.length === 0) return;
+  const randomIndex = Math.floor(Math.random() * mainVideos.length);
+  mainPlayer.playVideoAt(randomIndex);
+}
+
+// Seleciona uma música aleatória e inicia em ponto aleatório
+function playRandomMusic() {
+  if (musicVideos.length === 0) return;
+  const randomIndex = Math.floor(Math.random() * musicVideos.length);
+  musicPlayer.playVideoAt(randomIndex);
+  // Espera a duração do vídeo para sortear ponto inicial
+  setTimeout(() => {
+    const duration = musicPlayer.getDuration();
+    if(duration > 0) {
+      const start = Math.floor(Math.random() * duration);
+      musicPlayer.seekTo(start, true);
     }
-  </script>
+  }, 1000);
+}
+
+// Quando o vídeo principal terminar, troca vídeo e música
+function onMainStateChange(event) {
+  if(event.data === YT.PlayerState.ENDED) {
+    playRandomVideo();
+    playRandomMusic();
+  }
+}
+
+function onYouTubeIframeAPIReady() {
+  // players iniciados no clique
+}
+</script>
 
 </body>
 </html>
