@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIXO – Vídeo + Música</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Tela inicial com botão play */
+    #startScreen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .play-button {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      animation: spin 4s linear infinite;
+    }
+
+    .play-button::before {
+      content: "▶";
+      font-size: 48px;
+      color: white;
+      position: absolute;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Vídeo principal */
+    #mainVideo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Player da música escondido */
+    #bgMusic {
+      display: none;
+    }
+
+    /* Botão voltar */
+    .voltar {
+      position: fixed;
+      bottom: 30px;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .voltar a {
+      all: unset;
+      font-size: 20px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .voltar a:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tela inicial -->
+  <div id="startScreen">
+    <div class="play-button"></div>
+  </div>
+
+  <!-- Vídeo principal -->
+  <div id="mainVideo"></div>
+
+  <!-- Música de fundo -->
+  <div id="bgMusic"></div>
+
+  <!-- Botão voltar -->
+  <div class="voltar" style="display: none;">
+    <a href="index.html">BIXO</a>
+  </div>
+
+  <script>
+    // ===== PLAYLISTS =====
+    // ▶ Playlist de vídeos principais (tela cheia, mudo)
+    const MAIN_PLAYLIST_ID = "PLgEVpMlG5C81FAfpM_qxCCxa77V56aSVN"; 
+
+    // ▶ Playlist de músicas
+    const MUSIC_PLAYLIST_ID = "PLgEVpMlG5C80DJbRJ6b-7hLuTUKg0q9px";
+    // =====================
+
+    let mainPlayer, musicPlayer;
+
+    // Carregar API do YouTube
+    let tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.body.appendChild(tag);
+
+    // Clique no botão play
+    document.querySelector(".play-button").addEventListener("click", () => {
+      document.getElementById("startScreen").style.display = "none";
+      document.querySelector(".voltar").style.display = "block";
+      startPlayers();
+    });
+
+    function startPlayers() {
+      // Vídeo principal (playlist aleatória, mudo, loop infinito)
+      mainPlayer = new YT.Player("mainVideo", {
+        playerVars: { 
+          autoplay: 1, 
+          controls: 0, 
+          mute: 1, 
+          loop: 1, 
+          modestbranding: 1, 
+          rel: 0, 
+          listType: "playlist", 
+          list: MAIN_PLAYLIST_ID 
+        }
+      });
+
+      // Música (playlist aleatória, com som)
+      musicPlayer = new YT.Player("bgMusic", {
+        playerVars: { 
+          autoplay: 1, 
+          controls: 0, 
+          modestbranding: 1, 
+          rel: 0, 
+          listType: "playlist", 
+          list: MUSIC_PLAYLIST_ID 
+        },
+        events: { "onReady": onMusicReady }
+      });
+    }
+
+    function onMusicReady(event) {
+      let duration = event.target.getDuration();
+      if (duration > 0) {
+        let startAt = Math.floor(Math.random() * duration);
+        event.target.seekTo(startAt, true);
+      }
+      event.target.playVideo();
+    }
+
+    function onYouTubeIframeAPIReady() {
+      // só inicia depois do clique
+    }
+  </script>
+
+</body>
+</html>
