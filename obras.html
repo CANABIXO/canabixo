@@ -290,12 +290,15 @@
     }
 
     const scrollAmount = 100;
-    btnLeft.addEventListener('click', () => {
-      thumbnailBar.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    });
-    btnRight.addEventListener('click', () => {
-      thumbnailBar.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    });
+   btnLeft.addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  updateBigImage(currentIndex);
+});
+
+btnRight.addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % images.length;
+  updateBigImage(currentIndex);
+});
 
     bigImage.addEventListener('click', () => {
       modal.style.display = 'flex';
