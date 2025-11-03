@@ -289,15 +289,13 @@
       });
     }
 
-    const scrollAmount = 100;
-   btnLeft.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  updateBigImage(currentIndex);
+   
+btnLeft.addEventListener('click', () => {
+  thumbnailBar.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
 });
 
 btnRight.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % images.length;
-  updateBigImage(currentIndex);
+  thumbnailBar.scrollBy({ left: scrollAmount, behavior: 'smooth' });
 });
 
     bigImage.addEventListener('click', () => {
