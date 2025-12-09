@@ -55,7 +55,7 @@
     transition: background 0.2s ease;
   }
 
-  .menuItem:hover { color: black; background: none; }
+  .menuItem:hover { color: #ff00a9; background: none; }
 </style>
 </head>
 <body>
@@ -92,18 +92,19 @@ planet.addEventListener('click', () => {
   if (menuVisible) {
     menu.style.display = 'block';
 
-    const radius = 120;
+    const radius = 180;
     const total = items.length;
 
     items.forEach((item, index) => {
       const angle = (index / total) * Math.PI * 2;
       const x = Math.cos(angle) * radius;
       const y = Math.sin(angle) * radius;
-      item.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+      item.style.transform = `translate(${x}px, ${y}px)`;
+      //(${x}px, ${y}px)`;
     });
 
   } else {
-    items.forEach(item => { item.style.transform = 'translate(-50%, -50%)'; });
+    items.forEach(item => { item.style.transform = ''translate(0,0)'; });
     menu.style.display = 'none';
   }
 });
