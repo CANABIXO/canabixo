@@ -30,39 +30,35 @@ const items = document.querySelectorAll('.menuItem');
 
 let menuVisible = false;
 
-/* Movimento 3D suave */
+/* Movimento 3D suave do círculo com o mouse */
 document.addEventListener('mousemove', e => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 35;
-  const y = (e.clientY / window.innerHeight - 0.5) * -35;
-  planet.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
+    const x = (e.clientX / window.innerWidth - 0.5) * 35;
+    const y = (e.clientY / window.innerHeight - 0.5) * -35;
+    planet.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
 });
 
-/* Clique para mostrar/recolher os links */
+/* Clique no círculo para mostrar/recolher o menu */
 planet.addEventListener('click', () => {
-  menuVisible = !menuVisible;
+    menuVisible = !menuVisible;
 
-  if (menuVisible) {
-    menu.style.display = "block";
+    if (menuVisible) {
+        menu.style.display = "block";
+        const radius = 180;
+        const total = items.length;
 
-    const radius = 180;
-    const total = items.length;
+        items.forEach((item, index) => {
+            const angle = (index / total) * Math.PI * 2;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
 
-    items.forEach((item, index) => {
-      const angle = (index / total) * Math.PI * 2;
-      const x = Math.cos(angle) * radius;
-      const y = Math.sin(angle) * radius;
-
-      item.style.transform =
-        `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-    });
-
-  } else {
-    items.forEach(item => {
-      item.style.transform = "translate(-50%, -50%)";
-    });
-
-    menu.style.display = "none";
-  }
+            item.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+        });
+    } else {
+        items.forEach(item => {
+            item.style.transform = "translate(-50%, -50%)";
+        });
+        menu.style.display = "none";
+    }
 });
 </script>
 
