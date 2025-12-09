@@ -19,75 +19,73 @@ body {
     position: relative;
 }
 
+/* ===================================================== */
+/* =================== PÁGINA INICIAL ================== */
+/* ===================================================== */
+
 /* CÍRCULO CENTRAL */
-.circle {
-    width: 260px;
-    height: 260px;
+#corePlanet {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    background: #111;
-    border: 3px solid #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: radial-gradient(circle at 30% 30%, #ffb6e8, #ff00a9, #a00072);
+    box-shadow: 0 0 60px rgba(255,0,169,0.4);
+    transition: transform 0.15s ease-out;
     cursor: pointer;
-    transition: opacity .4s ease, transform .4s ease;
-}
-
-.circle.hide {
-    opacity: 0;
-    transform: scale(0.7);
-    pointer-events: none;
-}
-
-.logo-text {
-    font-size: 40px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 0 0 8px #ccff00, 0 0 15px #ccff00; /* VERDE LIMÃO */
-}
-
-/* MENU RADIAL */
-.radial-menu {
     position: absolute;
-    width: 300px;
-    height: 300px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.radial-menu.hidden {
-    opacity: 0;
-    pointer-events: none;
+/* MENU ORBITAL */
+.menuContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 360px;
+    height: 360px;
+    transform: translate(-50%, -50%);
+    display: none;
 }
 
-/* ITENS DO MENU */
-.menu-item {
+/* LINKS ORBITAIS — AGORA COM OVERLAY VERDE-LIMÃO */
+.menuItem {
     position: absolute;
-    color: #ccff00; /* VERDE LIMÃO */
+    color: #ccff00;
+    font-size: 18px;
     font-weight: bold;
     text-decoration: none;
-    text-shadow: 0 0 10px #ccff00;
-    transition: transform .3s ease;
-    font-size: 20px;
+    text-transform: uppercase;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    background: none !important;
+    border: none !important;
+
+    /* OVERLAY VERDE-LIMÃO */
+    text-shadow:
+        0 0 6px #ccff00,
+        0 0 10px #ccff00,
+        0 0 14px #ccff00;
+
+    transition: transform 0.3s ease, color 0.2s ease;
 }
 
-/* POSIÇÃO DOS ITENS EM VOLTA DO CÍRCULO */
-.item1 { top: 0%; left: 50%; transform: translate(-50%, -50%); }
-.item2 { top: 25%; left: 93%; transform: translate(-50%, -50%); }
-.item3 { top: 75%; left: 93%; transform: translate(-50%, -50%); }
-.item4 { top: 100%; left: 50%; transform: translate(-50%, -50%); }
-.item5 { top: 75%; left: 7%; transform: translate(-50%, -50%); }
+/* HOVER VERDE-LIMÃO MAIS FORTE */
+.menuItem:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+    color: #eaff7f;
 
-/* HOVER */
-.menu-item:hover {
-    transform: translate(-50%, -50%) scale(1.25);
+    text-shadow:
+        0 0 10px #ccff00,
+        0 0 16px #ccff00,
+        0 0 24px #ccff00;
 }
 
-/* =============================== */
-/* ======== OUTRAS PÁGINAS ======= */
-/* ======= (SEM ALTERAR NADA) ==== */
-/* =============================== */
+/* ===================================================== */
+/* =================== OUTRAS PÁGINAS ================== */
+/* ========== (NÃO ALTERADO | PERMANECE IGUAL) ========= */
+/* ===================================================== */
 
 /* Botão voltar */
 .voltar {
