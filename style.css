@@ -6,7 +6,7 @@
 }
 
 body.home-page {
-    background: #1a1a1a; /* CINZA ESCURO DO SEU SITE */
+    background: #1a1a1a; /* CINZA ESCURO */
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -17,8 +17,7 @@ body.home-page {
     font-family: Arial, sans-serif;
 }
 
-
-/* ---- CÍRCULO CENTRAL (corePlanet) ---- */
+/* ---- CÍRCULO CENTRAL ---- */
 #corePlanet {
     width: 220px;
     height: 220px;
@@ -27,18 +26,19 @@ body.home-page {
     box-shadow: 0 0 80px rgba(255, 0, 150, 0.45);
     position: absolute;
     z-index: 3;
-    transition: transform 0.1s linear;
+    cursor: pointer;
+    transition: transform 0.15s ease-out;
     transform-style: preserve-3d;
 }
-
 
 /* ---- MENU ORBITAL ---- */
 .menuContainer {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+    width: 360px;
+    height: 360px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 2;
     display: none;
@@ -53,9 +53,9 @@ body.home-page {
     font-size: 20px;
     font-weight: bold;
     text-decoration: none;
+    text-transform: uppercase;
     pointer-events: auto;
 
-    /* GLOW VERDE LIMÃO NO TEXTO */
     text-shadow:
         0 0 6px #ccff00,
         0 0 14px #ccff00,
@@ -72,69 +72,6 @@ body.home-page {
         0 0 34px #ccff00;
 }
 
-/* ===================================================== */
-/* =================== PÁGINA INICIAL ================== */
-/* ===================================================== */
-
-/* CÍRCULO CENTRAL */
-#corePlanet {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #ffb6e8, #ff00a9, #a00072);
-    box-shadow: 0 0 60px rgba(255,0,169,0.4);
-    transition: transform 0.15s ease-out;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* MENU ORBITAL */
-.menuContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 360px;
-    height: 360px;
-    transform: translate(-50%, -50%);
-    display: none;
-}
-
-/* LINKS ORBITAIS — VERDE LIMÃO */
-.menuItem {
-    position: absolute;
-    color: #ccff00;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    text-transform: uppercase;
-    transform: translate(-50%, -50%);
-    padding: 0;
-    background: none !important;
-    border: none !important;
-
-    /* OVERLAY VERDE-LIMÃO */
-    text-shadow:
-        0 0 6px #ccff00,
-        0 0 10px #ccff00,
-        0 0 14px #ccff00;
-
-    transition: transform 0.3s ease, color 0.2s ease;
-}
-
-/* HOVER VERDE-LIMÃO MAIS FORTE */
-.menuItem:hover {
-    transform: translate(-50%, -50%) scale(1.2);
-    color: #eaff7f;
-
-    text-shadow:
-        0 0 10px #ccff00,
-        0 0 16px #ccff00,
-        0 0 24px #ccff00;
-}
-
 /* POSIÇÃO CIRCULAR DOS LINKS */
 .menuItem:nth-child(1) { top: 0%; left: 50%; }
 .menuItem:nth-child(2) { top: 20%; left: 88%; }
@@ -142,6 +79,7 @@ body.home-page {
 .menuItem:nth-child(4) { top: 100%; left: 50%; }
 .menuItem:nth-child(5) { top: 80%; left: 12%; }
 .menuItem:nth-child(6) { top: 20%; left: 12%; }
+
 
 /* ===================================================== */
 /* =================== OUTRAS PÁGINAS ================== */
