@@ -1,77 +1,113 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Site pessoal de BIXO" />
-  <title>BIXO</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BIXO — Página Inicial</title>
+<style>
+  body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #999999; /* fundo cinza */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 900px;
+    font-family: Arial, sans-serif;
+  }
 
-  <!-- Favicon da aba (suba um arquivo fav.ico na raiz) -->
-  <link rel="icon" href="fav.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="fav.ico" type="image/x-icon" />
+  /* CÍRCULO CENTRAL */
+  #corePlanet {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffb6e8, #ff00a9, #a00072);
+    box-shadow: 0 0 60px rgba(255,0,169,0.4);
+    transition: transform 0.15s ease-out;
+    cursor: pointer;
+  }
 
-  <link rel="stylesheet" href="style.css" />
+  /* CONTAINER DOS LINKS */
+  .menuContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 360px;
+    height: 360px;
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+
+  .menuItem {
+    position: absolute;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0;
+    border-radius: 0;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    transition: background 0.2s ease;
+  }
+
+  .menuItem:hover { color: black; background: none; }
+</style>
 </head>
 <body>
-  <!-- Loader central giratório -->
-  <div class="loader">
-    <img src="tiling.png" alt="Logo girando" />
-  </div>
 
-  <!-- Overlay filtro escuro -->
-  <div class="overlay"></div>
+<div id="corePlanet"></div>
 
-  <!-- Slideshow de fundo -->
-  <ul class="slideshow">
-    <li><img src="IMG_1155 copiar.jpg" alt="1" /></li>
-  <li><img src="imagem parafundo.jpg" alt="2" loading="lazy" /></li>
-    <li><img src="FLOR3.jpg" alt="3" loading="lazy" /></li>
-    <li><img src="xxxx.jpg" alt="4" loading="lazy" /></li>
-    <li><img src="fundinh.jpg" alt="5" loading="lazy" /></li>
-  </ul>
-  </ul>
+<div class="menuContainer" id="menu">
+  <a class="menuItem" id="i1" href="https://canabixo.com.br/obras" target="_self">OBRAS</a>
+  <a class="menuItem" id="i2" href="https://canabixo.com.br/imagens" target="_self">IMAGENS</a>
+  <a class="menuItem" id="i3" href="https://canabixo.com.br/musicas" target="_self">MÚSICAS</a>
+  <a class="menuItem" id="i4" href="https://canabixo.com.br/videos" target="_self">VÍDEOS</a>
+  <a class="menuItem" id="i5" href="https://canabixo.com.br/downloads" target="_self">DOWNLOADS</a>
+  <a class="menuItem" id="i6" href="https://canabixo.com.br/artista" target="_self">ARTISTA</a>
+  <a class="menuItem" id="i7" href="https://canabixo.com.br/experience" target="_self">EXPERIENCE</a>
+</div>
 
-  <!-- Menu de navegação -->
-  <nav class="menu"> 
-    <a href="https://canabixo.com.br/obras">OBRAS</a>
-    <a href="https://canabixo.com.br/imagens">IMAGENS</a>
-    <a href="https://canabixo.com.br/musicas">MUSICAS</a>
-    <a href="https://canabixo.com.br/videos">VIDEOS</a>
-    <a href="https://canabixo.com.br/downloads">DOWNLOADS</a>
-    <a href="https://canabixo.com.br/artista">SOBRE</a>
-    <a href="https://canabixo.com.br/experience">EXPERIENCE</a>
-  </nav>
+<script>
+const planet = document.getElementById('corePlanet');
+const menu = document.getElementById('menu');
+const items = document.querySelectorAll('.menuItem');
+let menuVisible = false;
 
-  <!-- Nome centralizado -->
-  <div class="center-text">BIXO</div>
+/* Movimento suave do círculo */
+document.addEventListener('mousemove', e => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 30;
+  const y = (e.clientY / window.innerHeight - 0.5) * -30;
+  planet.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
+});
 
-  <!-- Script da galeria -->
-  <script>
-    const gallery = document.getElementById('gallery');
+/* Ativar/ocultar menu clicando no planeta */
+planet.addEventListener('click', () => {
+  menuVisible = !menuVisible;
 
-    function scrollLeft() {
-      gallery.scrollBy({ left: -300, behavior: 'smooth' });
-    }
+  if (menuVisible) {
+    menu.style.display = 'block';
 
-    function scrollRight() {
-      gallery.scrollBy({ left: 300, behavior: 'smooth' });
-    }
-  </script>
+    const radius = 120;
+    const total = items.length;
 
-  <!-- Script do loader -->
-  <script>
-    window.addEventListener('load', function() {
-      const loader = document.querySelector('.loader');
-      if (loader) {
-        loader.style.opacity = '0';
-        loader.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => {
-          loader.style.display = 'none';
-          document.body.style.overflow = 'auto'; // libera rolagem
-        }, 500);
-      }
+    items.forEach((item, index) => {
+      const angle = (index / total) * Math.PI * 2;
+      const x = Math.cos(angle) * radius;
+      const y = Math.sin(angle) * radius;
+      item.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
     });
-  </script>
+
+  } else {
+    items.forEach(item => { item.style.transform = 'translate(-50%, -50%)'; });
+    menu.style.display = 'none';
+  }
+});
+</script>
 
 </body>
 </html>
