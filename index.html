@@ -4,93 +4,45 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>BIXO — Página Inicial</title>
-<style>
-  body {
-    margin: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background: #999999; /* fundo cinza */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    perspective: 900px;
-    font-family: Arial, sans-serif;
-  }
-
-  /* CÍRCULO CENTRAL */
-  #corePlanet {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #ffb6e8, #ff00a9, #a00072);
-    box-shadow: 0 0 60px rgba(255,0,169,0.4);
-    transition: transform 0.15s ease-out;
-    cursor: pointer;
-  }
-
-  /* CONTAINER DOS LINKS */
-  .menuContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 360px;
-    height: 360px;
-    transform: translate(-50%, -50%);
-    display: none;
-  }
-
-  .menuItem {
-    position: absolute;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    font-family: Arial, sans-serif;
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 0;
-    border-radius: 0;
-    opacity: 1;
-    transform: translate(-50%, -50%);
-    transition: background 0.2s ease;
-  }
-
-  .menuItem:hover { color: #ff00a9; background: none; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- CÍRCULO -->
 <div id="corePlanet"></div>
 
+<!-- MENU ORBITAL -->
 <div class="menuContainer" id="menu">
-  <a class="menuItem" id="i1" href="https://canabixo.com.br/obras" target="_self">OBRAS</a>
-  <a class="menuItem" id="i2" href="https://canabixo.com.br/imagens" target="_self">IMAGENS</a>
-  <a class="menuItem" id="i3" href="https://canabixo.com.br/musicas" target="_self">MÚSICAS</a>
-  <a class="menuItem" id="i4" href="https://canabixo.com.br/videos" target="_self">VÍDEOS</a>
-  <a class="menuItem" id="i5" href="https://canabixo.com.br/downloads" target="_self">DOWNLOADS</a>
-  <a class="menuItem" id="i6" href="https://canabixo.com.br/artista" target="_self">ARTISTA</a>
-  <a class="menuItem" id="i7" href="https://canabixo.com.br/experience" target="_self">EXPERIENCE</a>
+  <a class="menuItem" href="https://canabixo.com.br/obras">OBRAS</a>
+  <a class="menuItem" href="https://canabixo.com.br/imagens">IMAGENS</a>
+  <a class="menuItem" href="https://canabixo.com.br/musicas">MÚSICAS</a>
+  <a class="menuItem" href="https://canabixo.com.br/videos">VÍDEOS</a>
+  <a class="menuItem" href="https://canabixo.com.br/downloads">DOWNLOADS</a>
+  <a class="menuItem" href="https://canabixo.com.br/artista">ARTISTA</a>
+  <a class="menuItem" href="https://canabixo.com.br/experience">EXPERIENCE</a>
 </div>
 
 <script>
 const planet = document.getElementById('corePlanet');
 const menu = document.getElementById('menu');
 const items = document.querySelectorAll('.menuItem');
+
 let menuVisible = false;
 
-/* Movimento suave do círculo */
+/* Movimento do planeta */
 document.addEventListener('mousemove', e => {
   const x = (e.clientX / window.innerWidth - 0.5) * 30;
   const y = (e.clientY / window.innerHeight - 0.5) * -30;
   planet.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
 });
 
-/* Ativar/ocultar menu clicando no planeta */
+/* Clique para mostrar / recolher os links */
 planet.addEventListener('click', () => {
   menuVisible = !menuVisible;
 
   if (menuVisible) {
-    menu.style.display = 'block';
+    menu.style.display = "block";
 
     const radius = 180;
     const total = items.length;
@@ -99,13 +51,17 @@ planet.addEventListener('click', () => {
       const angle = (index / total) * Math.PI * 2;
       const x = Math.cos(angle) * radius;
       const y = Math.sin(angle) * radius;
-      item.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-      //(${x}px, ${y}px)`;
+
+      item.style.transform =
+        `translate(-50%, -50%) translate(${x}px, ${y}px)`;
     });
 
   } else {
-    items.forEach(item => { item.style.transform = 'translate(-50%, -50%)';; });
-    menu.style.display = 'none';
+    items.forEach(item => {
+      item.style.transform = `translate(-50%, -50%)`;
+    });
+
+    menu.style.display = "none";
   }
 });
 </script>
