@@ -1,286 +1,59 @@
-/* RESET */
+/* Reset básico */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body {
-    background: #000;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-}
-
-.container {
-    position: relative;
-}
-
-/* ===================================================== */
-/* =================== PÁGINA INICIAL ================== */
-/* ===================================================== */
-
-/* CÍRCULO CENTRAL */
-#corePlanet {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #ffb6e8, #ff00a9, #a00072);
-    box-shadow: 0 0 60px rgba(255,0,169,0.4);
-    transition: transform 0.15s ease-out;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* MENU ORBITAL */
-.menuContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 360px;
-    height: 360px;
-    transform: translate(-50%, -50%);
-    display: none;
-}
-
-/* LINKS ORBITAIS — AGORA COM OVERLAY VERDE-LIMÃO */
-.menuItem {
-    position: absolute;
-    color: #ccff00;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    text-transform: uppercase;
-    transform: translate(-50%, -50%);
-    padding: 0;
-    background: none !important;
-    border: none !important;
-
-    /* OVERLAY VERDE-LIMÃO */
-    text-shadow:
-        0 0 6px #ccff00,
-        0 0 10px #ccff00,
-        0 0 14px #ccff00;
-
-    transition: transform 0.3s ease, color 0.2s ease;
-}
-
-/* HOVER VERDE-LIMÃO MAIS FORTE */
-.menuItem:hover {
-    transform: translate(-50%, -50%) scale(1.2);
-    color: #eaff7f;
-
-    text-shadow:
-        0 0 10px #ccff00,
-        0 0 16px #ccff00,
-        0 0 24px #ccff00;
-}
-
-/* ===================================================== */
-/* =================== OUTRAS PÁGINAS ================== */
-/* ========== (NÃO ALTERADO | PERMANECE IGUAL) ========= */
-/* ===================================================== */
-
-/* Botão voltar */
-.voltar {
-  position: fixed;
-  bottom: 30px;
-  width: 100%;
-  text-align: center;
-  z-index: 1000;
-}
-
-.voltar a {
-  color: white;
-  mix-blend-mode: difference;
-  background: transparent !important;
-  border: none !important;
-  transition: transform 0.3s ease;
-}
-
-.voltar a:hover {
-  transform: scale(1.05);
-}
-
-/* SCROLL WRAPPER */
-.scroll-wrapper {
-  position: relative;
+/* Fundo cinza da nova página inicial */
+body.home-page {
+  background: #999999;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 20px;
-  background: black;
-  overflow: hidden;
+  perspective: 900px;
+  font-family: Arial, sans-serif;
 }
 
-.scroll-gallery {
-  display: flex;
-  gap: 20px;
-  overflow: hidden;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+/* CÍRCULO CENTRAL FIXO (NÃO SOME) */
+#corePlanet {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffb6e8, #ff00a9, #a00072);
+  box-shadow: 0 0 60px rgba(255,0,169,0.4);
+  transition: transform 0.15s ease-out;
+  cursor: pointer;
 }
 
-.scroll-gallery::-webkit-scrollbar {
+/* CONTAINER DO MENU */
+.menuContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 360px;
+  height: 360px;
+  transform: translate(-50%, -50%);
   display: none;
 }
 
-.scroll-gallery a img {
-  height: 300px;
-  border-radius: 10px;
-  transition: transform 0.3s;
-}
-
-.scroll-gallery a:hover img {
-  transform: scale(1.05);
-}
-
-.scroll-btn {
-  font-size: 24px;
-  background: transparent;
-  color: white;
-  border: none;
-  padding: 0 15px;
-  cursor: pointer;
-  z-index: 100;
-  font-weight: bold;
-}
-
-.scroll-btn:hover {
-  color: #ccc;
-}
-
-/* VÍDEOS */
-body.videos-page {
-  background: black;
-  padding-top: 60px;
-  text-align: center;
-  overflow-y: auto;
-  min-height: 100vh;
-}
-
-body.videos-page iframe {
-  max-width: 90%;
-  width: 640px;
-  height: 360px;
-  margin: 20px auto;
-  display: block;
-  border-radius: 10px;
-  border: none;
-  transition: transform 0.3s;
-}
-
-body.videos-page iframe:hover {
-  transform: scale(1.03);
-}
-
-/* DOWNLOADS */
-body.downloads-page {
-  overflow-y: auto;
-  padding-top: 60px;
-  padding-bottom: 100px;
-}
-
-body.downloads-page .downloads {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-body.downloads-page .card {
-  background: #111;
-  border-radius: 10px;
-  text-align: center;
-  transition: transform 0.3s;
-  color: white;
-  text-decoration: none;
-  overflow: hidden;
-}
-
-body.downloads-page .card:hover {
-  transform: scale(1.05);
-}
-
-body.downloads-page .card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-body.downloads-page .card h3 {
-  padding: 15px;
+/* LINKS VERDE LIMÃO SEM FUNDO */
+.menuItem {
+  position: absolute;
   font-size: 18px;
   font-weight: bold;
+  color: #ccff00;
+  text-decoration: none;
   text-transform: uppercase;
+  transform: translate(-50%, -50%);
+  text-shadow: 0 0 8px #ccff00, 0 0 15px #ccff00;
+  transition: transform .25s ease, color .3s ease;
 }
 
-/* IMAGENS */
-body.imagens-page {
-  overflow-y: auto;
-  padding: 60px 20px 80px;
-  background: #fff;
-}
-
-body.imagens-page .mosaico {
-  column-count: 4;
-  column-gap: 0;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-body.imagens-page .mosaico img {
-  width: 100%;
-  display: block;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-body.imagens-page .mosaico img:hover {
-  transform: scale(1.05);
-}
-
-/* Modal */
-body.imagens-page .modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-body.imagens-page .modal img {
-  max-width: 90vw;
-  max-height: 90vh;
-}
-
-/* Responsividade */
-@media (max-width: 1024px) {
-  body.imagens-page .mosaico {
-    column-count: 3;
-  }
-}
-
-@media (max-width: 768px) {
-  body.imagens-page .mosaico {
-    column-count: 2;
-  }
-}
-
-@media (max-width: 480px) {
-  body.imagens-page .mosaico {
-    column-count: 1;
-  }
+.menuItem:hover {
+  transform: translate(-50%, -50%) scale(1.25);
+  color: #ffffff;
 }
