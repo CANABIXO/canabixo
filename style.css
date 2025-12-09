@@ -5,20 +5,20 @@
     box-sizing: border-box;
 }
 
-/* ---- BODY PÁGINA INICIAL ---- */
+/* COR DE FUNDO CINZA ESCURO */
 body.home-page {
-    background: #1a1a1a; /* CINZA ESCURO */
+    background: #1a1a1a;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-family: Arial, sans-serif;
+    justify-content: center;
     position: relative;
+    font-family: Arial, sans-serif;
 }
 
-/* ---- CÍRCULO CENTRAL ---- */
+/* ---- CÍRCULO CENTRAL (corePlanet) ---- */
 #corePlanet {
     width: 220px;
     height: 220px;
@@ -40,11 +40,10 @@ body.home-page {
     top: 0;
     left: 0;
     pointer-events: none;
-    display: none; /* oculto inicialmente */
     z-index: 2;
+    display: none;
 }
 
-/* ---- ITENS DO MENU ---- */
 .menuItem {
     position: absolute;
     top: 50%;
@@ -57,7 +56,7 @@ body.home-page {
     text-transform: uppercase;
     pointer-events: auto;
 
-    /* GLOW VERDE-LIMÃO */
+    /* GLOW VERDE LIMÃO NO TEXTO */
     text-shadow:
         0 0 6px #ccff00,
         0 0 14px #ccff00,
@@ -74,25 +73,17 @@ body.home-page {
         0 0 34px #ccff00;
 }
 
-/* ---- POSIÇÃO CIRCULAR DOS LINKS ---- */
+/* POSIÇÃO CIRCULAR DOS LINKS */
 .menuItem:nth-child(1) { top: 0%; left: 50%; }
 .menuItem:nth-child(2) { top: 20%; left: 88%; }
 .menuItem:nth-child(3) { top: 80%; left: 88%; }
 .menuItem:nth-child(4) { top: 100%; left: 50%; }
 .menuItem:nth-child(5) { top: 80%; left: 12%; }
 .menuItem:nth-child(6) { top: 20%; left: 12%; }
-.menuItem:nth-child(7) { top: 50%; left: 100%; }
 
-/* ---- HOVER ---- */
-.menuItem:hover {
-    transform: translate(-50%, -50%) scale(1.2);
-}
-
-
-/* ===================================================== */
-/* =================== OUTRAS PÁGINAS ================== */
-/* ========== (NÃO ALTERADO | PERMANECE IGUAL) ========= */
-/* ===================================================== */
+/* ======================= */
+/* ===== OUTRAS PÁGINAS === */
+/* ======================= */
 
 /* Botão voltar */
 .voltar {
