@@ -4,12 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>BIXO — Página Inicial</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style-home.css">
 </head>
 
-<body>
+<body class="home-page">
 
-<!-- CÍRCULO -->
+<!-- CÍRCULO CENTRAL -->
 <div id="corePlanet"></div>
 
 <!-- MENU ORBITAL -->
@@ -30,14 +30,14 @@ const items = document.querySelectorAll('.menuItem');
 
 let menuVisible = false;
 
-/* Movimento do planeta */
+/* Movimento 3D suave */
 document.addEventListener('mousemove', e => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 30;
-  const y = (e.clientY / window.innerHeight - 0.5) * -30;
+  const x = (e.clientX / window.innerWidth - 0.5) * 35;
+  const y = (e.clientY / window.innerHeight - 0.5) * -35;
   planet.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
 });
 
-/* Clique para mostrar / recolher os links */
+/* Clique para mostrar/recolher os links */
 planet.addEventListener('click', () => {
   menuVisible = !menuVisible;
 
@@ -58,7 +58,7 @@ planet.addEventListener('click', () => {
 
   } else {
     items.forEach(item => {
-      item.style.transform = `translate(-50%, -50%)`;
+      item.style.transform = "translate(-50%, -50%)";
     });
 
     menu.style.display = "none";
