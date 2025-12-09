@@ -5,9 +5,8 @@
     box-sizing: border-box;
 }
 
-/* COR DE FUNDO CINZA ESCURO */
 body.home-page {
-    background: #1a1a1a;
+    background: #9e9e9e; /* CINZA DO FUNDO */
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -23,7 +22,7 @@ body.home-page {
     width: 220px;
     height: 220px;
     border-radius: 50%;
-    background: radial-gradient(circle at 50% 50%, #ff4ec6, #b3007d); /* ROSA */
+    background: radial-gradient(circle at 50% 50%, #ff00a9, #b3007d); /* ROSA CENTRAL */
     box-shadow: 0 0 80px rgba(255, 0, 150, 0.45);
     position: absolute;
     z-index: 3;
@@ -35,13 +34,13 @@ body.home-page {
 /* ---- MENU ORBITAL ---- */
 .menuContainer {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 2;
+    width: 360px;
+    height: 360px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: none;
+    pointer-events: none;
 }
 
 .menuItem {
@@ -49,28 +48,23 @@ body.home-page {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #ccff00; /* VERDE LIMÃO */
+    color: #ffffff; /* COR INICIAL BRANCA */
     font-size: 20px;
     font-weight: bold;
     text-decoration: none;
     text-transform: uppercase;
     pointer-events: auto;
-
-    /* GLOW VERDE LIMÃO NO TEXTO */
-    text-shadow:
-        0 0 6px #ccff00,
-        0 0 14px #ccff00,
-        0 0 20px #ccff00;
-
-    transition: transform 0.4s ease, font-size 0.2s ease;
+    text-shadow: 0 0 6px #ffffff;
+    transition: transform 0.4s ease, color 0.2s ease, text-shadow 0.2s ease;
 }
 
 .menuItem:hover {
-    font-size: 22px;
+    color: #00ff00; /* VERDE-LIMÃO NO HOVER */
     text-shadow:
-        0 0 10px #ccff00,
-        0 0 22px #ccff00,
-        0 0 34px #ccff00;
+        0 0 10px #00ff00,
+        0 0 18px #00ff00,
+        0 0 28px #00ff00;
+    transform: translate(-50%, -50%) scale(1.2);
 }
 
 /* POSIÇÃO CIRCULAR DOS LINKS */
@@ -80,12 +74,9 @@ body.home-page {
 .menuItem:nth-child(4) { top: 100%; left: 50%; }
 .menuItem:nth-child(5) { top: 80%; left: 12%; }
 .menuItem:nth-child(6) { top: 20%; left: 12%; }
+.menuItem:nth-child(7) { top: 50%; left: 50%; } /* caso tenha 7º item */
 
-/* ======================= */
-/* ===== OUTRAS PÁGINAS === */
-/* ======================= */
-
-/* Botão voltar */
+/* ==== OUTRAS PÁGINAS PERMANECEM IGUAIS ==== */
 .voltar {
   position: fixed;
   bottom: 30px;
