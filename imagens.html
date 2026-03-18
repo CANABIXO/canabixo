@@ -25,14 +25,35 @@
   }
 
   /* 🔥 FLUXO ORGÂNICO */
-  .mosaico {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    width: 100%;
-    flex: 1;
-    overflow-y: auto;
-  }
+ .mosaico {
+  column-count: 4;
+  column-gap: 0;
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.mosaico img {
+  width: 100%;
+  display: block;
+  margin: 0;
+  break-inside: avoid;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+/* leve variação orgânica */
+.mosaico img:nth-child(4n) {
+  transform: scale(0.98);
+}
+
+.mosaico img:nth-child(6n) {
+  transform: scale(1.02);
+}
+
+.mosaico img:hover {
+  transform: scale(1.05);
+}
 
   .mosaico img {
     width: auto;
