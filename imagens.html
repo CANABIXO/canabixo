@@ -24,25 +24,27 @@
     overflow:hidden;
   }
 
-  /* ✅ MASONRY ESTÁVEL */
-.mosaico img {
-  width: 100%;
-  display: block;
-  margin: 0;
-  padding: 0;
-  break-inside: avoid;
+  /* 🔥 MASONRY RESTAURADO */
+  .mosaico {
+    column-width: 250px;
+    column-gap: 0;
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    font-size: 0;
+    line-height: 0;
+  }
 
-  /* 🔥 CORREÇÃO DOS MICRO ESPAÇOS */
-  margin-bottom: -1px;
-}
+  .mosaico img {
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+    break-inside: avoid;
 
-.mosaico img {
-  width: 100%;
-  display: block;
-  margin: 0;
-  padding: 0;
-  break-inside: avoid;
-}
+    /* 🔥 remove micro espaços */
+    margin-bottom: -2px;
+  }
 
   .mosaico img:hover {
     transform: scale(1.03);
