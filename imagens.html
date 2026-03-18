@@ -25,22 +25,22 @@
   }
 
   /* ✅ MASONRY ESTÁVEL */
-  .mosaico {
-    column-width: 250px; /* 🔥 ao invés de column-count */
-    column-gap: 0;
-    width: 100%;
-    flex: 1;
-    overflow-y: auto;
-  }
+ .mosaico {
+  column-width: 250px;
+  column-gap: 0;
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  font-size: 0; /* remove espaços invisíveis */
+}
 
-  .mosaico img {
-    width: 100%;
-    display: block;
-    margin: 0;
-    break-inside: avoid;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
+.mosaico img {
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+  break-inside: avoid;
+}
 
   .mosaico img:hover {
     transform: scale(1.03);
