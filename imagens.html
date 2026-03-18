@@ -25,13 +25,15 @@
   }
 
   /* ✅ MASONRY ESTÁVEL */
- .mosaico {
-  column-width: 250px;
-  column-gap: 0;
+.mosaico img {
   width: 100%;
-  flex: 1;
-  overflow-y: auto;
-  font-size: 0; /* remove espaços invisíveis */
+  display: block;
+  margin: 0;
+  padding: 0;
+  break-inside: avoid;
+
+  /* 🔥 CORREÇÃO DOS MICRO ESPAÇOS */
+  margin-bottom: -1px;
 }
 
 .mosaico img {
