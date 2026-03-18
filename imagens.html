@@ -24,10 +24,12 @@
     overflow:hidden;
   }
 
-  /* ✅ MASONRY SEM BURACO */
+  /* 🔥 MASONRY REAL */
   .mosaico {
-    column-count: 4;
-    column-gap: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 10px;
+    gap: 0;
     width: 100%;
     flex: 1;
     overflow-y: auto;
@@ -36,19 +38,8 @@
   .mosaico img {
     width: 100%;
     display: block;
-    margin: 0;
-    break-inside: avoid;
     cursor: pointer;
     transition: transform 0.2s ease;
-  }
-
-  /* leve variação (sem quebrar layout) */
-  .mosaico img:nth-child(4n) {
-    transform: scale(0.99);
-  }
-
-  .mosaico img:nth-child(6n) {
-    transform: scale(1.01);
   }
 
   .mosaico img:hover {
@@ -121,6 +112,7 @@
   window.addEventListener('load', ()=>{
     setTimeout(()=>{
       document.getElementById('conteudo').style.display='flex';
+      resizeGridItems();
     },300);
   });
 
@@ -146,6 +138,24 @@
 
     mosaico.appendChild(img);
   });
+
+  function resizeGridItems() {
+    const allItems = document.querySelectorAll('.mosaico img');
+    const rowHeight = 10;
+
+    allItems.forEach(item => {
+      const img = new Image();
+      img.src = item.src;
+
+      img.onload = () => {
+        const ratio = img.naturalHeight / img.naturalWidth;
+        const rowSpan = Math.ceil((item.clientWidth * ratio) / rowHeight);
+        item.style.gridRowEnd = `span ${rowSpan}`;
+      };
+    });
+  }
+
+  window.addEventListener('resize', resizeGridItems);
 
   function fecharModal(){
     modal.classList.remove('show');
