@@ -24,12 +24,10 @@
     overflow:hidden;
   }
 
-  /* 🔥 MASONRY REAL */
+  /* ✅ MASONRY ESTÁVEL */
   .mosaico {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 10px;
-    gap: 0;
+    column-width: 250px; /* 🔥 ao invés de column-count */
+    column-gap: 0;
     width: 100%;
     flex: 1;
     overflow-y: auto;
@@ -38,15 +36,17 @@
   .mosaico img {
     width: 100%;
     display: block;
+    margin: 0;
+    break-inside: avoid;
     cursor: pointer;
     transition: transform 0.2s ease;
   }
 
   .mosaico img:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 
-  /* Botão voltar (intacto) */
+  /* Botão voltar */
   .voltar {
     text-align:center;
     padding:12px 0;
@@ -66,7 +66,7 @@
 
   .voltar a:hover { transform: scale(1.05); }
 
-  /* Modal (intacto) */
+  /* Modal */
   .modal {
     display:none;
     position:fixed; inset:0;
@@ -112,7 +112,6 @@
   window.addEventListener('load', ()=>{
     setTimeout(()=>{
       document.getElementById('conteudo').style.display='flex';
-      resizeGridItems();
     },300);
   });
 
@@ -138,24 +137,6 @@
 
     mosaico.appendChild(img);
   });
-
-  function resizeGridItems() {
-    const allItems = document.querySelectorAll('.mosaico img');
-    const rowHeight = 10;
-
-    allItems.forEach(item => {
-      const img = new Image();
-      img.src = item.src;
-
-      img.onload = () => {
-        const ratio = img.naturalHeight / img.naturalWidth;
-        const rowSpan = Math.ceil((item.clientWidth * ratio) / rowHeight);
-        item.style.gridRowEnd = `span ${rowSpan}`;
-      };
-    });
-  }
-
-  window.addEventListener('resize', resizeGridItems);
 
   function fecharModal(){
     modal.classList.remove('show');
