@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Imagens – BIXO</title>
+
 <style>
   html, body { margin:0; height:100%; }
+
   body.imagens-page {
     font-family: Arial, sans-serif;
     background:#fff;
@@ -14,7 +16,6 @@
     user-select:none;
   }
 
- 
   /* Conteúdo principal */
   .conteudo {
     display:none;
@@ -23,30 +24,50 @@
     overflow:hidden;
   }
 
-  /* Mosaico estilo masonry */
+  /* 🔥 FLUXO ORGÂNICO */
   .mosaico {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  width: 100%;
-  flex: 1;
-  overflow-y: auto;
-  }
-  .mosaico img {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
     width: 100%;
-    display: block;
-    margin: 0;
-    cursor: pointer;
-    transition: transform 0.15s ease-out;
+    flex: 1;
+    overflow-y: auto;
   }
-  .mosaico img:hover { transform: scale(1.05); }
 
-  /* Botão voltar */
+  .mosaico img {
+    width: auto;
+    height: auto;
+    max-width: 32%;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  /* variações orgânicas */
+  .mosaico img:nth-child(3n) {
+    max-width: 48%;
+  }
+
+  .mosaico img:nth-child(5n) {
+    max-width: 28%;
+  }
+
+  .mosaico img:nth-child(7n) {
+    max-width: 60%;
+  }
+
+  .mosaico img:hover {
+    transform: scale(1.03);
+  }
+
+  /* Botão voltar (mantido intacto) */
   .voltar {
     text-align:center;
     padding:12px 0;
     border-top:1px solid #e5e5e5;
     background:#fff;
   }
+
   .voltar a {
     all:unset;
     font-size:20px;
@@ -56,9 +77,10 @@
     display:inline-block;
     transition: transform 0.2s ease;
   }
+
   .voltar a:hover { transform: scale(1.05); }
 
-  /* Modal */
+  /* Modal (mantido intacto) */
   .modal {
     display:none;
     position:fixed; inset:0;
@@ -69,6 +91,7 @@
     cursor:zoom-out;
     overflow:hidden;
   }
+
   .modal img {
     max-width:90vw;
     max-height:90vh;
@@ -79,12 +102,13 @@
     transition: transform 0.5s ease;
     transform: scale(0);
   }
+
   .modal.show img { transform: scale(1); }
+
 </style>
 </head>
-<body class="imagens-page">
 
-  
+<body class="imagens-page">
 
   <div class="conteudo" id="conteudo">
     <div class="mosaico" id="mosaico"></div>
@@ -98,51 +122,54 @@
     </div>
   </div>
 
-  <script>
-    // Esconde loader e mostra conteúdo após 3s
-    window.addEventListener('load', ()=>{
-      setTimeout(()=>{
-        document.getElementById('loader').style.display='none';
-        document.getElementById('entrada').style.display='none';
-        document.getElementById('conteudo').style.display='flex';
-      },3000);
+<script>
+  // Mostrar conteúdo (sem erro de elementos inexistentes)
+  window.addEventListener('load', ()=>{
+    setTimeout(()=>{
+      document.getElementById('conteudo').style.display='flex';
+    },300);
+  });
+
+  const imagens=[];
+  for(let i=1;i<=102;i++){ imagens.push(`img${i}.jpg`); }
+
+  const mosaico=document.getElementById('mosaico');
+  const modal=document.getElementById('modal');
+  const modalImg=document.getElementById('modalImg');
+
+  imagens.forEach(src=>{
+    const img=document.createElement('img');
+    img.src=src;
+    img.alt='Miniatura';
+    img.loading='lazy';
+
+    img.addEventListener('click',()=>{
+      modalImg.src=src;
+      modal.style.display='flex';
+      setTimeout(()=> modal.classList.add('show'), 10);
+      modal.setAttribute('aria-hidden','false');
     });
 
-    const imagens=[];
-    for(let i=1;i<=102;i++){ imagens.push(`img${i}.jpg`); }
+    mosaico.appendChild(img);
+  });
 
-    const mosaico=document.getElementById('mosaico');
-    const modal=document.getElementById('modal');
-    const modalImg=document.getElementById('modalImg');
+  function fecharModal(){
+    modal.classList.remove('show');
+    setTimeout(()=>{
+      modal.style.display='none';
+      modal.setAttribute('aria-hidden','true');
+      modalImg.src='';
+    }, 500);
+  }
 
-    imagens.forEach(src=>{
-      const img=document.createElement('img');
-      img.src=src;
-      img.alt='Miniatura';
-      img.loading='lazy';   // <- lazy loading adicionado
-      img.addEventListener('click',()=>{
-        modalImg.src=src;
-        modal.style.display='flex';
-        setTimeout(()=> modal.classList.add('show'), 10);
-        modal.setAttribute('aria-hidden','false');
-      });
-      mosaico.appendChild(img);
-    });
+  modal.addEventListener('click', fecharModal);
 
-    function fecharModal(){
-      modal.classList.remove('show');
-      setTimeout(()=>{
-        modal.style.display='none';
-        modal.setAttribute('aria-hidden','true');
-        modalImg.src='';
-      }, 500);
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Escape' && modal.style.display==='flex'){
+      fecharModal();
     }
-
-    modal.addEventListener('click', fecharModal);
-    document.addEventListener('keydown', e=>{
-      if(e.key==='Escape' && modal.style.display==='flex'){ fecharModal(); }
-    });
-  </script>
+  });
+</script>
 
 </body>
 </html>
