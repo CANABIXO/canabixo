@@ -25,23 +25,19 @@
   }
 
   /* 🔥 MASONRY RESTAURADO */
-  .mosaico {
-    column-width: 250px;
-    column-gap: 0;
-    width: 100%;
-    flex: 1;
-    overflow-y: auto;
-    font-size: 0;
-    line-height: 0;
-  }
+.mosaico {
+  column-width: 250px;
+  column-gap: 0;
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+}
 
-  .mosaico img {
-    width: 100%;
-    display: block;
-    margin: 0;
-    padding: 0;
-    break-inside: avoid;
-
+.mosaico img {
+  width: 100%;
+  display: inline-block; /* 🔥 IMPORTANTE */
+  break-inside: avoid;
+}
     /* 🔥 remove micro espaços */
     margin-bottom: -2px;
   }
