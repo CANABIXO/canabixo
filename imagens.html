@@ -27,19 +27,27 @@ body {
   height:100vh;
 }
 
-/* 🔥 mosaico funcionando */
+/* 🔥 FIX REAL DO MASONRY */
 .mosaico {
   column-width: 250px;
   column-gap: 0;
   width:100%;
-  font-size:0;
-  line-height:0;
 }
 
+/* 🔥 ESSENCIAL */
 .mosaico img {
   width:100%;
-  display:inline-block;
+  display:block;
   break-inside: avoid;
+  page-break-inside: avoid; /* compatibilidade */
+  margin:0;
+  padding:0;
+}
+
+/* 🔥 REMOVE GAP INVISÍVEL */
+.mosaico::before {
+  content:'';
+  display:block;
 }
 
 /* botão */
@@ -91,16 +99,22 @@ for(let i=1;i<=102;i++){
   imagens.push(`img${i}.jpg`);
 }
 
+/* 🔥 FORÇA REFLUXO CORRETO DAS COLUNAS */
 imagens.forEach(src=>{
-  const img = document.createElement('img');
+  const img = new Image();
   img.src = src;
 
-  img.onclick = ()=>{
-    modal.style.display='flex';
-    modalImg.src = src;
-  };
+  img.onload = ()=>{
+    img.style.width = "100%";
+    img.style.display = "block";
 
-  mosaico.appendChild(img);
+    img.onclick = ()=>{
+      modal.style.display='flex';
+      modalImg.src = src;
+    };
+
+    mosaico.appendChild(img);
+  };
 });
 
 /* fechar modal */
