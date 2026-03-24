@@ -6,7 +6,13 @@
 <title>Imagens – BIXO</title>
 
 <style>
-  html, body { margin:0; height:100%; }
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin:0;
+    height:100%;
+    overflow-x:hidden;
+  }
 
   body.imagens-page {
     font-family: Arial, sans-serif;
@@ -24,22 +30,20 @@
     overflow:hidden;
   }
 
-  /* 🔥 MASONRY RESTAURADO */
-.mosaico {
-  column-width: 250px;
-  column-gap: 0;
-  width: 100%;
-  flex: 1;
-  overflow-y: auto;
-}
+  /* 🔥 MASONRY CORRETO */
+  .mosaico {
+    column-width: 250px;
+    column-gap: 0;
+    width: 100%;
+    flex:1;
+    overflow-y:auto;
+  }
 
-.mosaico img {
-  width: 100%;
-  display: inline-block; /* IMPORTANTE */
-  break-inside: avoid;
-}
-    /* remove micro espaços */
-    margin-bottom: -2px;
+  .mosaico img {
+    width:100%;
+    display:inline-block;
+    break-inside: avoid;
+    margin:0;
   }
 
   .mosaico img:hover {
@@ -64,18 +68,20 @@
     transition: transform 0.2s ease;
   }
 
-  .voltar a:hover { transform: scale(1.05); }
+  .voltar a:hover {
+    transform: scale(1.05);
+  }
 
   /* Modal */
   .modal {
     display:none;
-    position:fixed; inset:0;
+    position:fixed;
+    inset:0;
     background:rgba(0,0,0,0.85);
     justify-content:center;
     align-items:center;
     z-index:9998;
     cursor:zoom-out;
-    overflow:hidden;
   }
 
   .modal img {
@@ -84,12 +90,13 @@
     object-fit:contain;
     border-radius:10px;
     pointer-events:none;
-    user-select:none;
     transition: transform 0.5s ease;
     transform: scale(0);
   }
 
-  .modal.show img { transform: scale(1); }
+  .modal.show img {
+    transform: scale(1);
+  }
 
 </style>
 </head>
@@ -99,7 +106,7 @@
   <div class="conteudo" id="conteudo">
     <div class="mosaico" id="mosaico"></div>
 
-    <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal" id="modal">
       <img id="modalImg" src="" alt="Imagem ampliada">
     </div>
 
@@ -116,7 +123,9 @@
   });
 
   const imagens=[];
-  for(let i=1;i<=102;i++){ imagens.push(`img${i}.jpg`); }
+  for(let i=1;i<=102;i++){
+    imagens.push(`img${i}.jpg`);
+  }
 
   const mosaico=document.getElementById('mosaico');
   const modal=document.getElementById('modal');
@@ -132,7 +141,6 @@
       modalImg.src=src;
       modal.style.display='flex';
       setTimeout(()=> modal.classList.add('show'), 10);
-      modal.setAttribute('aria-hidden','false');
     });
 
     mosaico.appendChild(img);
@@ -142,7 +150,6 @@
     modal.classList.remove('show');
     setTimeout(()=>{
       modal.style.display='none';
-      modal.setAttribute('aria-hidden','true');
       modalImg.src='';
     }, 500);
   }
